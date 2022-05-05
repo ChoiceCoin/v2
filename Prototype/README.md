@@ -20,7 +20,7 @@ Tita - V2 is Choice Coin Payment Gateway For Creating Proposals, ASA Governance 
 
 Webflow
 ============
-This is how the infratructure looks and detailing!
+This is how the infrastructure looks and detailing!
 
 ![image](https://i.postimg.cc/Fzm2WnSj/Untitled-Workspace.png)
 
@@ -30,7 +30,7 @@ Requirements
 * NPM and Node installed, download [HERE](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
 * [Create-React-app](https://reactjs.org/docs/create-a-new-react-app.html) must be installled
 
-- currently the prototype is being developed in ReactJS, here is a sneak peak of what it is at the moment!
+- Currently the prototype is being developed in ReactJS, here is a sneak peak of what it is at the moment!
 
 #### Run on Local machine
 
