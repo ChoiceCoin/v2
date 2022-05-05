@@ -16,7 +16,7 @@ Contents
 About
 ============
 
-Tita - V2 is Choice Coin Payment Gateway For Creating Proposals, ASA Governance And Checking Governance Scheduling Dates.
+Tita - V2 is Choice Coin governance gateway for creating DAO proposals, ASA voting, and scheduling dates.
 
 Webflow
 ============
