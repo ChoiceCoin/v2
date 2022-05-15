@@ -7,3 +7,19 @@ This repository contains code for Choice Coin v2. The code is availible on an op
 # Overview
 
 The problem this paper seeks to address is how to create a streamlined and self-sustaining system for decentralized governance. The solution, Choice Coin v2, will build on Choice Coin’s Decentralized Decisions software to provide an integrated and continuously live web application for DAO governance. The web application will allow users to make a proposal or participate in DAO voting globally and at any time.
+
+# Choice Coin v2 core team
+[Samuel Tosin](https://github.com/Samuellyworld)
+[David Kazeem](https://github.com/davonjagah)
+[Julie Oligbo](https://github.com/Oligbojulie)
+[Brian Haney](https://github.com/Bhaney44)
+
+# Resources
+
+[Choice Coin v1 White Paper](https://github.com/ChoiceCoin/White_Paper)
+[Choice Coin Website](https://choice-coin.com/)
+[Choice Coin Research Overview](https://forum.algorand.org/t/choice-coin-dao-r-d/6165)
+[Algorand Foundation Research](https://algorand.foundation/about-us/research-team)
+[Algornd Foundation GitHub](https://github.com/algorandfoundation)
+[Algorand Research](https://www.algorand.com/technology/research-innovation)
+[Algorand GitHub](https://github.com/algorand)
