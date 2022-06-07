@@ -331,25 +331,53 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
                 padding : "15px"
               }}
             > 
-               <li> 
+               <li style={{
+                 cursor: "pointer"
+               }}> 
+               <NavLink
+                    style={({ isActive, }) => {
+                      return {
+                        color : isActive ? "#3981C6" : null,
+                        outline : "none",
+                         opacity: isActive ? "1" : "0.4",
+                    }
+                  }}
+                  to={`/`}
+                  key={""}
+                  
+                >
                  <img src={voting} alt="voting logo" 
-                style={{
-                  width : "15px",
-                  marginRight: "9px"
-                }}
-               /> 
-                Voting
+                    style={{
+                      width : "15px",
+                      marginRight: "9px"
+                    }}
+                  />
+                Voting        
+               </NavLink>
                 </li>
-               <li> 
+
+               <li disabled
+                  style={{
+                  color : "#3981C6",
+                  cursor:"not-allowed",
+                   opacity: "0.4" }}
+               > 
+              
                  <img src={compliance} alt="voting logo" 
                 style={{
                   width : "15px",
                   marginRight: "5px"
                 }} />
+               
                  Compliance 
+                
                   <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
                   </li>
-               <li>
+               <li disabled style={{
+                  color : "#3981C6",
+                  cursor:"not-allowed",
+                   opacity: "0.4"
+               }}>
                <img src={interchain} alt="voting logo" 
                 style={{
                   width : "15px",
@@ -358,6 +386,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
                 />
                  Interchain
                <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
+              
                </li>
             </ul>
           
