@@ -70,7 +70,7 @@ main {
 
   --l1: #333;
    
- --onSliderColorChange : rgba(245, 245, 245, 0.555);
+ --onSliderColorChange : rgb(236, 236, 236);
   --list-border: 1px solid rgba(0, 0, 0, 18%);
 
   --background: var(--white);
@@ -852,4 +852,6 @@ iframe {
    right: 7px !important;
  }
 }
+
+
 

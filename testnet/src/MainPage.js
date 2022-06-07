@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Landing from "./pages/HomePage/Landing";
 
 import Faq from "./pages/FaqPage/Faq";
@@ -7,10 +7,25 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import TopNavigationBar from "./components/navbar/TopNavigationBar";
 import BottomNavigationBar from "./statics/BottomNavigationBar";
 import ElectionList from "./statics/ElectionList";
+import { useEffect } from "react";
 
 const MainPage = () => {
+  const dispatch = useDispatch();
   const [width] = useWindowSize();
   const darkTheme = useSelector((state) => state.status.darkTheme);
+  const storedTheme = localStorage.getItem('mode') || (window.matchMedia("(prefers-color-scheme: dark)")
+  .matches ? "dark" : "light")
+
+  useEffect(() => {
+    if(storedTheme) {
+      console.log(storedTheme)
+      localStorage.setItem("mode", storedTheme);
+      dispatch({ type: `${storedTheme}_mode` });
+     if(storedTheme === "dark") {
+      document.getElementById('checkbox').checked = true
+     }
+    }
+  }, [storedTheme, dispatch])
 
   return (
     <main
