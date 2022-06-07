@@ -4,7 +4,7 @@ import Landing from "./pages/HomePage/Landing";
 import Faq from "./pages/FaqPage/Faq";
 import { useWindowSize } from "@react-hook/window-size";
 import { NavLink, Route, Routes } from "react-router-dom";
-import TopNavigationBar from "./statics/TopNavigationBar";
+import TopNavigationBar from "./components/navbar/TopNavigationBar";
 import BottomNavigationBar from "./statics/BottomNavigationBar";
 import ElectionList from "./statics/ElectionList";
 
