@@ -21,7 +21,7 @@ const MainPage = () => {
       console.log(storedTheme)
       localStorage.setItem("mode", storedTheme);
       dispatch({ type: `${storedTheme}_mode` });
-     if(storedTheme === "dark" && width > 800) {
+     if(storedTheme === "dark" && width >= 850) {
       document.getElementById('checkbox').checked = true
      }
     }

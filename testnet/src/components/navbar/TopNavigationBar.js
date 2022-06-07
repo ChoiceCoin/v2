@@ -7,7 +7,7 @@ import { useWindowSize } from "@react-hook/window-size";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 // import GetCommittedAmount from "../GetCommittedAmount";
 import corect from '../../assets/correct.png';
-
+import logo from '../../assets/update.png';
 
 import {Link} from 'react-router-dom';
 import WalletConnect from "@walletconnect/client";
@@ -298,16 +298,43 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
   return (
     <header className="small_header">
       <div className="small_header_inn">
-        <Link to='/' 
+      {
+        width >= 850 ?
+        (
+          <div 
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            alignItems: `${width >=  850? "left" : "center"}`,
+            justifyContent: `${width >=  850? "left" : "center"}`,
             textTransform: "uppercase",
-          }}
-        >
-          Choice Coin
-        </Link>
+            flexDirection: "column",
+            width : "300px",
+            height : "100vh"
+          }}>
+             <img src={logo} alt="logo" style={{width: "30px"}} />      
+            <ul > 
+               <li>Voting</li>
+               <li>Home</li>
+               <li>Faq</li>
+            </ul>
+          
+         </div>
+         ) : 
+       (
+        <div style={{
+          display : `${width >=850? "none" : "flex"}`,
+          marginTop : "20px",
+          justifyContent : `${width <=  850 && "center" }`,
+        }}
+          > 
+           <img src={logo} alt="logo" style={{width: "30px"}} />   
+         </div>
+       )
+        
+         }
+      
+        
+       
 
         <div
           style={{
@@ -418,7 +445,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
         </div>
       </div>
 
-      <div
+      {/* <div
         style={{
           width: "100%",
           display: "flex",
@@ -504,7 +531,9 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
             <CountdownTime />
           </div>
         )}
-        {
+        
+      </div> */}
+      {
           width > 850 && (
             <div className="theme-switch-wrapper">
             <label className="theme-switch  ">
@@ -516,7 +545,6 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
         </div>
           )
         }
-      </div>
     </header>
   );
 };
