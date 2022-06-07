@@ -1,6 +1,8 @@
 /*toggle dark*/
 ul li {
-	margin: 15px;
+	margin: 25px;
+	margin-left: 2px !important;
+	cursor: pointer;
 }
 .theme-switch-wrapper {
 	display: flex;

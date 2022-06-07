@@ -8,6 +8,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 // import GetCommittedAmount from "../GetCommittedAmount";
 import corect from '../../assets/correct.png';
 import logo from '../../assets/update.png';
+import voting from '../../assets/voting.png';
+import compliance from '../../assets/compliance.png';
+import interchain from '../../assets/interchain.png';
 
 import {Link} from 'react-router-dom';
 import WalletConnect from "@walletconnect/client";
@@ -325,14 +328,35 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
                     />      
             <ul 
               style={{
-                padding : "12px"
+                padding : "15px"
               }}
             > 
-               <li>Voting</li>
-               <li>Compliance 
+               <li> 
+                 <img src={voting} alt="voting logo" 
+                style={{
+                  width : "15px",
+                  marginRight: "9px"
+                }}
+               /> 
+                Voting
+                </li>
+               <li> 
+                 <img src={compliance} alt="voting logo" 
+                style={{
+                  width : "15px",
+                  marginRight: "5px"
+                }} />
+                 Compliance 
                   <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
                   </li>
-               <li>Interchain
+               <li>
+               <img src={interchain} alt="voting logo" 
+                style={{
+                  width : "15px",
+                  marginRight: "9px"
+                }}
+                />
+                 Interchain
                <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
                </li>
             </ul>
