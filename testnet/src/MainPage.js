@@ -21,11 +21,11 @@ const MainPage = () => {
       console.log(storedTheme)
       localStorage.setItem("mode", storedTheme);
       dispatch({ type: `${storedTheme}_mode` });
-     if(storedTheme === "dark") {
+     if(storedTheme === "dark" && width > 800) {
       document.getElementById('checkbox').checked = true
      }
     }
-  }, [storedTheme, dispatch])
+  }, [storedTheme, dispatch, width])
 
   return (
     <main
