@@ -1,8 +1,23 @@
 /*toggle dark*/
 ul li {
 	margin: 25px;
-	margin-left: 2px !important;
-	cursor: pointer;
+	margin-left: -5px !important;
+	font-weight: bold;
+	
+
+	&:hover {
+		margin-left: -10px !important;
+		border-right: solid 5px #3981C6 !important;
+		background-color: #dddcdc;
+		color: #3981C6;
+	}
+	&:active {
+		margin-left: -10px !important;
+		border-right: solid 5px #3981C6 !important;
+		background-color: #dddcdc;
+		color : #3981C6;
+
+	}
 }
 .theme-switch-wrapper {
 	display: flex;
