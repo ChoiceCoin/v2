@@ -1,17 +1,20 @@
 import algosdk from "algosdk";
-import { ASSET_ID } from "../utils/constants";
+import { ASSET_ID } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import MyAlgoConnect from "@randlabs/myalgo-connect";
 import { useWindowSize } from "@react-hook/window-size";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 // import GetCommittedAmount from "../GetCommittedAmount";
-import corect from '../assets/correct.png';
-import {Link} from 'react-router-dom';
+import corect from '../../assets/correct.png';
+import dark from '../../assets/dark1.png';
+import light from '../../assets/light.png';
 
+import {Link} from 'react-router-dom';
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
-import CountdownTime from "./CountdownTime";
+import CountdownTime from "../../statics/CountdownTime";
+import './Navbar.scss';
 
 const TopNavigationBar = ({ darkTheme, NavLink }) => {
   const dispatch = useDispatch();
@@ -508,6 +511,18 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
             <CountdownTime />
           </div>
         )}
+        {
+          width > 850 && (
+            <div className="theme-switch-wrapper">
+            <label className="theme-switch">
+                <input type="checkbox" />
+                  {/* <i id="toggle-icon" className="fas fa-sun slider round"></i> */}
+                {darkTheme ? (<img src="" alt="" className="fa-sun slider round"/>) 
+                : (<img src="" alt=""  className="fa-moon slider roound" />) }
+            </label>
+        </div>
+          )
+        }
       </div>
     </header>
   );

@@ -70,7 +70,7 @@ main {
 
   --l1: #333;
    
-
+ --onSliderColorChange : rgba(245, 245, 245, 0.555);
   --list-border: 1px solid rgba(0, 0, 0, 18%);
 
   --background: var(--white);
@@ -90,6 +90,7 @@ main {
   background-color: var(--background);
   --timer : grey;
   --wallet-content : grey;
+  --onSliderColorChange: grey;
 }
 
 .big_screen {
