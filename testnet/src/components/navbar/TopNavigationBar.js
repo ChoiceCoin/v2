@@ -297,34 +297,54 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
 
   return (
     <header className="small_header">
-      <div className="small_header_inn">
+      <div className="small_header_inn"
+        style={{
+          padding: `${width <= 1000 ? "0px 5vw" : "5px 1vw "}`
+        }}
+      >
       {
-        width >= 850 ?
+        width >= 1000 ?
         (
           <div 
           style={{
             display: "flex",
-            alignItems: `${width >=  850? "left" : "center"}`,
-            justifyContent: `${width >=  850? "left" : "center"}`,
+            alignItems: `center`,
+            // justifyContent: `center`,
             textTransform: "uppercase",
             flexDirection: "column",
-            width : "300px",
-            height : "100vh"
+            width : "250px",
+            height : "100vh",
+            background : "white",
+            boxShadow : "0px 4px 30px rgba(0, 0, 0, 0.1)"
           }}>
-             <img src={logo} alt="logo" style={{width: "30px"}} />      
-            <ul > 
+             <img src={logo} alt="logo"
+                style={{
+                   width: "50px",
+                   margin : "30px",
+                   }}
+                    />      
+            <ul 
+              style={{
+                padding : "12px"
+              }}
+            > 
                <li>Voting</li>
-               <li>Home</li>
-               <li>Faq</li>
+               <li>Compliance 
+                  <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
+                  </li>
+               <li>Interchain
+               <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
+               </li>
             </ul>
           
          </div>
          ) : 
        (
         <div style={{
-          display : `${width >=850? "none" : "flex"}`,
-          marginTop : "20px",
-          justifyContent : `${width <=  850 && "center" }`,
+          display : `${width >=1000? "none" : "flex"}`,
+          marginTop : "18px",
+          marginBottom : "10px",
+          justifyContent : `${width <=  1000 && "center" }`,
         }}
           > 
            <img src={logo} alt="logo" style={{width: "30px"}} />   
