@@ -7,8 +7,7 @@ import { useWindowSize } from "@react-hook/window-size";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 // import GetCommittedAmount from "../GetCommittedAmount";
 import corect from '../../assets/correct.png';
-import dark from '../../assets/dark1.png';
-import light from '../../assets/light.png';
+
 
 import {Link} from 'react-router-dom';
 import WalletConnect from "@walletconnect/client";
@@ -52,6 +51,8 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
     }
   };
 
+ 
+
   const [width] = useWindowSize();
   const [balance, setBalance] = useState([]);
 
@@ -70,6 +71,8 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
   
 
   useEffect(() => {
+   
+  
     addresses?.forEach(async (item) => {
       const myAccountInfo = await algodClient.accountInformation(item).do();
       const bal =
@@ -489,16 +492,6 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
               </NavLink>
             </li>
 
-            <li onClick={setMode}>
-              M
-              {darkTheme ? (
-                <i className="uil uil-brightness-low"></i>
-              ) : (
-                <i className="uil uil-moon"></i>
-              )}
-              de
-            </li>
-           
             <li className="disconnect" style={{color: 'red', }} onClick={LogOut}>{walletAddress ? "Disconnect" : null}</li>
           </ul>
         )}
@@ -514,11 +507,11 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
         {
           width > 850 && (
             <div className="theme-switch-wrapper">
-            <label className="theme-switch">
-                <input type="checkbox" />
-                  {/* <i id="toggle-icon" className="fas fa-sun slider round"></i> */}
-                {darkTheme ? (<img src="" alt="" className="fa-sun slider round"/>) 
-                : (<img src="" alt=""  className="fa-moon slider roound" />) }
+            <label className="theme-switch  ">
+                <input id="checkbox" type="checkbox" onChange={setMode} />
+                  <i id="toggle-icon" className={`uil ${darkTheme ? "uil-brightness-low" : "uil-moon" } slider round`}></i>
+               {/* <img src={dark}  style={{width: "20px"}}  alt="" className=" fa-sun slider round"/> */}
+              
             </label>
         </div>
           )

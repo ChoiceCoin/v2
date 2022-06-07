@@ -25,23 +25,23 @@
 	right: 61px;
 	top: -12px;
 	bottom: 12px;
-	transition: 0.4s;
+	transition: 0.2s;
 	&::before {
 		bottom: 4px;
 		height: 26px;
 		left: 4px;
 		position: absolute;
-		transition: 0.4s;
+		transition: 0.2s;
 		width: 26px;
 	}
 }
-.fa-sun {
+.uil-brightness-low {
 	font-size: 24px;
-	color: rgb(255, 217, 0);
+	color: rgb(247, 243, 3);
 }
-.fa-moon {
+.uil-moon {
 	font-size: 24px;
-	color: rgba(255, 255, 255, 0.836);
+	color: black;
 }
 input {
 	&:checked {
