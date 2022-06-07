@@ -300,7 +300,7 @@ main {
   width: 100%;
   display: flex;
   font-size: 13px;
-  padding: 0px 5vw;
+  /* padding: 0px 5vw; */
   flex-direction: row;
   height: var(--sm-hd-height-half);
   justify-content: space-between;
