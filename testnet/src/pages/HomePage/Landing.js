@@ -17,14 +17,10 @@ const Landing = () => {
             Blockchain
           </p>
           <p className="suby">
-            Choice Coin is an Algorand Standard Asset (ASA) that powers the
-            Choice Coin DAO, a Decentralized Autonomous Organization built on
-            the Algorand Blockchain. The Choice Coin DAO aims to make
-            decentralized voting a reality through allocations to open-source
-            software development and community awareness.
+            Choice Coin is a decentralized governance platform. 
             <br />
             <br />
-      Decentralized Decisions is an open source software platform for decentralized voting and governance. With over 75 contributors on GitHub, it is also the largest open source software project on the Algorand blockchain. The goal for Choice Coin is to help solve the decentralized governance problem by building the world’s best voting technology. Choice Coin is built, developed, and maintained by the Choice Coin DAO, a decentralized autonomous organization on the Algorand blockchain. Choice Coin Governance :Vote 4 is the seventh vote for Choice Coin DAO.
+      Decentralized Decisions is an open source software platform for decentralized voting and governance.
           </p>
         </div>
         <div className="land_item1">
@@ -53,8 +49,7 @@ const Landing = () => {
         </div>
         <div className="land_item1">
           <h3 style={{fontWeight: 'bold'}}>Rewards</h3>
-          <p className="suby">
-          All rewards for Choice Coin Governance: Vote 4 will be distributed on Friday June 3rd at 4:00PM EST. The rewards pool for Vote 4 will be 4 million Choice
+          <p className="suby"
           </p>
         </div>
       </div>
