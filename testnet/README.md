@@ -1,5 +1,5 @@
-## TESTNET
-
+# TESTNET
+Testnet application for Choice Coin v2 Algo Grant
 
 # License
 
