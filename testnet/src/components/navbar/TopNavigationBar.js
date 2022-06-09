@@ -315,6 +315,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
             // justifyContent: `center`,
             textTransform: "uppercase",
             flexDirection: "column",
+            marginLeft : "-12px",
             width : "250px",
             height : "100vh",
             background : "white",
