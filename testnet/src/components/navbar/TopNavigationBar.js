@@ -321,12 +321,18 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
             background : "white",
             boxShadow : "0px 4px 30px rgba(0, 0, 0, 0.1)"
           }}>
-             <img src={logo} alt="logo"
-                style={{
-                   width: "50px",
-                   margin : "30px",
-                   }}
-                    />      
+          <Link to='/' style={{
+            outline : "none"
+          }}>
+              <img src={logo} alt="logo"
+                  style={{
+                    width: "50px",
+                    margin : "30px",
+                    }}
+                    to={`/`}
+                    key={""}
+                      />      
+          </Link>   
             <ul 
               style={{
                 padding : "15px"
@@ -338,13 +344,13 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
                <NavLink
                     style={({ isActive, }) => {
                       return {
-                        color : isActive ? "#3981C6" : null,
+                        color : "#3981C6" ,
                         outline : "none",
-                         opacity: isActive ? "1" : "0.4",
+                         opacity: "1",
                     }
                   }}
-                  to={`/`}
-                  key={""}
+                  to={`/voting`}
+                  key={"voting"}
                   
                 >
                  <img src={voting} alt="voting logo" 
