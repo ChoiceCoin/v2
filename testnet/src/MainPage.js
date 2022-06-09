@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import Landing from "./pages/HomePage/Landing";
-
+import VotingPage from "./pages/VotePage/VotePage";
 import Faq from "./pages/FaqPage/Faq";
 import { useWindowSize } from "@react-hook/window-size";
 import { NavLink, Route, Routes } from "react-router-dom";
@@ -56,6 +56,7 @@ const MainPage = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/faq" element={<Faq />} />
         {/* <Route path="/home" element={<Home />} /> */}
+        <Route path="/voting" element={<VotingPage />} />
         <Route path="/participate" element={<ElectionList/>}  />
       </Routes>
 
