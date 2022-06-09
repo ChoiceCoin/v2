@@ -10,6 +10,11 @@ const Landing = () => {
        marginLeft: width > 1000 ? "140px" : "0px" 
       }}
     >
+      <ScrollTextLand
+        word={
+          "Join our Discord Server to learn more and participate in our Open Source Rewards Programs!"
+        }
+      />
 
       <div className="land_cov">
         <div className="land_item1">
@@ -33,7 +38,7 @@ const Landing = () => {
             <p>2. You can vote as many times as you desire.</p>
             <p>3. There are no limits on how much Choice you can use to vote.</p>
             <p>4. Voters must opt-in to Choice to participate.</p>
-            <p>5.  Any Choice sent after the voting deadline, Wednesday June 1st at 4:00PM EST, will not count, will not be rewarded, and will not be returned.</p>
+            {/* <p>5.  Any Choice sent after the voting deadline, Wednesday June 1st at 4:00PM EST, will not count, will not be rewarded, and will not be returned.</p> */}
             <p>6. All votes are final.</p>
           </ul>
         </div>
