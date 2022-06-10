@@ -176,7 +176,7 @@ main {
 /* *************** */
 .dropDownConnect {
   position: relative;
-  z-index: 99999999;
+  /* z-index: 99999999; */
 }
 
 /*  */
