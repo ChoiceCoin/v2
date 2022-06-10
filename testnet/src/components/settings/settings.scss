@@ -1,5 +1,4 @@
 .settings__item {
-    z-index: 1;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -22,5 +21,69 @@
         top: 64px;
         right: 174px;
         color: black;
+
+        .theme-switch-wrapper {
+            display: flex;
+            justify-content: space-between;
+            // right: 180px;
+            // top: 30px;
+
+        }
+        
+        .theme-switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+            input {
+                display: none;
+            }
+        }
+        .slider {
+            background: var(--onSliderColorChange);
+            bottom: 0;
+            cursor: pointer;
+            left: -63px;
+            position: absolute;
+            right: 61px;
+            top: -12px;
+            bottom: 12px;
+            transition: 0.2s;
+            &::before {
+                bottom: 4px;
+                height: 26px;
+                left: 4px;
+                position: absolute;
+                transition: 0.2s;
+                width: 26px;
+            }
+        }
+        .uil-brightness-low {
+            font-size: 24px;
+            color: rgb(247, 243, 3);
+        }
+        .uil-moon {
+            font-size: 24px;
+            color: black;
+        }
+        input {
+            &:checked {
+                background: var(--onSliderColorChange);
+                + {
+                    .slider {
+                        &::before {
+                            transform: translateX(29px);
+                        }
+                    }
+                }
+            }
+        }
+        .slider.round {
+            border-radius: 34px;
+            &::before {
+                border-radius: 50%;
+            }
+        
+        }
     }
 }
