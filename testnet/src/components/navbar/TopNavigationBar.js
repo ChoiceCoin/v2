@@ -16,6 +16,7 @@ import {Link} from 'react-router-dom';
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import CountdownTime from "../../statics/CountdownTime";
+import Settings from "../settings/settings";
 import './Navbar.scss';
 
 const TopNavigationBar = ({ darkTheme, NavLink }) => {
@@ -57,7 +58,12 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
  
 
   const [width] = useWindowSize();
+  const [toggleSettings, setToggleSettingsHidden] = useState(true);
   const [balance, setBalance] = useState([]);
+
+  const onSettingsToggle = () => {
+    setToggleSettingsHidden(!toggleSettings)
+  };
 
   const algodClient = new algosdk.Algodv2(
     {
@@ -403,12 +409,19 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
               </ul>
             
           </div>
-          <div className="settings">
+          <div className="settings" onClick={onSettingsToggle}
+            style={{
+              color: toggleSettings ? "white" : null,
+	          	backgroundColor: toggleSettings ? "black" : "whitesmoke"
+            }}
+          >
           <i  style={{
             fontSize: "23px",
             padding: "0 7px",
 
           }} className="uil uil-setting"></i>
+            {toggleSettings ? <Settings/> : null}
+
           </div>
          </div>
          ) : 
