@@ -80,4 +80,23 @@ input {
 	&::before {
 		border-radius: 50%;
 	}
+
+}
+
+.settings {
+	margin: 10px 20px 10px 10px;
+	border: solid 1px grey;
+	border-radius : 5px;
+	width: 40px;
+	cursor : pointer;
+	background: whitesmoke;
+
+	&:hover {
+		color: white;
+		background-color: black;
+	}
+	&:active {
+		color: white;
+		background-color: black;
+	}
 }
