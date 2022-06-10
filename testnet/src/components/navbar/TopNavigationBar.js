@@ -308,95 +308,108 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
       {
         width >= 1000 ?
         (
-          <div 
-          style={{
-            display: "flex",
-            alignItems: `center`,
-            // justifyContent: `center`,
-            textTransform: "uppercase",
-            flexDirection: "column",
-            marginLeft : "-12px",
-            width : "250px",
-            height : "100vh",
-            background : "white",
-            boxShadow : "0px 4px 30px rgba(0, 0, 0, 0.1)"
-          }}>
-          <Link to='/' style={{
-            outline : "none"
-          }}>
-              <img src={logo} alt="logo"
-                  style={{
-                    width: "50px",
-                    margin : "30px",
-                    }}
-                    to={`/`}
-                    key={""}
-                      />      
-          </Link>   
-            <ul 
-              style={{
-                padding : "15px"
-              }}
-            > 
-               <li style={{
-                 cursor: "pointer"
-               }}> 
-               <NavLink
-                    style={({ isActive, }) => {
-                      return {
-                        color : "#3981C6" ,
-                        outline : "none",
-                         opacity: "1",
-                    }
-                  }}
-                  to={`/voting`}
-                  key={"voting"}
-                  
-                >
-                 <img src={voting} alt="voting logo" 
+         <div style={{
+           display: "flex",
+           width: "90vw",
+           justifyContent: "space-between"
+         }}>
+            <div 
+            style={{
+              display: "flex",
+              alignItems: `center`,
+              // justifyContent: `center`,
+              textTransform: "uppercase",
+              flexDirection: "column",
+              marginLeft : "-12px",
+              width : "250px",
+              height : "100vh",
+              background : "white",
+              boxShadow : "0px 4px 30px rgba(0, 0, 0, 0.1)"
+            }}>
+            <Link to='/' style={{
+              outline : "none"
+            }}>
+                <img src={logo} alt="logo"
                     style={{
-                      width : "15px",
-                      marginRight: "9px"
-                    }}
-                  />
-                Voting        
-               </NavLink>
-                </li>
-
-               <li disabled
-                  style={{
-                  color : "#3981C6",
-                  cursor:"not-allowed",
-                   opacity: "0.4" }}
-               > 
-              
-                 <img src={compliance} alt="voting logo" 
+                      width: "50px",
+                      margin : "30px",
+                      }}
+                      to={`/`}
+                      key={""}
+                        />      
+            </Link>   
+              <ul 
                 style={{
-                  width : "15px",
-                  marginRight: "5px"
-                }} />
-               
-                 Compliance 
-                
-                  <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
-                  </li>
-               <li disabled style={{
-                  color : "#3981C6",
-                  cursor:"not-allowed",
-                   opacity: "0.4"
-               }}>
-               <img src={interchain} alt="voting logo" 
-                style={{
-                  width : "15px",
-                  marginRight: "9px"
+                  padding : "15px"
                 }}
-                />
-                 Interchain
-               <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
-              
-               </li>
-            </ul>
-          
+              > 
+                <li style={{
+                  cursor: "pointer"
+                }}> 
+                <NavLink
+                      style={({ isActive, }) => {
+                        return {
+                          color : "#3981C6" ,
+                          outline : "none",
+                          opacity: "1",
+                      }
+                    }}
+                    to={`/voting`}
+                    key={"voting"}
+                    
+                  >
+                  <img src={voting} alt="voting logo" 
+                      style={{
+                        width : "15px",
+                        marginRight: "9px"
+                      }}
+                    />
+                  Voting        
+                </NavLink>
+                  </li>
+
+                <li disabled
+                    style={{
+                    color : "#3981C6",
+                    cursor:"not-allowed",
+                    opacity: "0.4" }}
+                > 
+                
+                  <img src={compliance} alt="voting logo" 
+                  style={{
+                    width : "15px",
+                    marginRight: "5px"
+                  }} />
+                
+                  Compliance 
+                  
+                    <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
+                    </li>
+                <li disabled style={{
+                    color : "#3981C6",
+                    cursor:"not-allowed",
+                    opacity: "0.4"
+                }}>
+                <img src={interchain} alt="voting logo" 
+                  style={{
+                    width : "15px",
+                    marginRight: "9px"
+                  }}
+                  />
+                  Interchain
+                <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
+                
+                </li>
+              </ul>
+            
+          </div>
+          <div className="settings">
+          <i  style={{
+            fontSize: "23px",
+            padding: "0 7px",
+
+          }} className="uil uil-setting"></i>
+          </div>
          </div>
          ) : 
        (
@@ -615,7 +628,9 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
       </div> */}
       {
           width > 850 && (
-            <div className="theme-switch-wrapper">
+            <div className="theme-switch-wrapper" style={{
+              display : "none"
+            }}>
             <label className="theme-switch  ">
                 <input id="checkbox" type="checkbox" onChange={setMode} />
                   <i id="toggle-icon" className={`uil ${darkTheme ? "uil-brightness-low" : "uil-moon" } slider round`}></i>
