@@ -1,9 +1,11 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
 import './settings.scss';
 
 
 const Settings = ({darkTheme}) => {
+    
+const dispatch = useDispatch();
 
   const setMode = () => {
     if (!darkTheme) {
@@ -20,11 +22,17 @@ const Settings = ({darkTheme}) => {
           <div className="settings__content">
               <div className="mode-switcher" 
                  style={{
-                     position: "relative"
+                     position: "relative",
+                     padding: "10px",
+                     display: "flex",
+                     flexDirection:"column"
                  }}
                >
                     <div className="theme-switch-wrapper" >
-                        <p> Light Mode</p>
+                        <p style={{
+                            padding : "10px",
+                            fontWeight: "bold"
+                        }}> Light Mode</p>
                     <label className="theme-switch  ">
                        
                         <input id="checkbox" type="checkbox" onChange={setMode} />

@@ -412,9 +412,9 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
           <div className="settings" onClick={onSettingsToggle}
             
             style={{
-              zIndex: "1",
-              color: toggleSettings ? "white" : null,
-	          	backgroundColor: toggleSettings ? "black" : "whitesmoke"
+              zIndex: "2",
+              color: toggleSettings ? null : "white",
+	          	backgroundColor: toggleSettings ? "whitesmoke": "black"
             }}
           >
           <i  style={{
@@ -424,7 +424,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
           }} className="uil uil-setting"></i>
     
           </div>
-          {toggleSettings ? <Settings darkTheme ={darkTheme}/> : null}
+          {toggleSettings ? null: <Settings darkTheme ={darkTheme}/> }
          </div>
          ) : 
        (
