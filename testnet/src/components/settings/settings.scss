@@ -1,4 +1,5 @@
 .settings__item {
+    z-index: 1;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -14,7 +15,7 @@
         background-color: white;
         flex-direction: column;
         display: flex;
-        border: solid 1px grey;
+        border: solid 1px white;
         border-radius: 10px;
         width: 190px;
         height: 100px;
@@ -31,10 +32,11 @@
         }
         
         .theme-switch {
-            display: inline-block;
-            height: 34px;
+            height: 24px;
             position: relative;
-            width: 60px;
+            width: 48px;
+            margin-right: -35px;
+            margin-top: 16px;
             input {
                 display: none;
             }
@@ -51,7 +53,7 @@
             transition: 0.2s;
             &::before {
                 bottom: 4px;
-                height: 26px;
+                height: 19px;
                 left: 4px;
                 position: absolute;
                 transition: 0.2s;
@@ -59,11 +61,11 @@
             }
         }
         .uil-brightness-low {
-            font-size: 24px;
+            font-size: 19px;
             color: rgb(247, 243, 3);
         }
         .uil-moon {
-            font-size: 24px;
+            font-size: 19px;
             color: black;
         }
         input {
@@ -72,7 +74,7 @@
                 + {
                     .slider {
                         &::before {
-                            transform: translateX(29px);
+                            transform: translateX(23px);
                         }
                     }
                 }
