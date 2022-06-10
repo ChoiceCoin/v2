@@ -1,11 +1,31 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useWindowSize } from "@react-hook/window-size";
+import { useEffect } from "react";
 import './settings.scss';
 
 
 const Settings = ({darkTheme}) => {
+
     
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [width] = useWindowSize();
+  const storedTheme = localStorage.getItem('mode') || (window.matchMedia("(prefers-color-scheme: dark)")
+  .matches ? "dark" : "light")
+
+  useEffect(() => {
+    if(storedTheme) {
+      console.log(storedTheme)
+      localStorage.setItem("mode", storedTheme);
+      dispatch({ type: `${storedTheme}_mode` });
+     if(storedTheme === "dark" && width >= 1000) {
+      document.getElementById('checkbox').checked = true
+     }
+    }
+  }, [storedTheme, dispatch, width])
+
+
+
 
   const setMode = () => {
     if (!darkTheme) {
@@ -31,8 +51,9 @@ const dispatch = useDispatch();
                     <div className="theme-switch-wrapper" >
                         <p style={{
                             padding : "10px",
-                            fontWeight: "bold"
-                        }}> Light Mode</p>
+                            fontWeight: "bold",
+                            textTransform: "capitalize"
+                        }}> {darkTheme ? "Light Mode" : "Dark Mode"}</p>
                     <label className="theme-switch  ">
                        
                         <input id="checkbox" type="checkbox" onChange={setMode} />

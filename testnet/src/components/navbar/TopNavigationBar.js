@@ -641,20 +641,6 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
         )}
         
       </div> */}
-      {
-          width > 850 && (
-            <div className="theme-switch-wrapper" style={{
-              display : "none"
-            }}>
-            <label className="theme-switch  ">
-                <input id="checkbox" type="checkbox" onChange={setMode} />
-                  <i id="toggle-icon" className={`uil ${darkTheme ? "uil-brightness-low" : "uil-moon" } slider round`}></i>
-               {/* <img src={dark}  style={{width: "20px"}}  alt="" className=" fa-sun slider round"/> */}
-              
-            </label>
-        </div>
-          )
-        }
     </header>
   );
 };
