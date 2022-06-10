@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useWindowSize } from "@react-hook/window-size";
+import disconnect from '../../assets/disconnect.png';
 import { useEffect } from "react";
 import './settings.scss';
 
@@ -53,7 +54,7 @@ const Settings = ({darkTheme}) => {
                             padding : "10px",
                             fontWeight: "bold",
                             textTransform: "capitalize"
-                        }}> {darkTheme ? "Light Mode" : "Dark Mode"}</p>
+                        }}> {storedTheme} Mode</p>
                     <label className="theme-switch  ">
                        
                         <input id="checkbox" type="checkbox" onChange={setMode} />
@@ -63,8 +64,11 @@ const Settings = ({darkTheme}) => {
                     </label>
                 </div>
               </div>
-              <div className="wallet_disconnect">
-               jsjsjss    
+              <div className="wallet__disconnect">
+                <img src={disconnect} alt="disconnect icon" style={{
+                    width: "20px"
+                }} />
+                <button>Disconnect wallet</button>
               </div>
           </div>
         </div>
