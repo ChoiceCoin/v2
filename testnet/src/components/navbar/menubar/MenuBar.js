@@ -12,10 +12,9 @@ const DeskMenuBar = () => {
                     </li>
                 <li className="desk" >
                     <a href=""> 
-                    <span> <i class="uil uil-github"></i></span>
-                    
-                    Github 
-                    <span> <i class="uil uil-arrow-up-right"></i></span>
+                    <span> <i class="uil uil-github"></i> </span> 
+                      Github 
+                     <span> <i class="uil uil-arrow-up-right"></i></span>
                     </a> 
                 </li>
                 <li className="desk">

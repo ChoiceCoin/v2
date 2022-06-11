@@ -1,0 +1,22 @@
+.search__bar {
+    width: 40vw;
+    height: 39px;
+    background: #FFFFFF;
+    border: 1px solid #979797;
+    box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+
+    input {
+        // margin-top: 10px;
+        width: 80%;
+        // margin-left: -35px;
+        
+    }
+    .uil-search{
+        font-size: 18px;
+        margin:9px 31px 0px 10px;
+    }
+}
