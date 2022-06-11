@@ -7,4 +7,20 @@
     align-items: center;
     justify-content: center;
     position: relative;
+
+    .election__content {
+       display: flex;
+       flex-direction: column;
+
+     .election__cards{
+        margin-left: -40px;
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr ;
+        grid-gap: 10px;
+       }
+
+    }
+
+ 
 }
