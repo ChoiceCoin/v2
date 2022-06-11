@@ -17,6 +17,7 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import CountdownTime from "../../statics/CountdownTime";
 import Settings from "../settings/settings";
+import DeskMenuBar from "./menubar/MenuBar";
 import './Navbar.scss';
 
 const TopNavigationBar = ({ darkTheme, NavLink }) => {
@@ -419,17 +420,33 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
              flexDirection: "row",
             //  margin: "5px"
            }}> 
-             <div className="mobile__nav" onClick={onMenuBarsToggle}>
-                <div class={`menu-bars ${menuBar ? "change" : null}`} id="menu-bars">
-                  <div className="bar1"></div>
+             <div className="mobile__nav" onClick={onMenuBarsToggle} 
+               style={{
+                zIndex: menuBar ? "2" : "1",
+               }}
+             >
+                <div class={`menu-bars ${menuBar ? "change" : ""}`} id="menu-bars"
+                   style={{ 
+                    backgroundColor: menuBar ? "black" : "whitesmoke"
+                  }}
+                >
+                  <div className="bar1" 
+                   style={{
+                    backgroundColor: menuBar ? "whitesmoke" : null ,
+                   }}
+                  ></div>
                   <div className="bar2"></div>
-                  <div className="bar3"></div>
+                  <div className="bar3"
+                        style={{
+                          backgroundColor: menuBar ? "whitesmoke" : null ,
+                         }}
+                  ></div>
                 </div>
              </div>
             <div className="settings" onClick={onSettingsToggle}
               
               style={{
-                zIndex: "2",
+                zIndex: toggleSettings ? "1" : "2",
                 color: toggleSettings ? null : "white",
                 backgroundColor: toggleSettings ? "whitesmoke": "black"
               }}
@@ -442,7 +459,9 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
       
             </div>
           </div>
+
           {toggleSettings ? null: <Settings darkTheme ={darkTheme}/> }
+          {menuBar ? <DeskMenuBar /> : null}
          </div>
          ) : 
        (
