@@ -27,6 +27,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
     localStorage.getItem("wallet-type") === null ? false : true;
 
   const [copyToClipBoard , setCopyToClipBoard] = useState(null)
+  const [menuBar, setMenuBar] = useState(false);
 
     const handyCopyToClipBoard = () => {
       setCopyToClipBoard(true)
@@ -64,6 +65,10 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
   const onSettingsToggle = () => {
     setToggleSettingsHidden(!toggleSettings)
   };
+
+  const onMenuBarsToggle = () => {
+    setMenuBar(!menuBar)
+  }
 
   const algodClient = new algosdk.Algodv2(
     {
@@ -409,20 +414,33 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
               </ul>
             
           </div>
-          <div className="settings" onClick={onSettingsToggle}
-            
-            style={{
-              zIndex: "2",
-              color: toggleSettings ? null : "white",
-	          	backgroundColor: toggleSettings ? "whitesmoke": "black"
-            }}
-          >
-          <i  style={{
-            fontSize: "23px",
-            padding: "0 7px",
+           <div style={{
+             display: "flex",
+             flexDirection: "row",
+            //  margin: "5px"
+           }}> 
+             <div className="mobile__nav" onClick={onMenuBarsToggle}>
+                <div class={`menu-bars ${menuBar ? "change" : null}`} id="menu-bars">
+                  <div className="bar1"></div>
+                  <div className="bar2"></div>
+                  <div className="bar3"></div>
+                </div>
+             </div>
+            <div className="settings" onClick={onSettingsToggle}
+              
+              style={{
+                zIndex: "2",
+                color: toggleSettings ? null : "white",
+                backgroundColor: toggleSettings ? "whitesmoke": "black"
+              }}
+            >
+            <i  style={{
+              fontSize: "23px",
+              padding: "0 7px",
 
-          }} className="uil uil-setting"></i>
-    
+            }} className="uil uil-setting"></i>
+      
+            </div>
           </div>
           {toggleSettings ? null: <Settings darkTheme ={darkTheme}/> }
          </div>
