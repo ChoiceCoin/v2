@@ -7,6 +7,7 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import TopNavigationBar from "./components/navbar/TopNavigationBar";
 import BottomNavigationBar from "./statics/BottomNavigationBar";
 import ElectionList from "./statics/ElectionList";
+import ElectionPage from "./components/election/election";
 
 
 const MainPage = () => {
@@ -43,6 +44,7 @@ const MainPage = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/participate" element={<ElectionPage/>} />
         {/* <Route path="/home" element={<Home />} /> */}
         <Route path="/voting" element={<VotingPage />} />
         <Route path="/participate" element={<ElectionList/>}  />
