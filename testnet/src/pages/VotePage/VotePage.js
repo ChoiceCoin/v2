@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './VotePage.scss';
 
 const VotingPage = () => {
@@ -8,12 +9,14 @@ const VotingPage = () => {
              <h1>VOTE AND Propose on decisions </h1>
              <p> making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw</p>
              <p> making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw</p>
-         </div> <br/>
+         </div> 
          <div className="voting__card_header">
              <div className="voting__card">
                <h1>Voting  </h1>
                <p> lorem ipsum making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw  </p>
-               <button> participate </button>
+               <Link to='/participate'>
+                 <button> participate </button>
+               </Link>
              </div>
              <div className="voting__card">
              <h1>Voting  </h1>
