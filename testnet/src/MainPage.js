@@ -8,6 +8,7 @@ import TopNavigationBar from "./components/navbar/TopNavigationBar";
 import BottomNavigationBar from "./statics/BottomNavigationBar";
 import ElectionList from "./statics/ElectionList";
 import ElectionPage from "./components/election/election";
+import Propose from "./components/propose/propose";
 
 
 const MainPage = () => {
@@ -48,6 +49,7 @@ const MainPage = () => {
         {/* <Route path="/home" element={<Home />} /> */}
         <Route path="/voting" element={<VotingPage />} />
         <Route path="/participate" element={<ElectionList/>}  />
+        <Route path='/propose' element={<Propose />} />
       </Routes>
 
       {width <= 1000 && (
