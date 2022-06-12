@@ -12,6 +12,9 @@ const ElectionPage = () => {
             <ElectionCard />
             <ElectionCard/>
             <ElectionCard/>
+            <ElectionCard />
+            <ElectionCard />
+            <ElectionCard />
            </div>
          </div>
       </div>
