@@ -2,12 +2,21 @@ import React from "react";
 import './propose.scss';
 
 const Propose = () => {
+
+    //disable past dates
+    const disablePastDate = () => {
+        const today = new Date();
+        const dd = String(today.getDate() + 1).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+        const yyyy = today.getFullYear();
+        return yyyy + "-" + mm + "-" + dd;
+    };
     return (
        <div className="propose">
            <div className="create_elt">
       <div className="create_elt_inn">
         <div className="crt_hd">
-          <p className="converter-header"> Create Proposal</p>
+          <p className="converter-header"> Create Proposal & Schedule Election</p>
         </div>
 
 
@@ -54,7 +63,19 @@ const Propose = () => {
               What option 2 should be
             </p>
           </div>
-      
+
+          <div className="v_inp_cov inpCont_cand">
+            <p className="inp_tit">Governance Date</p>
+            <input
+              type="date"
+              min={disablePastDate()}
+            />
+            <p className="ensure_txt">
+              Pick a date for election
+            </p>
+          </div>
+          
+          
 
           <br />
 

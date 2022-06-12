@@ -36,12 +36,14 @@
     letter-spacing: 1px;
     padding: 15px 0px 16px;
     font-family: "Barlow", sans-serif;
-  
-    position: -webkit-sticky;
-    position: sticky;
+    background: white;
+    position: fixed !important;
+    // position: -webkit-sticky;
+    // position: sticky;
     z-index: 2;
     top: calc(var(--sm-hd-height));
     border-bottom: 1px solid var(--border-default);
+    max-width: 88vw;
   }
   .crt_hd p {
     opacity: 0.7;
