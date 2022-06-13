@@ -1,5 +1,6 @@
-# TESTNET
-Testnet application for Choice Coin v2 Algo Grant
+# Choice Coin v2 TestNet
+
+This directory is for the Algorand Testnet application for Choice Coin v2. The directory includes the software for the Algorand Testnet application and an open source software license for the code.
 
 # License
 
