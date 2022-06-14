@@ -6,8 +6,15 @@
     border: solid 1px rgb(189, 184, 184);
     padding: 10px;
 
-    @media screen and (max-width: 1168px) and (min-width: 1000px){
+    @media screen and (max-width: 1168px) and (min-width: 999px){
       width: 22vw;
+    }
+    @media screen and (max-width: 999px) and (min-width: 750px) {
+      width: 28vw;
+    }
+
+    @media screen and (max-width: 750px){
+      width: 45vw;
     }
     
     h1 {

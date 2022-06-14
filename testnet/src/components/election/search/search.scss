@@ -10,6 +10,11 @@
     text-align: center;
     justify-content: space-evenly;
 
+    @media screen and (max-width: 650px) {
+        width: 70vw;
+        margin-left: 10px;
+    }
+
     input {
         // margin-top: 10px;
         width: 80%;

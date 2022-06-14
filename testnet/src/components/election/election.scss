@@ -8,8 +8,12 @@
     justify-content: center;
     position: relative;
 
-    @media  screen and (max-width: 1000px) {
-         margin-left: 0px;
+    @media  screen and (max-width: 999px) {
+         margin-left: unset;
+         margin-bottom: 100px;
+    }
+    @media screen and (max-width : 700px) {
+       margin-bottom: 100px;
     }
 
     .election__content {
@@ -22,6 +26,14 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 13px;
+
+        @media screen and (max-width: 750px) {
+           grid-template-columns: 1fr 1fr;
+           margin-left: 2px;
+        }
+
+        
+        
        }
 
     }

@@ -11,10 +11,13 @@ const ElectionPage = () => {
            <div className="election__cards">
             <ElectionCard />
             <ElectionCard/>
-            <ElectionCard/>
+            {/* <ElectionCard/>
             <ElectionCard />
             <ElectionCard />
             <ElectionCard />
+            <ElectionCard />
+            <ElectionCard />
+            <ElectionCard /> */}
            </div>
          </div>
       </div>
