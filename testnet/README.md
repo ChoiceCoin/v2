@@ -2,7 +2,7 @@
 
 This directory is for the Algorand Testnet application for Choice Coin v2. The directory includes the software for the Algorand Testnet application and an open source software license for the code.
 
-# License
+# Open Source Software License
 
 Copyright 2022 Choice Coin DAO
 
@@ -17,3 +17,5 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+For full text of License terms, see the [License]().
