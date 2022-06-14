@@ -69,6 +69,9 @@ main {
   --back-2: #f2f2f2;
 
   --l1: #333;
+  --on-settings-card : white;
+  --navicons-bg : whitesmoke; 
+  --navicons-color : black;
    
  --onSliderColorChange : rgb(236, 236, 236);
   --list-border: 1px solid rgba(0, 0, 0, 18%);
@@ -78,9 +81,17 @@ main {
   background-color: var(--background);
   --timer : blue;
   --wallet-content : whitesmoke;
- 
+  --disconnect : rgb(116, 19, 19);
+  --disconnect-others : rgb(105, 17, 17);
+  --disconnect-hover : whitesmoke;
+
 }
 .dark_theme {
+  --navicons-color : whitesmoke;
+  --navicons-bg : #494949;
+  --disconnect-others : #ff603e;
+  --disconnect : #ff603e;
+  --disconnect-hover : rgb(36, 34, 34);
   --white : black;
   --color: "#808080";
   --nav-active : whitesmoke;
@@ -91,6 +102,7 @@ main {
   --timer : grey;
   --wallet-content : grey;
   --onSliderColorChange: grey;
+  --on-settings-card : #363636;
 }
 
 .big_screen {

@@ -65,7 +65,7 @@ const Settings = ({darkTheme}) => {
                 </div>
               </div>
               <div className="wallet__disconnect">
-                <img src={disconnect} alt="disconnect icon" style={{
+                <img src={disconnect} alt="disconnect icon"  className="disconnect_button" style={{
                     width: "15px",
                     marginTop: "-3px"
                 }} />
