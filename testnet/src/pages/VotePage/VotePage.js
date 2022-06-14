@@ -21,7 +21,10 @@ const VotingPage = () => {
              <div className="voting__card">
              <h1>Voting  </h1>
                <p> lorem ipsum making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw  </p>
-               <button> Propose</button>
+               <Link to='/propose'>
+                <button> Propose</button>
+               </Link>
+              
              </div>
          </div>
        </div>
