@@ -8,7 +8,6 @@ const VotingPage = () => {
          <div className="voting__header" >
              <h1>VOTE AND Propose on decisions </h1>
              <p> making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw</p>
-             <p> making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw</p>
          </div> 
          <div className="voting__card_header">
              <div className="voting__card">

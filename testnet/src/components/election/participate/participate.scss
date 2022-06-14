@@ -5,6 +5,10 @@
     border-radius: 10px;
     border: solid 1px rgb(189, 184, 184);
     padding: 10px;
+
+    @media screen and (max-width: 1168px) and (min-width: 1000px){
+      width: 22vw;
+    }
     
     h1 {
         font-weight: 600;

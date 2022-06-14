@@ -314,7 +314,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
     <header className="small_header">
       <div className="small_header_inn"
         style={{
-          padding: `${width <= 1000 ? "0px 5vw" : "5px 1vw "}`
+          padding: `${width <= 999 ? "0px 5vw" : "5px 1vw "}`
         }}
       >
       {
