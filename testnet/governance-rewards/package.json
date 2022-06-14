@@ -1,0 +1,20 @@
+{
+  "name": "governance-rewards",
+  "version": "1.0.0",
+  "description": "governance rewards script",
+  "main": "rewards.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node rewards.js",
+    "dev": "nodemon rewards.js"
+  },
+  "author": "Samuel Aspirin",
+  "license": "ISC",
+  "dependencies": {
+    "algosdk": "^1.12.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
