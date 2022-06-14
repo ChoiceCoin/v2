@@ -6,20 +6,20 @@ const VotingPage = () => {
    return (
        <div className="voting__page">
          <div className="voting__header" >
-             <h1>VOTE AND Propose on decisions </h1>
-             <p> making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw</p>
+             <h1>Vote and Propose Issues </h1>
+             <p> Vote on existing issues or propose a new issue for decentralized governance.</p>
          </div> 
          <div className="voting__card_header">
              <div className="voting__card">
-               <h1>Voting  </h1>
-               <p> lorem ipsum making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw  </p>
+               <h1>Vote  </h1>
+               <p> Vote on existing issues.  </p>
                <Link to='/participate'>
-                 <button> participate </button>
+                 <button> Vote </button>
                </Link>
              </div>
              <div className="voting__card">
-             <h1>Voting  </h1>
-               <p> lorem ipsum making proposals and voting on current electionssjsjjsjsjsjnsn jsjjjww whhw  </p>
+             <h1>Propose  </h1>
+               <p> Propose a new issue for decentralized governance. </p>
                <Link to='/propose'>
                 <button> Propose</button>
                </Link>
