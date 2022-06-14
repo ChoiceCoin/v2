@@ -1,6 +1,6 @@
 # Choice Coin v2 TestNet
 
-This directory is for the Algorand Testnet application for Choice Coin v2. The directory includes the software for the Algorand Testnet application and an open source software license for the code.
+This directory is for the Algorand Testnet application for Choice Coin v2. The directory includes the software for the Algorand Testnet application and an open source software license for the code. The purpose for this application is twofold. First, it allows for multiple votes to be run on the Algorand blockahin simulataneously. Second, it allows anyone wishing to start a vote to be able to make a proposal for governance.
 
 # Open Source Software License
 
