@@ -22,4 +22,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-For full text of License terms, see the [License](https://github.com/ChoiceCoin/v2/blob/main/testnet/License.txt).
+For the full text of the License terms, see the [License](https://github.com/ChoiceCoin/v2/blob/main/testnet/License.txt).
