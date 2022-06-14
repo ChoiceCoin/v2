@@ -423,22 +423,31 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
              <div className="mobile__nav" onClick={onMenuBarsToggle} 
                style={{
                 zIndex: menuBar ? "2" : "1",
+                color: menuBar ? "whitesmoke" : "var(--navicons-color)"
                }}
              >
                 <div class={`menu-bars ${menuBar ? "change" : ""}`} id="menu-bars"
                    style={{ 
-                    backgroundColor: menuBar ? "black" : "whitesmoke"
+                    backgroundColor: menuBar ? "black" : "var(--navicons-bg)",
+                    color: menuBar ? "whitesmoke" : "var(--navicons-color)"
                   }}
                 >
                   <div className="bar1" 
                    style={{
-                    backgroundColor: menuBar ? "whitesmoke" : null ,
+                    // backgroundColor: menuBar ? "whitesmoke" : null ,
+                    backgroundColor: menuBar ? "whitesmoke" : "var(--navicons-color)"
                    }}
                   ></div>
-                  <div className="bar2"></div>
+                  <div className="bar2" 
+                      style={{
+                        // backgroundColor: menuBar ? "whitesmoke" : null ,
+                        backgroundColor: menuBar ? "whitesmoke" : "var(--navicons-color)"
+                       }}
+                   ></div>
                   <div className="bar3"
                         style={{
-                          backgroundColor: menuBar ? "whitesmoke" : null ,
+                          // backgroundColor: menuBar ? "whitesmoke" : null ,
+                          backgroundColor: menuBar ? "whitesmoke" : "var(--navicons-color)"
                          }}
                   ></div>
                 </div>
@@ -447,8 +456,8 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
               
               style={{
                 zIndex: toggleSettings ? "1" : "2",
-                color: toggleSettings ? null : "white",
-                backgroundColor: toggleSettings ? "whitesmoke": "black"
+                color: toggleSettings ? "var(--navicons-color)" : "whitesmoke",
+                backgroundColor: toggleSettings ? "var(--navicons-bg)": "black"
               }}
             >
             <i  style={{

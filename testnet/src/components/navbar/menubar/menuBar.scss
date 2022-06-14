@@ -12,16 +12,16 @@
 
         .desk__menuitem{
                 position: absolute;
-                background-color: white;
+                background-color: var(--on-settings-card);
                 flex-direction: column;
                 display: flex;
-                border: solid 1px white;
+                border: solid 1px var(--on-settings-card);
                 border-radius: 10px;
                 width: 190px;
                 // height: 100px;
                 top: 64px;
                 right: 232px;
-                color: black;
+                color: var(--wht);
 
           ul {
               display: flex;
