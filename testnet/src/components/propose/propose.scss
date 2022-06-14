@@ -1,15 +1,21 @@
 .propose{
-    display: flex;
+    // display: flex;
     flex-direction: column;
     // margin-top: 100px ; 
     margin-left: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    display: unset;
+    // position: relative;
+
+    @media screen and(max-width: 1000px) {
+        margin-left:  0px;
+    }
 }
 
 .create_elt {
+
     width: 100%;
     min-height: 50vh;
     position: relative;
@@ -26,6 +32,7 @@
   .create_elt_inn {
     width: 420px;
     max-width: 88vw;
+
   }
   
   .crt_hd {
@@ -38,12 +45,31 @@
     font-family: "Barlow", sans-serif;
     background: white;
     position: fixed !important;
+    
+    margin-top: -7px;
     // position: -webkit-sticky;
-    // position: sticky;
+    // position: sticky !important;
     z-index: 2;
     top: calc(var(--sm-hd-height));
     border-bottom: 1px solid var(--border-default);
-    max-width: 88vw;
+    width: 30%;
+
+   @media  screen and (max-width: 1128px ) and (min-width : 1047px) {
+      width: 40%;
+   }
+   
+   @media  screen and (max-width: 1047px ) and (min-width : 980px) {
+    width: 43%;
+ }
+
+ @media  screen and (max-width: 980px ) and (min-width : 850px) {
+  width: 47%;
+}
+
+@media screen and (max-width : 850px)  {
+   width: unset;
+}
+
   }
   .crt_hd p {
     opacity: 0.7;
