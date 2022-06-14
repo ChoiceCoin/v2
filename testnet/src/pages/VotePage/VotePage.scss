@@ -6,6 +6,10 @@
   justify-content: center;
   position: relative;
   flex-direction: column;
+
+  @media  screen and (max-width: 1000px) {
+    margin-left: 0px;
+  }
   
 .voting__header {
     width: 60vw;
@@ -16,6 +20,11 @@
     box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     border: 1px solid #D2D2D2;
+
+    @media  screen and (max-width: 1000px) {
+      width: 90vw;
+    }
+
 
    h1 {
        text-align: center;
@@ -39,6 +48,10 @@
   justify-content: space-between;
   flex-direction: row;
 
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
+
   .voting__card {
       width: 30vw;
       background: white;
@@ -47,6 +60,13 @@
       margin: 10px;
       box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);
       border-radius: 10px;
+
+      @media  screen and (max-width: 1000px) and (min-width: 450px) {
+        width: 45vw;
+      }
+      @media  screen and (max-width: 450px) {
+        width: 85vw;
+      }
 
       h1 {
         text-align: left;
@@ -72,6 +92,10 @@
         font-size: 16px;
         line-height: 22px;
         color: #3981C6;
+
+        @media screen and (max-width: 450px) {
+           width: 40vw;
+        }
 
         &:hover{
             background: #3981C6;
