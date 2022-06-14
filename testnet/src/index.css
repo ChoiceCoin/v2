@@ -84,9 +84,13 @@ main {
   --disconnect : rgb(116, 19, 19);
   --disconnect-others : rgb(105, 17, 17);
   --disconnect-hover : whitesmoke;
+  --background--hover : #dddcdc;
+  --voting-bg: white;
 
 }
 .dark_theme {
+  --voting-bg: #161616 ;
+  --background--hover : #b3aeae;
   --navicons-color : whitesmoke;
   --navicons-bg : #494949;
   --disconnect-others : #ff603e;
