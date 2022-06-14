@@ -1,13 +1,13 @@
 .propose{
-    // display: flex;
+    display: flex;
     flex-direction: column;
-    // margin-top: 100px ; 
-    margin-left: 300px;
+    margin-top: 100px ; 
+    margin-left: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    display: unset;
-    // position: relative;
+    // display: unset;
+    position: relative;
 
     @media screen and(max-width: 1000px) {
         margin-left:  0px;
@@ -15,7 +15,7 @@
 }
 
 .create_elt {
-
+    margin-top: -100px;
     width: 100%;
     min-height: 50vh;
     position: relative;
