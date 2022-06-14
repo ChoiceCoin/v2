@@ -9,9 +9,9 @@
 * create a `.env` file fill with this
 
 ```
-ALGOD_TOKEN="z6H94GE3sI8w100S7MyY92YMK5WIPAmD6YksRDsC"
-INDEXER_SERVER="https://mainnet-algorand.api.purestake.io/idx2"
-ALGOD_SERVER="https://mainnet-algorand.api.purestake.io/ps2"
+ALGOD_TOKEN=""
+INDEXER_SERVER="https://testnet-algorand.api.purestake.io/idx2"
+ALGOD_SERVER="https://testnet-algorand.api.purestake.io/ps2"
 ALGOD_PORT=""
 ASSET_ID="297995609"
 REWARD_MMEMONIC="YOUR REWARD MMEMONIC KEY"
