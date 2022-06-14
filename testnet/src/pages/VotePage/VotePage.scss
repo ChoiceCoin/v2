@@ -12,14 +12,21 @@
   }
   
 .voting__header {
+  background-color: var(--on-voting-bg);
+// opacity: 1;
+// 
+// background-size: 22px 22px;
+// background-image: radial-gradient(#b0adad 1.1px, #161616 1.1px);
+
     width: 60vw;
-    background-color: #e9e9f7;
+    // background-color: #e9e9f7;
     opacity: 0.7;
-    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e9e9f7 10px ), repeating-linear-gradient( #f5f5ff55, #f5f5ff );
+    // background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e9e9f7 10px ), repeating-linear-gradient( #f5f5ff55, #f5f5ff );
     //   background: #fff !important;
     box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
-    border: 1px solid #D2D2D2;
+    border: 1px solid var(--on-voting-bg);
+    color: var(--wht);
 
     @media  screen and (max-width: 999px) {
       width: 90vw;
@@ -54,8 +61,9 @@
 
   .voting__card {
       width: 30vw;
-      background: white;
-      border: 1px solid #D2D2D2;
+      background: var(--on-settings-card);
+      color: var(--wht);
+      border: 1px solid var(--on-voting-bg);
       padding: 10px;
       margin: 10px;
       box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);

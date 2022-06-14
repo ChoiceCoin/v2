@@ -332,10 +332,11 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
               // justifyContent: `center`,
               textTransform: "uppercase",
               flexDirection: "column",
-              marginLeft : "-12px",
+              marginLeft : "-14px",
+              marginTop: "-10px",
               width : "250px",
               height : "100vh",
-              background : "white",
+              background : "var(--on-settings-card)",
               boxShadow : "0px 4px 30px rgba(0, 0, 0, 0.1)"
             }}>
             <Link to='/' style={{
@@ -428,7 +429,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
              >
                 <div class={`menu-bars ${menuBar ? "change" : ""}`} id="menu-bars"
                    style={{ 
-                    backgroundColor: menuBar ? "black" : "var(--navicons-bg)",
+                    backgroundColor: menuBar ? "rgb(57, 129, 198)" : "var(--navicons-bg)",
                     color: menuBar ? "whitesmoke" : "var(--navicons-color)"
                   }}
                 >
@@ -457,7 +458,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
               style={{
                 zIndex: toggleSettings ? "1" : "2",
                 color: toggleSettings ? "var(--navicons-color)" : "whitesmoke",
-                backgroundColor: toggleSettings ? "var(--navicons-bg)": "black"
+                backgroundColor: toggleSettings ? "var(--navicons-bg)": "rgb(57, 129, 198)"
               }}
             >
             <i  style={{

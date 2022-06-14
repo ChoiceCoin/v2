@@ -8,13 +8,13 @@ ul li {
 	&:hover {
 		margin-left: -10px !important;
 		border-right: solid 5px #3981C6 !important;
-		background-color: #dddcdc;
+		background-color: var(--background--hover);
 		color: #3981C6;
 	}
 	&:active {
 		margin-left: -10px !important;
 		border-right: solid 5px #3981C6 !important;
-		background-color: #dddcdc;
+		background-color: var(--background--hover);
 		color : #3981C6;
 
 	}

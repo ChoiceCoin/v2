@@ -2,7 +2,8 @@
     margin-left: 50px;
     width: 45vw;
     height: 39px;
-    background: #FFFFFF;
+    background: var(--on-settings-card);
+    color: var(--wht);
     border: 1px solid #979797;
     box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);
     border-radius: 10px;

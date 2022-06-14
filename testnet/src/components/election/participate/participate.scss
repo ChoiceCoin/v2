@@ -1,9 +1,10 @@
 .election__card{
     width: 25vw;
-    background: #FFFFFF;
+    background: var(--on-settings-card);
+    color: var(--wht);
     box-shadow: 0px 4px 27px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
-    border: solid 1px rgb(189, 184, 184);
+    border: solid 1px var(--on-settings-card);
     padding: 10px;
 
     @media screen and (max-width: 1168px) and (min-width: 999px){
