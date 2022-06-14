@@ -1,6 +1,10 @@
-# Choice Coin v2 TestNet
+# Choice Coin v2
 
-This software is for the Algorand Testnet application for Choice Coin v2. The TestNet directory includes the software for the Algorand Testnet application and an open source software license for the code. The purpose for this application is twofold. First, it allows for multiple votes to be run on the Algorand blockchain simultaneously. Second, it allows anyone wishing to start a vote to be able to make a proposal for governance. The software application is written in JavaSctipt and integrated with the Algorand blockchain using the [Algorand-JavaScript-SDK](https://github.com/algorand/js-algorand-sdk), which allows for end-to-end programming from the web to the blockchain.
+The problem Choice Coin v2 seeks to address is how to create a streamlined and self-sustaining system for decentralized governance. The solution, Choice Coin v2, builds on Choice Coin’s Decentralized Decisions software to provide an integrated and continuously live web application for decentralized governance. The web application allows users to make a proposal or participate in voting globally and at any time.
+
+# TestNet Application
+
+The [TestNet Application]() is availible for demos and testing. This software is for the Algorand Testnet application for Choice Coin v2. The TestNet directory includes the software for the Algorand Testnet application and an open source software license for the code. The purpose for this application is twofold. First, it allows for multiple votes to be run on the Algorand blockchain simultaneously. Second, it allows anyone wishing to start a vote to be able to make a proposal for governance. The software application is written in JavaSctipt and integrated with the Algorand blockchain using the [Algorand-JavaScript-SDK](https://github.com/algorand/js-algorand-sdk), which allows for end-to-end programming from the web to the blockchain.
 
 # Open Source Software License
 
