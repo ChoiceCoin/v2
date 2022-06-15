@@ -191,12 +191,12 @@ const Propose = () => {
       craftTransactions(candidatesForElection).then((continueExecution) => {
           if (continueExecution) {
             const headers = {
-              "x-authorization-id": "",
+              "x-authorization-id": "12345",
             };
             // add choice per vote input
             axios
               .post(
-                `http://localhost:4000/elections/create`,
+                `https://v2-testnet.herokuapp.com/elections/create`,
                 {
                   candidates: candidatesForElection,
                   name: document.getElementById("governance_name").value,
