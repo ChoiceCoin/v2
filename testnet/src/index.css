@@ -157,7 +157,7 @@ main {
 ****************** */
 .addrDisplay {
   position: relative;
-  z-index: 9999;
+  /* z-index: 1; */
 }
 .addrDispMain {
   display: flex;
@@ -840,7 +840,7 @@ iframe {
   }
 } */
 
-.record_vote {
+/* .record_vote {
   background : #27ae60 !important;
 }
 
@@ -849,7 +849,7 @@ iframe {
 }
 .button:active {
   transform: translateY(-4px) !important;
-}
+} */
 
 .timer {
   text-transform: uppercase !important;
@@ -870,10 +870,5 @@ iframe {
 }
 
 
-@media screen and (max-width : 999px) {
-  .ptt_elt {
-    margin-left: 120px !important;
-  }
-}
 
 

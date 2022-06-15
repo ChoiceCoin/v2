@@ -2,16 +2,23 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./search/search";
 import ElectionCard from "./participate/participate";
 import BarLoader from 'react-spinners/BarLoader';
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import './election.scss';
 
 const ElectionPage = ({darkTheme}) => {
+  const dispatch = useDispatch();
   const [elections, setElections] = useState([]);
   const [searchField, setSearchField] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:4000/elections').then(response => {
+    axios.get('https://v2-testnet.herokuapp.com/elections').then(response => {
        setElections(response.data.data)
+
+       dispatch({
+         type : "getAllElection",
+          allElection : response.data.data
+       })
       console.log(response.data.data)
 
     })

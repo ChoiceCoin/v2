@@ -1,434 +1,516 @@
+
 //Replace the "ElectionList.js" file with this in order to convert to MainNet
 //Make sure to replace the blank strings with actual addresses before
 import $ from "jquery";
-// import axios from "axios";
-// import algosdk from "algosdk";
-import { useState } from "react";
+import axios from "axios";
+import algosdk from "algosdk";
+import { useEffect, useState} from "react";
 import "../styles/electionlist.css";
-// import { excludedAddresses } from "./exclude";
 import { useQuery } from "react-query";
 import BarLoader from "react-spinners/BarLoader";
-// import WalletConnect from "@walletconnect/client";
-// import MyAlgoConnect from "@randlabs/myalgo-connect";
+import WalletConnect from "@walletconnect/client"; 
+import MyAlgoConnect from "@randlabs/myalgo-connect";
 import { useDispatch, useSelector } from "react-redux";
-// import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
-// import QRCodeModal from "algorand-walletconnect-qrcode-modal";
-// import { ASSET_ID, ELECTION_ID, URL, ADDRESS_1, ADDRESS_2 } from "./constants";
+import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
+import QRCodeModal from "algorand-walletconnect-qrcode-modal";
+
+import { ASSET_ID, ELECTION_ID, URL, ADDRESS_1, ADDRESS_2 } from "../utils/constants";
+
 
 const ElectionList = () => {
   const dispatch = useDispatch();
 
   const [address1, setAddress1] = useState(0);
   const [address2, setAddress2] = useState(0);
-  // const [NotEligible, setNotEligible] = useState("")
+  // const [NotEligible, setNotEligible] = useState("");
+  const isThereAddress = localStorage.getItem("address");
+  const getElection = useSelector((state) => state.status.allElection);
+  const getElectionNumber = useSelector((state) => state.status.eachElectionNumber)
+  const each_election_data = [getElection[getElectionNumber]]
+  // const [balance, setBalance] = useState(0);
 
-  // useEffect(() => {
-  //   excludedAddresses.map(exclude => {
-  //     if(exclude.add === isThereAddress)  {
-  //        setNotEligible(exclude.add)
-  //     }
-  //   })
+  
+
+
+  // useEffect(async() => {
+  //   const isThereAddress = localStorage.getItem("address");
+  //   const myAccountInfo = await algodClient.accountInformation(isThereAddress).do();
+  //   const bal =
+  //     myAccountInfo.assets.find((element) => element["asset-id"] === ASSET_ID)
+  //       ?.amount / 100;
+
+  //     setBalance(bal);  
+
   // }, [])
 
-  const { isLoading, error} = useQuery("elections", () => {
-    setAddress1(11784370.18);
-    setAddress2(47858291.12);
-  }
-     
+   // eslint-disable-next-line
+  const { isLoading, error, data } = useQuery("elections", () =>
+    axios.get(`https://v2-testnet.herokuapp.com/results/${each_election_data[0].candidates[0].electionID}`).then((response) => {
+      console.log(response.data.data)
+      if (response?.data?.data) {
+       
+        setAddress1(response?.data?.data[each_election_data[0].candidates[0].address]);
+        setAddress2(response?.data?.data[each_election_data[0].candidates[1].address]);
+      }
+    })
   );
 
+  // useEffect(() => {
+  //   axios.get(`http://localhost:4000/results/${each_election_data[0].candidates[0].electionID}`).then((response) => {
+  //     if (response?.data?.data) {
+  //       console.log(response.data.data)
+  //       setAddress1(response?.data?.data[`${each_election_data[0].candidates[0].address}`]);
+  //       setAddress2(response?.data?.data[`${each_election_data[0].candidates[1].address}`]);
+  //     }
+  //   })
+  // })
+
   const darkTheme = useSelector((state) => state.status.darkTheme);
+  const balance = useSelector((state) => state.status.balance);
+  const addressNum = useSelector((state) => state.status.addressNum);
+ 
+
+  
   // const algod_token = ""
   // const algod_address = "https://api.algoexplorer.io";
   // const headers = "";
 
-  // const algodClient = new algosdk.Algodv2(algod_token, algod_address, headers);
-  // const walletType = localStorage.getItem("wallet-type");
-  // const isThereAddress = localStorage.getItem("address");
+  const algodClient = new algosdk.Algodv2( {
+    "X-API-Key": "z6H94GE3sI8w100S7MyY92YMK5WIPAmD6YksRDsC"
+  },
+  "https://testnet-algorand.api.purestake.io/ps2",
+  "");
+  const walletType = localStorage.getItem("wallet-type");
  
-  const election_data = [
-    {
-      candidates: [
-        {
-          address: "TQBNYD4TLXSISIWCZNSU2OF4WLKJR5GSMQSL37DTKCXHE4MLEKDV7LXAGY",
-          image: "",
-          name: "Option 1:  Burn 15M Choice; 9M for OSS rewards; 5M for voting rewards; 4M for staking rewards; 3M for marketing; 1.5M community rewards.",
-        },
 
-        {
-          address: "KAVOYFTGUKFST33UMGD7XIT6CMSA5GOXF5M6OMF2DGGGB6DQ6N3AHDORIY",
-          image: "",
-          name: "Option 2: Burn 25M Choice; 5M for voting rewards; 4.5M for OSS rewards; 1.5M for marketing; 1M for staking rewards; 500k community rewards.",
-        },
-      ],
-      card_desc:
-        "This Issue addresses Choice tokenomics, The second DAO distribution concerns the distribution of 37.5M Choice controlled by the Choice Coin DAO. This Issue has two options.",
-      choice_per_vote: 1,
-      created_at: "2021-12-08T10:32:15.878473",
-      description: "Lorem ipsum",
-      is_finished: false,
-      is_started: true,
-      process_image: "https://i.postimg.cc/pXn0NRzL/logo.gif",
-      slug: "is-choice-coin-the-best-b0c7db",
-      title: "Choice Coin Governance",
-      wallet: {
-        address: "NX4T2FTIGNPVPSMEXJFMMKD46O4HRCPN25BDHOUW2SWXANZPQBZEDYKDVE",
-      },
-    },
-  ];
+ 
+ 
 
-  // const myAlgoConnect = async (voteData) => {
-  //   const myAlgoWallet = new MyAlgoConnect();
-
-  //   try {
-  //     const accounts = await myAlgoWallet.connect({
-  //       shouldSelectOneAccount: true,
-  //     });
-  //     const address = !!isThereAddress ? isThereAddress : accounts[0].address;
-
-  //     const myAccountInfo = await algodClient
-  //       .accountInformation(
-  //         !!isThereAddress ? isThereAddress : accounts[0].address
-  //       )
-  //       .do();
-
-  //     // get balance of the voter
-  //     const balance = myAccountInfo.assets
-  //       ? myAccountInfo.assets.find(
-  //           (element) => element["asset-id"] === ASSET_ID
-  //         ).amount / 100
-  //       : 0;
-
-  //     // check if the voter address has Choice
-  //     const containsChoice = myAccountInfo.assets
-  //       ? myAccountInfo.assets.some(
-  //           (element) => element["asset-id"] === ASSET_ID
-  //         )
-  //       : false;
-
-  //     // if the address has no ASAs
-  //     if (myAccountInfo.assets.length === 0) {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent:
-  //           "You need to opt-in to Choice Coin in your Algorand Wallet.",
-  //       });
-  //       return;
-  //     }
-
-  //     if (!containsChoice) {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent:
-  //           "You need to opt-in to Choice Coin in your Algorand Wallet.",
-  //       });
-  //       return;
-  //     }
-
-  //     if (voteData.amount > balance) {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent:
-  //           "You do not have sufficient balance to make this transaction.",
-  //       });
-  //       return;
-  //     }
-
-  //     const suggestedParams = await algodClient.getTransactionParams().do();
-  //     const amountToSend = voteData.amount * 100;
-  
-  //     const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-  //       from: address,
-  //       to: voteData.address,
-  //       amount: amountToSend,
-  //       assetIndex: ASSET_ID,
-  //       suggestedParams,
-  //     });
-
-  //     const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());
-  //     await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  //     // alert success
-  //     dispatch({
-  //       type: "alert_modal",
-  //       alertContent: "Your vote has been recorded.",
-  //     });
-  //     setTimeout(() => window.location.reload(), 1500);
-  //   } catch (error) {
-  //     if (error.message === "Can not open popup window - blocked") {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent:
-  //           "Pop Up windows blocked by your browser. Enable pop ups to continue.",
-  //       });
-  //     } else {
-  //       console.log(error)
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent: "An error occured the during transaction process",
-  //       });
-  //     }
-  //   }
-  // };
-
-  // const algoSignerConnect = async (voteData) => {
-  //   try {
-  //     if (typeof window.AlgoSigner === "undefined") {
-  //       window.open(
-  //         "https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm",
-  //         "_blank"
-  //       );
-  //     } else {
-  //       await window.AlgoSigner.connect({
-  //         ledger: "MainNet",
-  //       });
-  //       const accounts = await window.AlgoSigner.accounts({
-  //         ledger: "MainNet",
-  //       });
-
-  //       const address = !!isThereAddress ? isThereAddress : accounts[0].address;
-
-  //       const myAccountInfo = await algodClient
-  //         .accountInformation(
-  //           !!isThereAddress ? isThereAddress : accounts[0].address
-  //         )
-  //         .do();
-
-  //       // get balance of the voter
-  //       const balance = myAccountInfo.assets
-  //         ? myAccountInfo.assets.find(
-  //             (element) => element["asset-id"] === ASSET_ID
-  //           ).amount / 100
-  //         : 0;
-
-  //       // check if the voter address has Choice
-  //       const containsChoice = myAccountInfo.assets
-  //         ? myAccountInfo.assets.some(
-  //             (element) => element["asset-id"] === ASSET_ID
-  //           )
-  //         : false;
-
-  //       // if the address has no ASAs
-  //       if (myAccountInfo.assets.length === 0) {
-  //         dispatch({
-  //           type: "alert_modal",
-  //           alertContent:
-  //             "You need to opt-in to Choice Coin in your Algorand Wallet.",
-  //         });
-  //         return;
-  //       }
-
-  //       if (!containsChoice) {
-  //         dispatch({
-  //           type: "alert_modal",
-  //           alertContent:
-  //             "You need to opt-in to Choice Coin in your Algorand Wallet.",
-  //         });
-  //         return;
-  //       }
-
-  //       if (voteData.amount > balance) {
-  //         dispatch({
-  //           type: "alert_modal",
-  //           alertContent:
-  //             "You do not have sufficient balance to make this transaction.",
-  //         });
-  //         return;
-  //       }
-
-  //       const suggestedParams = await algodClient.getTransactionParams().do();
-  //       const amountToSend = voteData.amount * 100;
-    
-
-  //       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-  //         from: address,
-  //         to: voteData.address,
-  //         amount: amountToSend,
-  //         assetIndex: ASSET_ID,
-  //         suggestedParams,
-  //       });
-
-  //       const signedTxn = await window.AlgoSigner.signTxn([
-  //         { txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()) },
-  //       ]);
-  //       await algodClient
-  //         .sendRawTransaction(
-  //           window.AlgoSigner.encoding.base64ToMsgpack(signedTxn[0].blob)
-  //         )
-  //         .do();
-
-  //       // alert success
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent: "Your vote has been recorded.",
-  //       });
-  //       setTimeout(() => window.location.reload(), 1500);
-  //     }
-  //   } catch (error) {
-  //     if (error.message === "Can not open popup window - blocked") {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent:
-  //           "Pop Up windows blocked by your browser. Enable pop ups to continue.",
-  //       });
-  //     } else {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent: "An error occured the during transaction process",
-  //       });
-  //     }
-  //   }
-  // };
-
-  // const algoMobileConnect = async (voteData) => {
-  //   const connector = new WalletConnect({
-  //     bridge: "https://bridge.walletconnect.org",
-  //     qrcodeModal: QRCodeModal,
-  //   });
-
-  //   try {
-  //     const address = !!isThereAddress ? isThereAddress : "";
-
-  //     const myAccountInfo = await algodClient.accountInformation(address).do();
-
-  //     const balance = myAccountInfo.assets
-  //       ? myAccountInfo.assets.find(
-  //           (element) => element["asset-id"] === ASSET_ID
-  //         ).amount / 100
-  //       : 0;
-
-  //     const containsChoice = myAccountInfo.assets
-  //       ? myAccountInfo.assets.some(
-  //           (element) => element["asset-id"] === ASSET_ID
-  //         )
-  //       : false;
-
-  //     if (myAccountInfo.assets.length === 0) {
-  //       alert("You need to opt-in to Choice Coin in your Algorand Wallet.");
-  //       return;
-  //     }
-
-  //     if (!containsChoice) {
-  //       alert("You need to opt-in to Choice Coin in your Algorand Wallet.");
-  //       return;
-  //     }
-
-  //     if (voteData.amount > balance) {
-  //       alert("You do not have sufficient balance to make this transaction.");
-  //       return;
-  //     }
-
-  //     const suggestedParams = await algodClient.getTransactionParams().do();
-  //     const amountToSend = voteData.amount * 100;
-     
-  //     const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-  //       from: address,
-  //       to: voteData.address,
-  //       amount: amountToSend,
-  //       assetIndex: ASSET_ID,
-  //       suggestedParams,
-        
-  //     });
-
-  //     const txnsToSign = [
+  // const election_data = [
+  //   {
+  //     candidates: [
   //       {
-  //         txn: Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString(
-  //           "base64"
-  //         ),
-  //         message: "Transaction using Mobile Wallet",
+  //         address: "HYK7K5DSEQY5DUFF5EV3D4PXUY5AFLB5XQNU5QHJ4S33M4WMC3EIDCBF2Q",
+  //         image: "",
+  //         name: "Option 1: Choice Coin will continue with the tokenomic model voted on during Vote 0 and distribute the reserve over a 10-year plan.",
   //       },
-  //     ];
 
-  //     const requestParams = [txnsToSign];
-
-  //     const request = formatJsonRpcRequest("algo_signTxn", requestParams);
-  //     const result = await connector.sendCustomRequest(request);
-
-  //     const decodedResult = result.map((element) => {
-  //       return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
-  //     });
-
-  //     console.log(decodedResult);
-  //     await algodClient.sendRawTransaction(decodedResult).do();
-  //     // alert success
-  //     dispatch({
-  //       type: "alert_modal",
-  //       alertContent: "Your vote has been recorded.",
-  //     });
-  //     setTimeout(() => window.location.reload(), 1500);
-  //   } catch (error) {
-  //     if (error.message === "Can not open popup window - blocked") {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent:
-  //           "Pop Up windows blocked by your browser. Enable pop ups to continue.",
-  //       });
-  //     } else {
-  //       dispatch({
-  //         type: "alert_modal",
-  //         alertContent: "An error occured during the transaction process",
-  //       });
-  //     }
-  //   }
-  // };
+  //       {
+  //         address: "ORBXKBTF54NJVK3BF7IHZOLHBCUPLEXWURYXRN777DDF6LOQSBQ6LB34WI",
+  //         image: "",
+  //         name: "Option 2:  Choice Coin will burn the entire reserve, which contains 675,000,000.00 $Choice.",
+  //       },
+  //     ],
+  //     card_desc:
+  //       "This Issue addresses Choice tokenomics, This Issue has two options.",
+  //     choice_per_vote: 1,
+  //     created_at: "2021-12-08T10:32:15.878473",
+  //     description: "Lorem ipsum",
+  //     is_finished: false,
+  //     is_started: true,
+  //     process_image: "https://i.postimg.cc/pXn0NRzL/logo.gif",
+  //     slug: "is-choice-coin-the-best-b0c7db",
+  //     title: "Choice Coin Governance",
+  //     wallet: {
+  //       address: "NX4T2FTIGNPVPSMEXJFMMKD46O4HRCPN25BDHOUW2SWXANZPQBZEDYKDVE",
+  //     },
+  //   },
+  // ];
 
 
-  const placeVote = (address, amount, election) => {
+  const getMaxVoteValue = () => {
+    document.getElementById('max').value = balance[addressNum].balance;
+    console.log(each_election_data);
+  }
 
-    dispatch({
-      type: "alert_modal",
-      alertContent: " Vote 4 has ended. All rewards for Vote 4 will be distributed on Friday June 3rd at 4:00PM EST, Thanks for voting!",
-    });
+  const myAlgoSign = async (voteData) => {
+    const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
 
- 
+    try {
+      // const accounts = await myAlgoWallet.connect({
+      //   shouldSelectOneAccount: true,
+      // });
+      const address = !!isThereAddress && isThereAddress 
 
-   
+      const myAccountInfo = await algodClient
+        .accountInformation(
+          !!isThereAddress && isThereAddress 
+        )
+        .do();
+
+        console.log(myAccountInfo.assets["asset-id"]);
+        
+      
+
+      // check if the voter address has Choice
+      const containsChoice = myAccountInfo.assets
+        ? myAccountInfo.assets.some(
+            (element) => element["asset-id"] === ASSET_ID
+          )
+        : false;
+       
+      // if the address has no ASAs
+      if (myAccountInfo.assets.length === 0) {
+        dispatch({
+          type: "alert_modal",
+          alertContent:
+            "You need to opt-in to Choice Coin in your Algorand Wallet.",
+        });
+        return;
+      }
+
+      if (!containsChoice) {
+        dispatch({
+          type: "alert_modal",
+          alertContent:
+            "You need to opt-in to Choice Coin in your Algorand Wallet.",
+        });
+        return;
+      }
+
+      // get balance of the voter
+      const balance = myAccountInfo.assets
+        ? myAccountInfo.assets.find(
+            (element) => element["asset-id"] === ASSET_ID
+          ).amount / 100
+        : 0;
+
+      if (voteData.amount > balance) {
+        dispatch({
+          type: "alert_modal",
+          alertContent:
+            "You do not have sufficient balance to make this transaction.",
+        });
+        return;
+      }
+
+      dispatch({
+        type: "confirm_wallet",
+        alertContent : "Confirming Vote Transaction & Option"
+      })
+
+      const suggestedParams = await algodClient.getTransactionParams().do();
+      const amountToSend = voteData.amount * 100;
+  
+      const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        from: address,
+        to: voteData.address,
+        amount: amountToSend,
+        assetIndex: ASSET_ID,
+        suggestedParams,
+      });
+
+      const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());
+      await algodClient.sendRawTransaction(signedTxn.blob).do();
+      dispatch({
+        type: "close_wallet"
+      })
+
+      // alert success
+      dispatch({
+        type: "alert_modal",
+        alertContent: "Your vote has been recorded.",
+      });
+      // setTimeout(() => window.location.reload(), 1500);
+    } catch (error) {
+      if (error.message === "Can not open popup window - blocked") {
+        dispatch({
+          type: "close_wallet"
+        })
+
+        dispatch({
+          type: "alert_modal",
+          alertContent:
+            "Pop Up windows blocked by your browser. Enable pop ups to continue.",
+        });
+      } else {
+        console.log(error)
+        dispatch({
+          type: "close_wallet"
+        })
+
+        dispatch({
+          type: "alert_modal",
+          alertContent: "An error occured the during transaction process",
+        });
+      }
+    }
   };
 
-  // const placeVote = (address, amount, election) => {
-  //   if(!isThereAddress) {
-  //     dispatch({
-  //       type: "alert_modal",
-  //       alertContent: "Kindly connect wallet to vote!!",
-  //     });
-  //     return;
-  //   }
+  const algoSignerConnect = async (voteData) => {
+    try {
+      // if (typeof window.AlgoSigner === "undefined") {
+      //   window.open(
+      //     "https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm",
+      //     "_blank"
+      //   );
+      // } else {
+      //   await window.AlgoSigner.connect({
+      //     ledger: "MainNet",
+      //   });
+      //   const accounts = await window.AlgoSigner.accounts({
+      //     ledger: "MainNet",
+      //   });
 
-  //   if (!address) {
-  //     dispatch({
-  //       type: "alert_modal",
-  //       alertContent: "Select an option to vote!!",
-  //     });
-  //     return;
-  //   } 
+        const address = !!isThereAddress && isThereAddress 
+
+        const myAccountInfo = await algodClient
+          .accountInformation(
+            !!isThereAddress && isThereAddress
+          )
+          .do();
+
+        
+
+        // check if the voter address has Choice 
+        const containsChoice = myAccountInfo.assets
+          ? myAccountInfo.assets.some(
+              (element) => element["asset-id"] === ASSET_ID
+            )
+          : false;
+
+        // if the address has no ASAs
+        if (myAccountInfo.assets.length === 0) {
+          dispatch({
+            type: "alert_modal",
+            alertContent:
+              "You need to opt-in to Choice Coin in your Algorand Wallet.",
+          });
+          return;
+        }
+
+        if (!containsChoice) {
+          dispatch({
+            type: "alert_modal",
+            alertContent:
+              "You need to opt-in to Choice Coin in your Algorand Wallet.",
+          });
+          return;
+        }
+        // get balance of the voter 
+        const balance = myAccountInfo.assets
+          ? myAccountInfo.assets.find(
+              (element) => element["asset-id"] === ASSET_ID
+            ).amount / 100
+          : 0;
+
+        if (voteData.amount > balance) {
+          dispatch({
+            type: "alert_modal",
+            alertContent:
+              "You do not have sufficient balance to make this transaction.",
+          });
+          return;
+        }
+        dispatch({
+          type: "confirm_wallet",
+          alertContent : "Confirming Vote Transaction & Option"
+        })
+
+        const suggestedParams = await algodClient.getTransactionParams().do();
+        const amountToSend = voteData.amount * 100;
+    
+
+        const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: address,
+          to: voteData.address,
+          amount: amountToSend,
+          assetIndex: ASSET_ID,
+          suggestedParams,
+        });
+
+        const signedTxn = await window.AlgoSigner.signTxn([
+          { txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()) },
+        ]);
+        await algodClient
+          .sendRawTransaction(
+            window.AlgoSigner.encoding.base64ToMsgpack(signedTxn[0].blob)
+          )
+          .do();
+
+          dispatch({
+            type: "close_wallet"
+          })
+
+
+        // alert success
+        dispatch({
+          type: "alert_modal",
+          alertContent: "Your vote has been recorded.",
+        });
+        // setTimeout(() => window.location.reload(), 1500);
+      
+    } catch (error) {
+      if (error.message === "Can not open popup window - blocked") {
+        dispatch({
+          type: "close_wallet"
+        })
+
+        dispatch({
+          type: "alert_modal",
+          alertContent:
+            "Pop Up windows blocked by your browser. Enable pop ups to continue.",
+        });
+      } else {
+        dispatch({
+          type: "close_wallet"
+        })
+        console.log(error)
+        dispatch({
+          type: "alert_modal",
+          alertContent: "An error occured the during transaction process",
+        });
+      }
+    }
+  };
+
+  const algoMobileConnect = async (voteData) => {
+    const connector = new WalletConnect({
+      bridge: "https://bridge.walletconnect.org",
+      qrcodeModal: QRCodeModal,
+    });
+
+    try {
+      const address = !!isThereAddress ? isThereAddress : "";
+
+      const myAccountInfo = await algodClient.accountInformation(address).do();
+
+
+      const containsChoice = myAccountInfo.assets
+        ? myAccountInfo.assets.some(
+            (element) => element["asset-id"] === ASSET_ID
+          )
+        : false;
+
+      if (myAccountInfo.assets.length === 0) {
+        alert("You need to opt-in to Choice Coin in your Algorand Wallet.");
+        return;
+      }
+
+      if (!containsChoice) {
+        alert("You need to opt-in to Choice Coin in your Algorand Wallet.");
+        return;
+      }
+
+      const balance = myAccountInfo.assets
+      ? myAccountInfo.assets.find(
+          (element) => element["asset-id"] === ASSET_ID
+        ).amount / 100
+      : 0;
+
+      if (voteData.amount > balance) {
+        alert("You do not have sufficient balance to make this transaction.");
+        return;
+      }
+
+       dispatch({
+        type: "confirm_wallet",
+        alertContent : "Go to Pera Wallet & Confirm your Vote"
+      })
+
+      const suggestedParams = await algodClient.getTransactionParams().do();
+      const amountToSend = voteData.amount * 100;
+     
+      const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        from: address,
+        to: voteData.address,
+        amount: amountToSend,
+        assetIndex: ASSET_ID,
+        suggestedParams,
+      });
+
+      const txnsToSign = [
+        {
+          txn: Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString(
+            "base64"
+          ),
+          message: "Transaction using Mobile Wallet",
+        },
+      ];
+
+      const requestParams = [txnsToSign];
+
+      const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+      const result = await connector.sendCustomRequest(request);
+
+      const decodedResult = result.map((element) => {
+        return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+      });
+
+     
  
 
-  //   if(NotEligible === isThereAddress) {
-  //     dispatch({
-  //       type: "alert_modal",
-  //       alertContent: "Not eligible to vote!!",
-  //     });
-  //     return;
-  //   }
-    
-    
-    
-  //   if (walletType === "my-algo") {
-  //     myAlgoConnect({ address, amount, election });
-  //   } else if (walletType === "algosigner") {
-  //     algoSignerConnect({ address, amount, election });
-  //   } else if (walletType === "walletconnect") {
-  //     algoMobileConnect({ address, amount, election });
-  //   }
+      await algodClient.sendRawTransaction(decodedResult).do();
+      dispatch({
+        type: "close_wallet"
+      })
+      dispatch({
+        type: "alert_modal",
+        alertContent: "Your vote has been recorded.",
+      });
+      // setTimeout(() => window.location.reload(), 1500);
+
+      
    
-  // };
+     
+    } catch (error) {
+      if (error.message === "Can not open popup window - blocked") {
+        dispatch({
+          type: "close_wallet"
+        })
+
+        dispatch({
+          type: "alert_modal",
+          alertContent:
+            "Pop Up windows blocked by your browser. Enable pop ups to continue.",
+        });
+      } else {
+        dispatch({
+          type: "close_wallet"
+        })
+
+        dispatch({
+          type: "alert_modal",
+          alertContent: "An error occured during the transaction process",
+        });
+      }
+    }
+  };
+
+  const placeVote = (address, amount, election) => {
+    if(!isThereAddress) {
+      dispatch({
+        type: "alert_modal",
+        alertContent: "Kindly connect wallet to vote!!",
+      });
+      return;
+    }
+
+    if (!address) {
+      dispatch({
+        type: "alert_modal",
+        alertContent: "Select an option to vote!!",
+      });
+      return;
+    } 
+     
+    
+    if (walletType === "my-algo") {
+      myAlgoSign({ address, amount, election });
+    } else if (walletType === "algosigner") {
+      algoSignerConnect({ address, amount, election });
+    } else if (walletType === "walletconnect") {
+      algoMobileConnect({ address, amount, election });
+    }
+   
+  };
 
   if (isLoading)
     return (
       <div className="ptt_elt">
         <div className="ptt_elt_inn">
           <div className="ptt_hd">
-            <p>Vote 4: Choice Coin Governance</p>
+            <p>participate By Voting</p>
           </div>
 
           <ul className="card_list">
@@ -463,11 +545,11 @@ const ElectionList = () => {
     <div className="ptt_elt">
       <div className="ptt_elt_inn">
         <div className="ptt_hd">
-          <p>Vote 4: Choice Coin Governance</p>
+          <p>participate by voting</p>
         </div>
 
         <ul className="card_list">
-          {election_data?.map((slug, index) => {
+          {each_election_data?.map((slug, index) => {
             return (
               <div className="card_cont" key={index}>
                 <div className="card_r1">
@@ -479,24 +561,17 @@ const ElectionList = () => {
                     }}
                   >
                     <div className="card_elt_img">
-                      {slug.process_image ? (
-                        <img src={slug.process_image} alt="" />
-                      ) : (
-                        <i
-                          className="uil uil-asterisk"
-                          style={{ paddingLeft: "2px", paddingBottom: "2px" }}
-                        />
-                      )}
+                        <img src="https://i.postimg.cc/pXn0NRzL/logo.gif" alt="" />
                     </div>
-                    <div className="card_elt_tit">{slug.title}</div>
+                    <div className="card_elt_tit">{slug.name}</div>
                   </div>
                 </div>
 
-                <div className="card_elt_desc">{slug?.card_desc}</div>
+                <div className="card_elt_desc">{slug?.issue}</div>
 
-                <div className="voting_ends">
-                 All rewards for Vote 4 will be distributed on Friday June 3rd at 4:00PM EST, Thanks for voting!
-                </div>
+                {/* <div className="voting_ends">
+                  Voting ends: June 15th 2022, 4:00PM EST
+                </div> */}
 
                 <div className="results">
                   <div className="resultsTit">Results</div>
@@ -505,11 +580,11 @@ const ElectionList = () => {
                     <div className="optionButt">
                       <div className="optionButtDets">
                         <p>Option 1</p>
-                        <p>{address1.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}  <img src="https://i.postimg.cc/mDtpdjqh/logo.png" style={{width : '12px', marginTop : '-1px'}} alt="choice logo"/></p>
+                        <p>{address1.toLocaleString()} <img src="https://i.postimg.cc/mDtpdjqh/logo.png" style={{width : '12px', marginTop : '-1px'}} alt="choice logo"/></p>
                       </div>
                       <div className="optRange">
                         <div
-                          className="optRangeSlide optRangeSlide2"
+                          className={`optRangeSlide ${(address1 > address2) ? "optRangeSlide1" :"optRangeSlide2"}`}
                           style={{
                             width: `calc(100% * ${
                               address1 / (address1 + address2)
@@ -521,11 +596,11 @@ const ElectionList = () => {
                     <div className="optionButt">
                       <div className="optionButtDets">
                         <p>Option 2</p>
-                        <p>{address2.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}  <img src="https://i.postimg.cc/mDtpdjqh/logo.png" style={{width : '12px', marginTop : '-1px'}} alt="choice logo"/></p>
+                        <p>{address2.toLocaleString()} <img src="https://i.postimg.cc/mDtpdjqh/logo.png" style={{width : '12px', marginTop : '-1px'}} alt="choice logo"/></p>
                       </div>
                       <div className="optRange">
                         <div
-                          className="optRangeSlide optRangeSlide1"
+                          className={`optRangeSlide ${(address2 > address1) ? "optRangeSlide1" :"optRangeSlide2"}`}
                           style={{
                             width: `calc(100% * ${
                               address2 / (address1 + address2)
@@ -537,36 +612,74 @@ const ElectionList = () => {
                   </div>
                 </div>
 
-                 <div className="card_cand">
-                  {/* <div className="card_cand_hd">
+                <div className="card_cand">
+                  <div className="card_cand_hd">
                     <div className="amountToCommit">
                       <p>Amount to commit:</p>
                       <input
+                        id="max"
                         type="number"
-                        min="0"
-                        placeholder="1"
+                        min="1"
+                        placeholder='1'
                         className="amtToCommitInp"
                       />
+                      {
+                        isThereAddress ? 
+                      (<p className="max"
+                         onClick={getMaxVoteValue}>
+                          max
+                        </p>
+                            ) : null
+                      }
+                      
                     </div>
-                  </div>  */}
+                  </div>
 
                   <div className="vote_collap">
                     <div className="card_cand_hd">Options</div>
-                    <ul className="vote_now_list">
+                    {/* <ul className="vote_now_list">
                       {slug?.candidates?.map((item, index) => {
                         return (
                           <li key={index}>
-                            {/* <input
+                            <input
                               type="radio"
                               name="options"
                               value={item.address}
-                            /> */}
+                            />
 
                             <p>{item.name}</p>
                           </li>
                         );
                       })}
+                    </ul> */}
+
+                 <ul className="vote_now_list">
+
+                          <li>
+                            <input
+                              type="radio"
+                              name="options"
+                              value={each_election_data[0].candidates[0].address}
+                            />
+
+                            <p>{each_election_data[0].option1}</p>
+                          </li>
+
+                     <li>
+                        <input
+                          type="radio"
+                          name="options"
+                          value={each_election_data[0].candidates[1].address}
+                        />
+
+                        <p>{each_election_data[0].option2}</p>
+                      </li>
                     </ul>
+                    {/* <ul className="vote_now_list">
+
+              
+                      </ul> */}
+
 
                     <div className="rec_vote_cont">
                       <button
@@ -583,7 +696,7 @@ const ElectionList = () => {
 
                           var amt = !!amountToSend
                             ? amountToSend
-                            : slug.choice_per_vote;
+                            : 1;
 
                           placeVote(
                             $("input[name=options]:checked", voteVal).val(),
@@ -592,7 +705,7 @@ const ElectionList = () => {
                           );
                         }}
                       >
-                        Option 2 Wins <i className="uil uil-mailbox"></i>
+                        Submit Vote <i className="uil uil-mailbox"></i>
                       </button>
                     </div>
                   </div>

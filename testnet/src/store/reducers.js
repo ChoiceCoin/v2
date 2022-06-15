@@ -11,7 +11,7 @@ const status = (
     address: null,
     balance : [],
     eachElectionNumber: 0,
-    eachElection : [],
+    allElection : [],
   },
   action
 ) => {
@@ -29,8 +29,8 @@ const status = (
          ...state, eachElectionNumber: action.electionIndex
        };
 
-      case "getEachElection" : 
-       return {...state, eachElection : action.each}
+      case "getAllElection" : 
+       return {...state, allElection : action.allElection}
 
     case "light_mode":
       return { ...state, darkTheme: false };

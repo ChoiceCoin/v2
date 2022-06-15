@@ -8,7 +8,8 @@ import './settings.scss';
 
 const Settings = ({darkTheme}) => {
 
-    
+
+
   const dispatch = useDispatch();
   const [width] = useWindowSize();
   const storedTheme = localStorage.getItem('mode') || (window.matchMedia("(prefers-color-scheme: dark)")
@@ -38,6 +39,15 @@ const Settings = ({darkTheme}) => {
     }
   };
 
+  const LogOut = () => {
+    localStorage.removeItem("address");
+    localStorage.removeItem("addresses");
+    localStorage.removeItem("wallet-type");
+    localStorage.removeItem("walletconnect");
+    window.location.reload();
+    console.log("data");
+  };
+
     return(
         <div className="settings__item" > 
           <div className="settings__content">
@@ -65,11 +75,11 @@ const Settings = ({darkTheme}) => {
                 </div>
               </div>
               <div className="wallet__disconnect">
-                <img src={disconnect} alt="disconnect icon"  className="disconnect_button" style={{
+                <img src={disconnect} alt="disconnect icon" onClick={LogOut}  className="disconnect_button" style={{
                     width: "15px",
                     marginTop: "-3px"
                 }} />
-                <button>Disconnect wallet</button>
+                <button onClick={LogOut}>Disconnect wallet</button>
               </div>
           </div>
         </div>
