@@ -12,7 +12,7 @@ const Propose = () => {
   const dispatch = useDispatch();
   const isThereAddress = localStorage.getItem("address");
   const algod_token = {
-    "X-API-Key": "z6H94GE3sI8w100S7MyY92YMK5WIPAmD6YksRDsC"
+    "X-API-Key": ""
   }
   const algod_address = "https://testnet-algorand.api.purestake.io/ps2";
   const headers = "";
@@ -20,7 +20,7 @@ const Propose = () => {
   const algodClient = new algosdk.Algodv2(algod_token, algod_address, headers);
   const walletType = localStorage.getItem("wallet-type");
   const rewardsAddress = 'BSW4FRTCT2SXKVK6P53I57SEAOCCPD6TYAS77YUU725KCY6U7EM2LLJOEI'
-  const [candidate, setCandidate] = useState([])
+  // const [candidate, setCandidate] = useState([])
 
   //candidates
   const candidates = [{
@@ -191,7 +191,7 @@ const Propose = () => {
       craftTransactions(candidatesForElection).then((continueExecution) => {
           if (continueExecution) {
             const headers = {
-              "x-authorization-id": 12345,
+              "x-authorization-id": "",
             };
             // add choice per vote input
             axios
