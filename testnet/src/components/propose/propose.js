@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useDispatch } from "react-redux";
+import MyAlgoConnect from "@randlabs/myalgo-connect";
 import algosdk from "algosdk";
+import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
+import QRCodeModal from "algorand-walletconnect-qrcode-modal";
+import WalletConnect from "@walletconnect/client"; 
 import './propose.scss';
 
 const Propose = () => {
@@ -11,10 +16,18 @@ const Propose = () => {
   }
   const algod_address = "https://testnet-algorand.api.purestake.io/ps2";
   const headers = "";
-
+  const ASSET_ID = 21364625;
   const algodClient = new algosdk.Algodv2(algod_token, algod_address, headers);
   const walletType = localStorage.getItem("wallet-type");
-  const rewardsAddress = 'ZW4E323O6W3JTTVCDDHIF6EY75HSU56H7AGD3UZI54XCQOMNRCWRTYP5PQ'
+  const rewardsAddress = 'BSW4FRTCT2SXKVK6P53I57SEAOCCPD6TYAS77YUU725KCY6U7EM2LLJOEI'
+  const [candidate, setCandidate] = useState([])
+
+  //candidates
+  const candidates = [{
+    first : "firstcandidate"
+  }, {
+    second : "secondcandidate"
+  }]
 
     //disable past dates
     // const disablePastDate = () => {
@@ -24,6 +37,113 @@ const Propose = () => {
     //     const yyyy = today.getFullYear();
     //     return yyyy + "-" + mm + "-" + dd;
     // };
+  const craftTransactions =async(candidates) => {
+    const txns = [];
+  
+    const suggestedParams = await algodClient.getTransactionParams().do();
+
+    // top up payment
+    for (let candidate of candidates) {
+      const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+        from: isThereAddress,
+        to: candidate.address,
+        amount: 100000,
+        suggestedParams,
+      });
+      txns.push(txn);
+    }
+    // rewards 
+    const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      from: isThereAddress,
+      to: rewardsAddress,
+      amount: (document.getElementById('rewards').value) * 100,
+      assetIndex: ASSET_ID,
+      suggestedParams,
+    });
+
+    txns.push(txn)
+
+    algosdk.assignGroupID(txns);
+    let continueExecution = true;
+
+    try {
+      const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
+      const connector = new WalletConnect({
+        bridge: "https://bridge.walletconnect.org",
+        qrcodeModal: QRCodeModal,
+      });
+
+      if (walletType === "algosigner") {
+        
+
+        const signedTxns = await window.AlgoSigner.signTxn(
+          txns.map((txn) => ({
+            txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()),
+          }))
+        );
+        await algodClient
+          .sendRawTransaction(
+            signedTxns.map((txn) =>
+              window.AlgoSigner.encoding.base64ToMsgpack(txn.blob)
+            )
+          )
+          .do();
+      } else if (walletType === "my-algo") {
+        const signedTxns = await myAlgoWallet.signTransaction(
+          txns.map((txn) => txn.toByte())
+        );
+
+        // send the transactions to the net.
+        await algodClient
+          .sendRawTransaction(signedTxns.map((txn) => txn.blob))
+          .do();
+      } else if (walletType === "walletconnect") {
+        let Txns = []
+
+      // eslint-disable-next-line
+      txns.map((transaction) => {
+
+        Txns.push({
+          txn: Buffer.from(algosdk.encodeUnsignedTransaction(transaction)).toString(
+            "base64"
+          ),
+          message: "Transaction using Mobile Wallet",
+        })
+      })
+
+
+      const requestParams = [Txns];
+
+      const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+      const result = await connector.sendCustomRequest(request);
+
+      const decodedResult = result.map((element) => {
+        return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+      });
+
+      }
+    } catch (error) {
+      console.log(error);
+      continueExecution = false;
+    }
+
+    return continueExecution;
+
+  }
+
+    const createCandidates = () => {
+    const candidateCred=[]
+      for (let candidate of candidates) {
+        const { sk: private_key, addr: address } = algosdk.generateAccount();
+       candidateCred.push({
+          private_key: algosdk.secretKeyToMnemonic(private_key),
+          address,
+        });
+      }
+
+     return candidateCred
+
+    }
 
     const createProposal = () => {
 
@@ -66,6 +186,39 @@ const Propose = () => {
         });
         return;
       }
+      const candidatesForElection = createCandidates()
+
+      craftTransactions(candidatesForElection).then((continueExecution) => {
+          if (continueExecution) {
+            const headers = {
+              "x-authorization-id": 12345,
+            };
+            // add choice per vote input
+            axios
+              .post(
+                `http://localhost:4000/elections/create`,
+                {
+                  candidates: candidatesForElection,
+                  name: document.getElementById("governance_name").value,
+                  issue: document.getElementById("issue").value,
+                  option1: document.getElementById("option1").value,
+                  option2: document.getElementById("option2").value,
+                  rewards: document.getElementById("rewards").value
+                },
+                { headers }
+              )
+              .then((response) => alert(response.data.message));
+          }
+        });
+      
+
+      // if (walletType === "my-algo") {
+      //   myAlgoCreateProposal(candidatesForElection);
+      // } else if (walletType === "algosigner") {
+      //   algoSignerCreateProposal(candidatesForElection);
+      // } else if (walletType === "walletconnect") {
+      //   algoMobileCreateProposal(candidatesForElection);
+      // }
 
     }
 

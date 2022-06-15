@@ -15,7 +15,7 @@ import interchain from '../../assets/interchain.png';
 import {Link} from 'react-router-dom';
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
-import CountdownTime from "../../statics/CountdownTime";
+// import CountdownTime from "../../statics/CountdownTime";
 import Settings from "../settings/settings";
 import DeskMenuBar from "./menubar/MenuBar";
 import './Navbar.scss';
@@ -73,7 +73,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
 
   const algodClient = new algosdk.Algodv2(
     {
-      "X-API-Key": "z6H94GE3sI8w100S7MyY92YMK5WIPAmD6YksRDsC"
+      "X-API-Key": ""
     },
     "https://testnet-algorand.api.purestake.io/ps2",
     ""
@@ -282,10 +282,10 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
         );
       } else {
         await window.AlgoSigner.connect({
-          ledger: "MainNet",
+          ledger: "TestNet",
         });
         const accounts = await window.AlgoSigner.accounts({
-          ledger: "MainNet",
+          ledger: "TestNet",
         });
 
         const addresses = accounts.map((item) => item?.address);
