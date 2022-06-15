@@ -11,6 +11,13 @@ const ElectionPage = ({darkTheme}) => {
   const [elections, setElections] = useState([]);
   const [searchField, setSearchField] = useState('');
 
+  const onSearchChange = (event) => {
+    setSearchField(event.target.value);
+  }
+
+  const filteredElectionList = elections.filter(eachElection => {
+    return eachElection.name.toLowerCase().includes(searchField.toLowerCase());
+  }) 
   useEffect(() => {
     axios.get('https://v2-testnet.herokuapp.com/elections').then(response => {
        setElections(response.data.data)
@@ -27,7 +34,7 @@ const ElectionPage = ({darkTheme}) => {
     return(
       <div className="election">
          <div className="election__content">
-          <SearchBar />
+          <SearchBar searchChange={onSearchChange} />
 
           {
          !elections.length ? (
@@ -55,7 +62,7 @@ const ElectionPage = ({darkTheme}) => {
          ) : (
            <div className="election__cards">
              {
-               elections.map((election, index) => {
+               filteredElectionList.map((election, index) => {
                  return(
                    <ElectionCard key={index} election={election} index={index}/>
                  )
