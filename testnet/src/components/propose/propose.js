@@ -191,7 +191,7 @@ const Propose = () => {
       craftTransactions(candidatesForElection).then((continueExecution) => {
           if (continueExecution) {
             const headers = {
-              "x-authorization-id": "12345",
+              "x-authorization-id": "",
             };
             // add choice per vote input
             axios
