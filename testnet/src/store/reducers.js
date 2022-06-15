@@ -9,7 +9,9 @@ const status = (
     confirmWallet: { openWallet: false, walletContent: ""},
     addressNum: 0,
     address: null,
-    balance : []
+    balance : [],
+    eachElectionNumber: 0,
+    eachElection : [],
   },
   action
 ) => {
@@ -21,6 +23,14 @@ const status = (
     case "setAlgoAddress" : 
       localStorage.setItem("address", `${action?.addr}`);
       return { ...state, addressNum: action.addressIndex };
+
+     case "getEachElectionNumber" :
+       return  {
+         ...state, eachElectionNumber: action.electionIndex
+       };
+
+      case "getEachElection" : 
+       return {...state, eachElection : action.each}
 
     case "light_mode":
       return { ...state, darkTheme: false };

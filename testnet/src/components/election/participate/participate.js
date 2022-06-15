@@ -1,14 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './participate.scss';
+import { useDispatch, useSelector } from "react-redux";
 
-const ElectionCard = ({election})=> {
+const ElectionCard = ({election, index})=> {
+  const dispatch = useDispatch();
+   
+  console.log(election)
     return (
       <div className="election__card">
         <h1>{election.name}</h1>
          <p>
            {election.issue}
          </p>
-         <button> VOTE</button>
+         <Link to='/voting/participate'>
+         <button
+          onClick={()=> {
+            dispatch({
+             type : "getEachElectionNumber",
+             electionIndex : index
+            })
+          }
+
+         }> VOTE</button>
+         </Link>
+         
       </div>
     );
 }

@@ -73,7 +73,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
 
   const algodClient = new algosdk.Algodv2(
     {
-      "X-API-Key": ""
+      "X-API-Key": "AE6Ave7wNH8bKB1SiwutOakoTHreBlWZ9TMKElZs",
     },
     "https://testnet-algorand.api.purestake.io/ps2",
     ""
@@ -103,6 +103,8 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
           type: "getBalance",
           balance : addrArr
         })
+
+        console.log(addrArr, "addrArr")
       
 
 
