@@ -1,13 +1,12 @@
 import React from "react";
 import './participate.scss';
 
-const ElectionCard = ()=> {
+const ElectionCard = ({election})=> {
     return (
       <div className="election__card">
-        <h1> Lorem Ipsum</h1>
-         <p> jwwjd owjwdjwj djdwjwjo hh2hwsh hbbsxh
-             jjsjs jjsjsd njsd jsjjsd sdjjsdjds  sdjsdjjds
-             bdsys duds bjdjdsjds hdshhsd
+        <h1>{election.name}</h1>
+         <p>
+           {election.issue}
          </p>
          <button> VOTE</button>
       </div>

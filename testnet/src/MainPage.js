@@ -45,7 +45,7 @@ const MainPage = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/participate" element={<ElectionPage/>} />
+        <Route path="/participate" element={<ElectionPage darkTheme={darkTheme} />} />
         {/* <Route path="/home" element={<Home />} /> */}
         <Route path="/voting" element={<VotingPage darkTheme={darkTheme} />} />
         <Route path="/participate" element={<ElectionList/>}  />
