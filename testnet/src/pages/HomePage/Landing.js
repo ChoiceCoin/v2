@@ -12,7 +12,7 @@ const Landing = () => {
     >
       <ScrollTextLand
         word={
-          "Join our Discord Server to learn more and participate in our Open Source Rewards Programs!"
+          "Choice Coin V2 TestNet -- This is still under development, Choice Coin V2 TestNet! This is still under development!"
         }
       />
 

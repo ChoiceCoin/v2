@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './participate.scss';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 const ElectionCard = ({election, index})=> {
   const dispatch = useDispatch();

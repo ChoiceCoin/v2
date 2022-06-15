@@ -38,24 +38,17 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
       }, 500);
     }
 
-  const LogOut = () => {
-    localStorage.removeItem("address");
-    localStorage.removeItem("addresses");
-    localStorage.removeItem("wallet-type");
-    localStorage.removeItem("walletconnect");
-    window.location.reload();
-    console.log("data");
-  };
+ 
 
-  const setMode = () => {
-    if (!darkTheme) {
-      localStorage.setItem("mode", "dark");
-      dispatch({ type: "dark_mode" });
-    } else {
-      localStorage.setItem("mode", "light");
-      dispatch({ type: "light_mode" });
-    }
-  };
+  // const setMode = () => {
+  //   if (!darkTheme) {
+  //     localStorage.setItem("mode", "dark");
+  //     dispatch({ type: "dark_mode" });
+  //   } else {
+  //     localStorage.setItem("mode", "light");
+  //     dispatch({ type: "light_mode" });
+  //   }
+  // };
 
  
 
@@ -328,6 +321,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
            justifyContent: "space-between"
          }}>
             <div 
+            className="desk_nav"
             style={{
               display: "flex",
               alignItems: `center`,
@@ -362,7 +356,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
                   cursor: "pointer"
                 }}> 
                 <NavLink
-                      style={({ isActive, }) => {
+                      style={() => {
                         return {
                           color : "#3981C6" ,
                           outline : "none",
@@ -602,94 +596,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
         </div>
       </div>
 
-      {/* <div
-        style={{
-          width: "100%",
-          display: "flex",
-          fontSize: "12px",
-          fontWeight: "500",
-          wordSpacing: "1px",
-          alignItems: "center",
-          color: "var(--wht)",
-          padding: "0px 5vw",
-          letterSpacing: "0.5px",
-          textTransform: "uppercase",
-          background: "var(--background)",
-          height: "var(--sm-hd-height-half)",
-          justifyContent: "space-between",
-          borderTop: "1px solid var(--border-default)",
-        }}
-      >
-        {width > 850 && (
-          <ul className="listNavBig">
-            <li>
-              <NavLink
-                style={({ isActive }) => {
-                  return {
-                    color : isActive ? "var(--nav-active)" : "var(--nav-not-active)",
-                    display: "flex",
-                    opacity: isActive ? "1" : "0.6",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  };
-                }}
-                to={`/`}
-                key={"home"}
-              >
-                Home
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                style={({ isActive }) => {
-                  return {
-                    color : isActive ? "var(--nav-active)" : "var(--nav-not-active)",
-                    display: "flex",
-                    opacity: isActive ? "1" : "0.6",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  };
-                }}
-                to={`/participate`}
-                key={"participate"}
-              >
-                Vote
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                style={({ isActive }) => {
-                  return {
-                    color : isActive ? "var(--nav-active)" : "var(--nav-not-active)",
-                    display: "flex",
-                    opacity: isActive ? "1" : "0.6",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  };
-                }}
-                to={`/faq`}
-                key={"faq"}
-              >
-                FAQ
-              </NavLink>
-            </li>
-
-            <li className="disconnect" style={{color: 'red', }} onClick={LogOut}>{walletAddress ? "Disconnect" : null}</li>
-          </ul>
-        )}
-        {width > 850 ? (
-          <div>
-            <CountdownTime />
-          </div>
-        ) : (
-          <div style={{ margin: "auto" }}>
-            <CountdownTime />
-          </div>
-        )}
-        
-      </div> */}
+      
     </header>
   );
 };
