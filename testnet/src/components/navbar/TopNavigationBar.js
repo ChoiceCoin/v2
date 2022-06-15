@@ -73,9 +73,9 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
 
   const algodClient = new algosdk.Algodv2(
     {
-      "X-API-Key": ""
+      "X-API-Key": "z6H94GE3sI8w100S7MyY92YMK5WIPAmD6YksRDsC"
     },
-    "https://mainnet-algorand.api.purestake.io/ps2",
+    "https://testnet-algorand.api.purestake.io/ps2",
     ""
   );
 
