@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 
-import { ASSET_ID, ELECTION_ID, URL, ADDRESS_1, ADDRESS_2 } from "../utils/constants";
+import { ASSET_ID } from "../utils/constants";
 
 
 const ElectionList = () => {
@@ -22,26 +22,15 @@ const ElectionList = () => {
 
   const [address1, setAddress1] = useState(0);
   const [address2, setAddress2] = useState(0);
-  // const [NotEligible, setNotEligible] = useState("");
   const isThereAddress = localStorage.getItem("address");
   const getElection = useSelector((state) => state.status.allElection);
   const getElectionNumber = useSelector((state) => state.status.eachElectionNumber)
   const each_election_data = [getElection[getElectionNumber]]
-  // const [balance, setBalance] = useState(0);
+
 
   
 
 
-  // useEffect(async() => {
-  //   const isThereAddress = localStorage.getItem("address");
-  //   const myAccountInfo = await algodClient.accountInformation(isThereAddress).do();
-  //   const bal =
-  //     myAccountInfo.assets.find((element) => element["asset-id"] === ASSET_ID)
-  //       ?.amount / 100;
-
-  //     setBalance(bal);  
-
-  // }, [])
 
    // eslint-disable-next-line
   const { isLoading, error, data } = useQuery("elections", () =>
@@ -55,67 +44,22 @@ const ElectionList = () => {
     })
   );
 
-  // useEffect(() => {
-  //   axios.get(`http://localhost:4000/results/${each_election_data[0].candidates[0].electionID}`).then((response) => {
-  //     if (response?.data?.data) {
-  //       console.log(response.data.data)
-  //       setAddress1(response?.data?.data[`${each_election_data[0].candidates[0].address}`]);
-  //       setAddress2(response?.data?.data[`${each_election_data[0].candidates[1].address}`]);
-  //     }
-  //   })
-  // })
+
 
   const darkTheme = useSelector((state) => state.status.darkTheme);
   const balance = useSelector((state) => state.status.balance);
   const addressNum = useSelector((state) => state.status.addressNum);
  
 
-  
-  // const algod_token = ""
-  // const algod_address = "https://api.algoexplorer.io";
-  // const headers = "";
+
 
   const algodClient = new algosdk.Algodv2( {
-    "X-API-Key": "z6H94GE3sI8w100S7MyY92YMK5WIPAmD6YksRDsC"
+    "X-API-Key": ""
   },
   "https://testnet-algorand.api.purestake.io/ps2",
   "");
   const walletType = localStorage.getItem("wallet-type");
  
-
- 
- 
-
-  // const election_data = [
-  //   {
-  //     candidates: [
-  //       {
-  //         address: "HYK7K5DSEQY5DUFF5EV3D4PXUY5AFLB5XQNU5QHJ4S33M4WMC3EIDCBF2Q",
-  //         image: "",
-  //         name: "Option 1: Choice Coin will continue with the tokenomic model voted on during Vote 0 and distribute the reserve over a 10-year plan.",
-  //       },
-
-  //       {
-  //         address: "ORBXKBTF54NJVK3BF7IHZOLHBCUPLEXWURYXRN777DDF6LOQSBQ6LB34WI",
-  //         image: "",
-  //         name: "Option 2:  Choice Coin will burn the entire reserve, which contains 675,000,000.00 $Choice.",
-  //       },
-  //     ],
-  //     card_desc:
-  //       "This Issue addresses Choice tokenomics, This Issue has two options.",
-  //     choice_per_vote: 1,
-  //     created_at: "2021-12-08T10:32:15.878473",
-  //     description: "Lorem ipsum",
-  //     is_finished: false,
-  //     is_started: true,
-  //     process_image: "https://i.postimg.cc/pXn0NRzL/logo.gif",
-  //     slug: "is-choice-coin-the-best-b0c7db",
-  //     title: "Choice Coin Governance",
-  //     wallet: {
-  //       address: "NX4T2FTIGNPVPSMEXJFMMKD46O4HRCPN25BDHOUW2SWXANZPQBZEDYKDVE",
-  //     },
-  //   },
-  // ];
 
 
   const getMaxVoteValue = () => {
@@ -239,18 +183,6 @@ const ElectionList = () => {
 
   const algoSignerConnect = async (voteData) => {
     try {
-      // if (typeof window.AlgoSigner === "undefined") {
-      //   window.open(
-      //     "https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm",
-      //     "_blank"
-      //   );
-      // } else {
-      //   await window.AlgoSigner.connect({
-      //     ledger: "MainNet",
-      //   });
-      //   const accounts = await window.AlgoSigner.accounts({
-      //     ledger: "MainNet",
-      //   });
 
         const address = !!isThereAddress && isThereAddress 
 
@@ -637,21 +569,6 @@ const ElectionList = () => {
 
                   <div className="vote_collap">
                     <div className="card_cand_hd">Options</div>
-                    {/* <ul className="vote_now_list">
-                      {slug?.candidates?.map((item, index) => {
-                        return (
-                          <li key={index}>
-                            <input
-                              type="radio"
-                              name="options"
-                              value={item.address}
-                            />
-
-                            <p>{item.name}</p>
-                          </li>
-                        );
-                      })}
-                    </ul> */}
 
                  <ul className="vote_now_list">
 
@@ -675,10 +592,6 @@ const ElectionList = () => {
                         <p>{each_election_data[0].option2}</p>
                       </li>
                     </ul>
-                    {/* <ul className="vote_now_list">
-
-              
-                      </ul> */}
 
 
                     <div className="rec_vote_cont">

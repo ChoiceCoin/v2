@@ -38,17 +38,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
       }, 500);
     }
 
- 
 
-  // const setMode = () => {
-  //   if (!darkTheme) {
-  //     localStorage.setItem("mode", "dark");
-  //     dispatch({ type: "dark_mode" });
-  //   } else {
-  //     localStorage.setItem("mode", "light");
-  //     dispatch({ type: "light_mode" });
-  //   }
-  // };
 
  
 
@@ -66,7 +56,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
 
   const algodClient = new algosdk.Algodv2(
     {
-      "X-API-Key": "AE6Ave7wNH8bKB1SiwutOakoTHreBlWZ9TMKElZs",
+      "X-API-Key": "",
     },
     "https://testnet-algorand.api.purestake.io/ps2",
     ""
