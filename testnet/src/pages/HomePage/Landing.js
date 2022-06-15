@@ -28,25 +28,6 @@ const Landing = () => {
             Decentralized Decisions is an open source software platform for decentralized voting and governance. The goal for Choice Coin is to help solve the decentralized governance problem by building the world’s best voting technology. Choice Coin is built, developed, and maintained by the Choice Coin DAO, a decentralized autonomous organization on the blockchain.
           </p>
         </div>
-        <div className="land_item1">
-            <h3 style={{fontWeight: 'bold'}}>Rules</h3>
-          <ul
-            className="suby"
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <p>1. One Choice is equal to one vote.</p>
-            <p>2. You can vote as many times as you desire.</p>
-            <p>3. There are no limits on how much Choice you can use to vote.</p>
-            <p>4. Voters must opt-in to Choice to participate.</p>
-            {/* <p>5.  Any Choice sent after the voting deadline, Wednesday June 1st at 4:00PM EST, will not count, will not be rewarded, and will not be returned.</p> */}
-            <p>6. All votes are final.</p>
-          </ul>
-        </div>
-        <div className="land_item1">
-          <h3 style={{fontWeight: 'bold'}}>Rewards</h3>
-          <p className="suby">
-          </p>
-        </div>
       </div>
     </div>
   )
