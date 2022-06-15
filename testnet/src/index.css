@@ -870,4 +870,10 @@ iframe {
 }
 
 
+@media screen and (max-width : 999px) {
+  .ptt_elt {
+    margin-left: 120px !important;
+  }
+}
+
 

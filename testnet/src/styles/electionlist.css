@@ -9,7 +9,7 @@
   color: var(--txt-alt);
   padding: 15vh 5vw 0vh;
   flex-direction: column;
-
+  margin-left: 120px;
   font-weight: 400;
 
   align-items: center;
@@ -479,3 +479,10 @@
   transform: scale(1);
 }
 
+
+
+@media screen and (max-width: 999px) {
+  .ptt_elt {
+     margin: 0px!important;
+  }
+}

@@ -48,9 +48,9 @@ const ElectionPage = ({darkTheme}) => {
          ) : (
            <div className="election__cards">
              {
-               elections.map((election, i) => {
+               elections.map((election, index) => {
                  return(
-                   <ElectionCard election={election}/>
+                   <ElectionCard key={index} election={election} index={index}/>
                  )
                })
              }
