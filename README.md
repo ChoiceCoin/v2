@@ -6,7 +6,7 @@ This repository contains code for Choice Coin v2. The code is availible on an op
 
 # Overview
 
-The problem this paper seeks to address is how to create a streamlined and self-sustaining system for decentralized governance. The solution, Choice Coin v2, will build on Choice Coin’s Decentralized Decisions software to provide an integrated and continuously live web application for DAO governance. The web application will allow users to make a proposal or participate in DAO voting globally and at any time.
+The problem this software seeks to address is how to create a streamlined and self-sustaining system for decentralized governance. The solution, Choice Coin v2, will build on Choice Coin’s Decentralized Decisions software to provide an integrated and continuously live web application for DAO governance. The web application will allow users to make a proposal or participate in DAO voting globally and at any time.
 
 [Choice Coin v2 on TestNet](https://choicecoin-v2-testnet.netlify.app/voting)
 
