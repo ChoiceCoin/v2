@@ -9,6 +9,7 @@ import BottomNavigationBar from "./statics/BottomNavigationBar";
 import ElectionList from "./statics/ElectionList";
 import ElectionPage from "./components/election/election";
 import Propose from "./components/propose/propose";
+import ErrorBoundary from "./components/error-boundary/ErrorBoundary";
 
 
 const MainPage = () => {
@@ -41,17 +42,17 @@ const MainPage = () => {
       />
 
       <TopNavigationBar darkTheme={darkTheme} NavLink={NavLink} />
-
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/participate" element={<ElectionPage darkTheme={darkTheme} />} />
-        {/* <Route path="/home" element={<Home />} /> */}
-        <Route path="/voting" element={<VotingPage darkTheme={darkTheme} />} />
-        <Route path="/voting/participate" element={<ElectionList/>}  />
-        <Route path='/propose' element={<Propose />} />
-      </Routes>
-
+       <ErrorBoundary>
+        <Routes>
+          <Route exact path="/" element={<Landing />} />
+          <Route exact path="/faq" element={<Faq />} />
+          <Route exact path="/participate" element={<ElectionPage darkTheme={darkTheme} />} />
+          {/* <Route path="/home" element={<Home />} /> */}
+          <Route exact path="/voting" element={<VotingPage darkTheme={darkTheme} />} />
+          <Route exact path="/voting/participate" element={<ElectionList/>}  />
+          <Route exact path='/propose' element={<Propose />} />
+        </Routes>
+      </ErrorBoundary>
       {width <= 1000 && (
         <BottomNavigationBar NavLink={NavLink} darkTheme={darkTheme} />
       )}

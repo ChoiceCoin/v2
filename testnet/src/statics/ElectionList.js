@@ -54,7 +54,7 @@ const ElectionList = () => {
 
 
   const algodClient = new algosdk.Algodv2( {
-    "X-API-Key": ""
+    "X-API-Key": "AE6Ave7wNH8bKB1SiwutOakoTHreBlWZ9TMKElZs"
   },
   "https://testnet-algorand.api.purestake.io/ps2",
   "");
