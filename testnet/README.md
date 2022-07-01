@@ -25,3 +25,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 For the full text of the License terms, see the [License](https://github.com/ChoiceCoin/v2/blob/main/testnet/License.txt).
+
+# File Tree
+
+_Folders_
+- governance-rewards 
+- public
+- src
+
+_files_
+- .DS_Store
+- .gitignore
+- License.txt
+- README.md
+- package-lock.json
+- package.json
+
