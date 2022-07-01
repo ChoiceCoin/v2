@@ -33,7 +33,7 @@ _Folders_
 - public
 - src
 
-_files_
+_Files_
 - .DS_Store
 - .gitignore
 - License.txt
