@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import MainPage from "./MainPage";
+import MainPage from "./pages/RootPage/MainPage";
 import stores from "./store/stores";
-import AlertModal from "./statics/AlertModal";
-import WalletConfirmation from "./statics/WalletConfirmation";
+import AlertModal from "./components/modal/AlertModal";
+import WalletConfirmation from "./components/modal/WalletConfirmation";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
