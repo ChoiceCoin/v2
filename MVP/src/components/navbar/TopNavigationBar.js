@@ -1,5 +1,5 @@
 import algosdk from "algosdk";
-import { ASSET_ID } from "../../utils/constants";
+import { ASSET_ID } from "../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import MyAlgoConnect from "@randlabs/myalgo-connect";
@@ -62,7 +62,7 @@ const TopNavigationBar = ({ darkTheme, NavLink }) => {
     ""
   );
 
-  const walletAddress = localStorage.getItem("address");
+  // const walletAddress = localStorage.getItem("address");
   const addresses = localStorage.getItem("addresses")?.split(",");
 
   let addrArr = [];

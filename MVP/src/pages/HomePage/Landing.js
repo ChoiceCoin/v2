@@ -1,5 +1,5 @@
 import "../../styles/landing.css";
-import ScrollTextLand from "../../statics/ScrollTextLand";
+import ScrollTextLand from "../../components/modal/ScrollTextLand";
 import { useWindowWidth } from "@react-hook/window-size";
 
 const Landing = () => {

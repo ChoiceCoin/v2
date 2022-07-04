@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import Landing from "./pages/HomePage/Landing";
-import VotingPage from "./pages/VotePage/VotePage";
-import Faq from "./pages/FaqPage/Faq";
+import Landing from "../HomePage/Landing";
+import VotingPage from "../VotePage/VotePage";
+// import Faq from "./pages/FaqPage/Faq";
 import { useWindowSize } from "@react-hook/window-size";
 import { NavLink, Route, Routes } from "react-router-dom";
-import TopNavigationBar from "./components/navbar/TopNavigationBar";
-import BottomNavigationBar from "./statics/BottomNavigationBar";
-import ElectionList from "./statics/ElectionList";
-import ElectionPage from "./components/election/election";
-import Propose from "./components/propose/propose";
+import TopNavigationBar from "../../components/navbar/TopNavigationBar";
+import BottomNavigationBar from "../../components/navbar/BottomNavigationBar";
+import ElectionList from "../../components/election/participate/ElectionList";
+import ElectionPage from "../../components/election/election";
+import Propose from "../../components/propose/propose";
 
 
 
@@ -44,7 +44,7 @@ const MainPage = () => {
       <TopNavigationBar darkTheme={darkTheme} NavLink={NavLink} />
         <Routes>
           <Route exact path="/" element={<Landing />} />
-          <Route exact path="/faq" element={<Faq />} />
+          {/* <Route exact path="/faq" element={<Faq />} /> */}
           <Route exact path="/participate" element={<ElectionPage darkTheme={darkTheme} />} />
           {/* <Route path="/home" element={<Home />} /> */}
           <Route exact path="/voting" element={<VotingPage darkTheme={darkTheme} />} />

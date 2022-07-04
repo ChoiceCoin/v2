@@ -29,7 +29,7 @@ const ElectionPage = ({darkTheme}) => {
       console.log(response.data.data)
 
     })
-  }, [])
+  }, [dispatch])
 
     return(
       <div className="election">

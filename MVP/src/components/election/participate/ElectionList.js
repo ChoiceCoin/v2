@@ -4,8 +4,8 @@
 import $ from "jquery";
 import axios from "axios";
 import algosdk from "algosdk";
-import { useEffect, useState} from "react";
-import "../styles/electionlist.css";
+import { useState} from "react";
+import "../../../styles/electionlist.css";
 import { useQuery } from "react-query";
 import BarLoader from "react-spinners/BarLoader";
 import WalletConnect from "@walletconnect/client"; 
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 
-import { ASSET_ID } from "../utils/constants";
+import { ASSET_ID } from "../../constants";
 
 
 const ElectionList = () => {
@@ -29,7 +29,6 @@ const ElectionList = () => {
 
 
   
-
 
 
    // eslint-disable-next-line
