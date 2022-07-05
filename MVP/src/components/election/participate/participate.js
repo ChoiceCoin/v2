@@ -5,6 +5,10 @@ import { useDispatch} from "react-redux";
 
 const ElectionCard = ({election, index})=> {
   const dispatch = useDispatch();
+
+  const isThereAddress = localStorage.getItem("address");
+
+
    
   console.log(election)
     return (
@@ -13,17 +17,35 @@ const ElectionCard = ({election, index})=> {
          <p>
            {election.issue}
          </p>
+
+       {
+         isThereAddress ? 
          <Link to='/voting/participate'>
          <button
-          onClick={()=> {
-            dispatch({
-             type : "getEachElectionNumber",
-             electionIndex : index
-            })
-          }
+         onClick={()=> {
+           dispatch({
+            type : "getEachElectionNumber",
+            electionIndex : index
+           })
+         }
 
-         }> VOTE</button>
-         </Link>
+        }> VOTE</button>
+        </Link> :
+        <Link to='/voting/participate'>
+        <button
+        onClick={()=> {
+          dispatch({
+           type : "getEachElectionNumber",
+           electionIndex : index
+          })
+        }
+
+       }> VOTE</button>
+       </Link>
+       }  
+  
+
+    
          
       </div>
     );
