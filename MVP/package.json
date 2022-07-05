@@ -5,6 +5,7 @@
   "dependencies": {
     "@json-rpc-tools/utils": "^1.7.6",
     "@loadable/component": "^5.15.0",
+    "@perawallet/connect": "^0.1.4",
     "@randlabs/myalgo-connect": "^1.1.2",
     "@react-hook/window-size": "^3.0.7",
     "@testing-library/jest-dom": "^5.11.4",
