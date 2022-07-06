@@ -13,13 +13,10 @@ import WalletConnect from "@walletconnect/client";
 
 //JSX Component Propose
 const Propose = () => {
-
  // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
-
 // Getting address from local storage
   const isThereAddress = localStorage.getItem("address");
-
   // Starting AlgoClient Instance
   const algod_token = {
     "X-API-Key": ""
@@ -28,13 +25,11 @@ const Propose = () => {
   const headers = "";
   const ASSET_ID = 21364625;
   const algodClient = new algosdk.Algodv2(algod_token, algod_address, headers);
-
   const walletType = localStorage.getItem("wallet-type");
-
+ 
   // Choice Coin Rewards Adrress
   const rewardsAddress = ''
-
-
+  
   //candidates
   const candidates = [{
     first : "firstcandidate"
@@ -66,9 +61,7 @@ const Propose = () => {
       assetIndex: ASSET_ID,
       suggestedParams,
     });
-
     txns.push(txn)
-
     algosdk.assignGroupID(txns);
     let continueExecution = true;
 
@@ -78,10 +71,7 @@ const Propose = () => {
         bridge: "https://bridge.walletconnect.org",
         qrcodeModal: QRCodeModal,
       });
-
       if (walletType === "algosigner") {
-        
-
         const signedTxns = await window.AlgoSigner.signTxn(
           txns.map((txn) => ({
             txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()),
@@ -116,27 +106,20 @@ const Propose = () => {
           message: "Transaction using Mobile Wallet",
         })
       })
-
-
       const requestParams = [Txns];
-
       const request = formatJsonRpcRequest("algo_signTxn", requestParams);
       const result = await connector.sendCustomRequest(request);
    // eslint-disable-next-line
       const decodedResult = result.map((element) => {
         return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
       });
-
       }
     } catch (error) {
       console.log(error);
       continueExecution = false;
     }
-
     return continueExecution;
-
   }
-
     const createCandidates = () => {
     const candidateCred=[]
     // eslint-disable-next-line
@@ -147,14 +130,10 @@ const Propose = () => {
           address,
         });
       }
-
      return candidateCred
-
     }
-
     // Proposal checks
     const createProposal = () => {
-
       if(!isThereAddress) {
         dispatch({
           type: "alert_modal",
@@ -168,7 +147,6 @@ const Propose = () => {
       });
       return;
     }
-      
      else if(!(document.getElementById('rewards').value)) {
         dispatch({
           type: "alert_modal",
@@ -195,7 +173,6 @@ const Propose = () => {
         return;
       }
       const candidatesForElection = createCandidates()
-
       craftTransactions(candidatesForElection).then((continueExecution) => {
           if (continueExecution) {
             const headers = {
@@ -286,9 +263,7 @@ const Propose = () => {
               What option 2 should be
             </p>
           </div>
-
             <br />
-
           <div className="crt_butt">
             <button onClick={createProposal}>Create Proposal</button>
             <p className="safety">
