@@ -1,6 +1,6 @@
 # Governance Rewards
 
-[Demo](https://m.youtube.com/watch?v=ZlP_9qurjMM&feature=youtu.be)
+[YouTube Demo](https://m.youtube.com/watch?v=ZlP_9qurjMM&feature=youtu.be)
 
 # Run on Local Eenviornment
 
