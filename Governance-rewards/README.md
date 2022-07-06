@@ -45,4 +45,4 @@ Alternativelly to use the Frontend Interface and Access the API endpoint for dis
 
 # License
 
-* [APACHE](https://github.com/ChoiceCoin/Decentralized-Decisions/blob/main/governance-rewards/LICENSE)
+* [Apache](https://github.com/ChoiceCoin/Decentralized-Decisions/blob/main/governance-rewards/LICENSE)
