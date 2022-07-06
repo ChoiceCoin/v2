@@ -24,10 +24,8 @@ const ElectionCard = ({election, index})=> {
              electionIndex : index
             })
           }
-
          }> VOTE</button>
-         </Link>
-         
+         </Link>    
       </div>
     );
 }
