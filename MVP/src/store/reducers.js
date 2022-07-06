@@ -1,5 +1,10 @@
+// Copyright Fortior Blockchain 2022
+// 17 U.S.C §§ 101-1511
+
+// import relevant dependencies
 import { combineReducers } from "redux";
 
+// initial state
 const status = (
   state = {
     alertModal: { openModal: false, modalContent: "" },
@@ -14,6 +19,7 @@ const status = (
   },
   action
 ) => {
+  //action before dispatching!
   switch (action.type) {
     
     case "getBalance" : 
