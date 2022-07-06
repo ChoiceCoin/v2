@@ -41,7 +41,6 @@ const MainPage = () => {
           background: `url("./background.svg")`,
         }}
       />
-
       <TopNavigationBar  NavLink={NavLink} />
         <Routes>
           <Route exact path="/" element={<Landing />} />
