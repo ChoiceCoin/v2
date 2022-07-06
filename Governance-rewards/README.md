@@ -29,9 +29,6 @@ OPTION_ONE="OPTION ONE WALLET ADDRESS"
  $ node rewards.js
 ```
 
-## LICENSE
-* [APACHE](https://github.com/ChoiceCoin/Decentralized-Decisions/blob/main/governance-rewards/LICENSE)
-
 # API Endpoint
 
 Alternativelly to use the Frontend Interface and Access the API endpoint for distributing rewards. Run.
@@ -44,3 +41,8 @@ Alternativelly to use the Frontend Interface and Access the API endpoint for dis
 - Interface launches on your http://localhost:3000
 - API Endpoint For Refund and Rewards Distribution  http://localhost:3000/send-rewards
 - [API Documentation](https://documenter.getpostman.com/view/9070802/UzJJtH7n)
+
+
+# License
+
+* [APACHE](https://github.com/ChoiceCoin/Decentralized-Decisions/blob/main/governance-rewards/LICENSE)
