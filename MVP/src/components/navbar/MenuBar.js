@@ -23,13 +23,10 @@ const DeskMenuBar = () => {
                     <span><i class="uil uil-arrow-up-right"></i></span> 
                   </a>
                 </li>
-    
             </ul>
         </div>
-
     </div>
     )
 }
-
 export default DeskMenuBar
 
