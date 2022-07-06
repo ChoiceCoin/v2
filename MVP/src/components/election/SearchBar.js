@@ -11,9 +11,7 @@ const SearchBar = ({searchChange}) => {
          <i className="uil uil-search"></i>
        <input onChange={searchChange} type="text" placeholder="Search for voting process"/>
      </div>
-
    )
-  
 }
 
 export default SearchBar;
