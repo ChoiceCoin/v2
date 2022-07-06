@@ -3,7 +3,6 @@
 
 // JSX Component BottomNavigationBar
 const BottomNavigationBar = ({ NavLink}) => {
-
 // Logout 
   const LogOut = () => {
     localStorage.removeItem("address");
@@ -12,8 +11,6 @@ const BottomNavigationBar = ({ NavLink}) => {
     localStorage.removeItem("walletconnect");
     window.location.reload();
   };
-
-  
 // Building block
   return (
     <footer className="ft_sm">
@@ -36,7 +33,6 @@ const BottomNavigationBar = ({ NavLink}) => {
             <i className="uil uil-estate"></i>
           </NavLink>
         </li>
-
         <li className="ft_sm_li">
           <NavLink
             style={({ isActive }) => {
@@ -82,8 +78,6 @@ const BottomNavigationBar = ({ NavLink}) => {
             <i className="uil uil-check"></i>
           </NavLink>
         </li>
-
-
         <li className="ft_sm_li">
           <div
             style={{
@@ -103,5 +97,4 @@ const BottomNavigationBar = ({ NavLink}) => {
     </footer>
   );
 };
-
 export default BottomNavigationBar;
