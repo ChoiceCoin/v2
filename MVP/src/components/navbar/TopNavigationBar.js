@@ -48,6 +48,7 @@ const TopNavigationBar = ({ NavLink }) => {
     }
 
  // Choice Asset ID
+ // Switch to MainNet ID: 297995609
  const ASSET_ID =  21364625;
 
  // Getting window || desktop width
