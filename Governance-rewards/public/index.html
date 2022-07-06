@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Choice Coin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Proportional Reward Allocation for Votes</h2>
+  <form id="details">
+    <div class="form-group">
+      <label for="email">Option one address:</label>
+      <input id="option_one" type="text" class="form-control"  placeholder="Enter Option one Address" name="option_one" required>
+    </div>
+    <div class="form-group">
+      <label for="pwd">Option two address:</label>
+      <input id="option_two" type="text" class="form-control"  placeholder="Enter Option one Address" name="option_two" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Voting Asset ID:</label>
+        <input id="v_asset_id" type="text" class="form-control"  placeholder="voting asset id" name="asset_id" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Rewards Asset ID:</label>
+        <input id="r_asset_id" type="text" class="form-control"  placeholder="reward asset id" name="asset_id" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Rewards Amount:</label>
+        <input id="r_amount" type="number" class="form-control"  placeholder="reward amount" name="asset_id" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd" name="phrase">Wallet Mmemonic to refund vote assets and Distribute Proportional Rewards:</label>
+     <textarea id="mmemonic" class="form-control" required>
+  
+     </textarea>
+    </div>
+    <button type="submit" id="btn-text" class="btn btn-default">Lets Go</button>
+  </form>
+</div>
+
+
+<div class="container">
+    <h2>Voters</h2>
+    <p>All Voters</p>            
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Voter Address</th>
+          <th>Amount Committed</th>
+        </tr>
+      </thead>
+      <tbody id="voters">
+        
+       
+        </tbody>
+    </table>
+  </div>
+
+
+  <div class="container">
+    <h2>Transactions</h2>
+    <p>All Refund and Rewards Transactions</p>            
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Transaction Id</th>
+        </tr>
+      </thead>
+      <tbody id="transactions">
+        
+       
+        </tbody>
+    </table>
+  </div>
+
+
+  <script>
+    var form=document.getElementById('details')
+    const btn = document.getElementById('btn-text');
+    
+    form.addEventListener('submit', function(e){
+     e.preventDefault()
+     btn.value="loading";
+    
+     
+
+    
+     var option_one=document.getElementById('option_one').value
+     var option_two=document.getElementById('option_two').value
+     var v_asset_id=document.getElementById('v_asset_id').value
+     var r_asset_id=document.getElementById('r_asset_id').value
+     var r_amount=document.getElementById('r_amount').value
+     var mmemonic=document.getElementById('mmemonic').value
+    
+    
+     fetch('./send-rewards', {
+      method: 'POST',
+      body: JSON.stringify({
+        option_one: option_one,
+        option_two:option_two,
+        v_asset_id:v_asset_id,
+        r_asset_id:r_asset_id,
+        r_amount:r_amount,
+        mmemonic:mmemonic,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      }
+      })
+      .then(
+        function(response){ 
+      return response.json()})
+      .then(function(data)
+      {console.log(data)
+        let tbvotes="";
+        let tbtrans="";
+
+   
+        for(let i=0; i<data.votes.length; i++){
+          tbvotes += "<tr>";
+          tbvotes += "<td>" + data.votes[i].sender + "</td>";
+          tbvotes += "<td>" + data.votes[i].amount + "</td>";
+          tbvotes += "</tr>";
+
+        }
+
+        for(let i=0; i<data.signatures.length; i++){
+          tbtrans += "<tr>";
+          tbtrans += "<td>" + data.signatures[i].index + "</td>";
+          tbtrans += "<td>" + data.signatures[i].tx + "</td>";
+          tbtrans += "</tr>";
+
+        }
+      voters=document.getElementById("voters")
+      transactions=document.getElementById("transactions")
+      // title.innerHTML = data.title
+      voters.innerHTML += tbvotes 
+      transactions.innerHTML += tbtrans
+    }).catch(error => console.error('Error:', error)); 
+    });
+    </script>
+
+</body>
+</html>
