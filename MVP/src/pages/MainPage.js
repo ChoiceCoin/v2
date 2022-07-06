@@ -38,7 +38,7 @@ const MainPage = () => {
           opacity: 0.078,
           position: "fixed",
           pointerEvents: "none",
-          background: `url("./img/background.svg")`,
+          background: `url("./background.svg")`,
         }}
       />
 
