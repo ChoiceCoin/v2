@@ -17,7 +17,6 @@ const renderLoader = () => <p></p>;
 // JSX Component APP
 const App = () => {
   const queryClient = new QueryClient();
-
   // HTML Building block -- JSX
   return (
     <Suspense fallback={renderLoader()}>

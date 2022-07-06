@@ -13,7 +13,6 @@ const ElectionPage = () => {
   const dispatch = useDispatch();
   const [elections, setElections] = useState([]);
   const [searchField, setSearchField] = useState('');
-
   const onSearchChange = (event) => {
     setSearchField(event.target.value);
   }
@@ -30,7 +29,6 @@ const ElectionPage = () => {
           allElection : response.data.data
        })
       console.log(response.data.data)
-
     })
   }, [dispatch])
 
@@ -38,7 +36,6 @@ const ElectionPage = () => {
       <div className="election">
          <div className="election__content">
           <SearchBar searchChange={onSearchChange} />
-
           {
          !elections.length ? (
           <div

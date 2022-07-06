@@ -47,13 +47,11 @@ const ElectionList = () => {
 
 
   // Getting election data result from database
-
    // eslint-disable-next-line
   const { isLoading, error, data } = useQuery("elections", () =>
     axios.get(`https://v2-testnet.herokuapp.com/results/${each_election_data[0].candidates[0].electionID}`).then((response) => {
       console.log(response.data.data)
-      if (response?.data?.data) {
-       
+      if (response?.data?.data) { 
         setAddress1(response?.data?.data[each_election_data[0].candidates[0].address]);
         setAddress2(response?.data?.data[each_election_data[0].candidates[1].address]);
       }
@@ -75,25 +73,20 @@ const ElectionList = () => {
   }
 
   // My algo wallet vote transaction function
+  /////////////////////////////////////////////
   const myAlgoSign = async (voteData) => {
     const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
-
     try {
       // const accounts = await myAlgoWallet.connect({
       //   shouldSelectOneAccount: true,
       // });
       const address = !!isThereAddress && isThereAddress 
-
       const myAccountInfo = await algodClient
         .accountInformation(
           !!isThereAddress && isThereAddress 
         )
         .do();
-
         console.log(myAccountInfo.assets["asset-id"]);
-        
-      
-
       // check if the voter address has Choice
       const containsChoice = myAccountInfo.assets
         ? myAccountInfo.assets.some(
@@ -119,14 +112,12 @@ const ElectionList = () => {
         });
         return;
       }
-
       // get balance of the voter
       const balance = myAccountInfo.assets
         ? myAccountInfo.assets.find(
             (element) => element["asset-id"] === ASSET_ID
           ).amount / 100
         : 0;
-
       if (voteData.amount > balance) {
         dispatch({
           type: "alert_modal",
@@ -143,7 +134,6 @@ const ElectionList = () => {
 
       const suggestedParams = await algodClient.getTransactionParams().do();
       const amountToSend = voteData.amount * 100;
-  
       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
         from: address,
         to: voteData.address,
@@ -151,13 +141,11 @@ const ElectionList = () => {
         assetIndex: ASSET_ID,
         suggestedParams,
       });
-
       const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());
       await algodClient.sendRawTransaction(signedTxn.blob).do();
       dispatch({
         type: "close_wallet"
       })
-
       // alert success
       dispatch({
         type: "alert_modal",
@@ -180,7 +168,6 @@ const ElectionList = () => {
         dispatch({
           type: "close_wallet"
         })
-
         dispatch({
           type: "alert_modal",
           alertContent: "An error occured the during transaction process",
@@ -190,19 +177,15 @@ const ElectionList = () => {
   };
 
   // Algosigner wallet vote transaction function
+  /////////////////////////////////////////////////
   const algoSignerConnect = async (voteData) => {
     try {
-
         const address = !!isThereAddress && isThereAddress 
-
         const myAccountInfo = await algodClient
           .accountInformation(
             !!isThereAddress && isThereAddress
           )
-          .do();
-
-        
-
+          .do();  
         // check if the voter address has Choice 
         const containsChoice = myAccountInfo.assets
           ? myAccountInfo.assets.some(
@@ -219,7 +202,6 @@ const ElectionList = () => {
           });
           return;
         }
-
         if (!containsChoice) {
           dispatch({
             type: "alert_modal",
@@ -250,8 +232,6 @@ const ElectionList = () => {
 
         const suggestedParams = await algodClient.getTransactionParams().do();
         const amountToSend = voteData.amount * 100;
-    
-
         const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: address,
           to: voteData.address,
@@ -272,8 +252,6 @@ const ElectionList = () => {
           dispatch({
             type: "close_wallet"
           })
-
-
         // alert success
         dispatch({
           type: "alert_modal",
@@ -306,6 +284,7 @@ const ElectionList = () => {
   };
 
   // Pera wallet vote transaction function
+  ////////////////////////////////////////////
   const algoMobileConnect = async (voteData) => {
     const connector = new WalletConnect({
       bridge: "https://bridge.walletconnect.org",
@@ -323,36 +302,29 @@ const ElectionList = () => {
             (element) => element["asset-id"] === ASSET_ID
           )
         : false;
-
       if (myAccountInfo.assets.length === 0) {
         alert("You need to opt-in to Choice Coin in your Algorand Wallet.");
         return;
       }
-
       if (!containsChoice) {
         alert("You need to opt-in to Choice Coin in your Algorand Wallet.");
         return;
       }
-
       const balance = myAccountInfo.assets
       ? myAccountInfo.assets.find(
           (element) => element["asset-id"] === ASSET_ID
         ).amount / 100
       : 0;
-
       if (voteData.amount > balance) {
         alert("You do not have sufficient balance to make this transaction.");
         return;
       }
-
        dispatch({
         type: "confirm_wallet",
         alertContent : "Go to Pera Wallet & Confirm your Vote"
       })
-
       const suggestedParams = await algodClient.getTransactionParams().do();
-      const amountToSend = voteData.amount * 100;
-     
+      const amountToSend = voteData.amount * 100;   
       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
         from: address,
         to: voteData.address,
@@ -360,7 +332,6 @@ const ElectionList = () => {
         assetIndex: ASSET_ID,
         suggestedParams,
       });
-
       const txnsToSign = [
         {
           txn: Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString(
@@ -369,19 +340,12 @@ const ElectionList = () => {
           message: "Transaction using Mobile Wallet",
         },
       ];
-
       const requestParams = [txnsToSign];
-
       const request = formatJsonRpcRequest("algo_signTxn", requestParams);
       const result = await connector.sendCustomRequest(request);
-
       const decodedResult = result.map((element) => {
         return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
       });
-
-     
- 
-
       await algodClient.sendRawTransaction(decodedResult).do();
       dispatch({
         type: "close_wallet"
@@ -390,17 +354,12 @@ const ElectionList = () => {
         type: "alert_modal",
         alertContent: "Your vote has been recorded.",
       });
-      // setTimeout(() => window.location.reload(), 1500);
-
-      
-   
-     
+      // setTimeout(() => window.location.reload(), 1500);    
     } catch (error) {
       if (error.message === "Can not open popup window - blocked") {
         dispatch({
           type: "close_wallet"
         })
-
         dispatch({
           type: "alert_modal",
           alertContent:
@@ -419,7 +378,8 @@ const ElectionList = () => {
     }
   };
 
-// Place vote function
+  // Place vote function
+  //////////////////////////
   const placeVote = (address, amount, election) => {
     if(!isThereAddress) {
       dispatch({
@@ -428,7 +388,6 @@ const ElectionList = () => {
       });
       return;
     }
-
     if (!address) {
       dispatch({
         type: "alert_modal",
@@ -436,18 +395,14 @@ const ElectionList = () => {
       });
       return;
     } 
-     
-    
     if (walletType === "my-algo") {
       myAlgoSign({ address, amount, election });
     } else if (walletType === "algosigner") {
       algoSignerConnect({ address, amount, election });
     } else if (walletType === "walletconnect") {
       algoMobileConnect({ address, amount, election });
-    }
-   
+    }  
   };
-
   // If data is yet to be gotten from the data -- set a loading spinner
   if (isLoading)
     return (
@@ -484,7 +439,6 @@ const ElectionList = () => {
       </div>
     );
   if (error) return "An error has occurred: " + error.message;
-
   // else the data building block
   return (
     <div className="ptt_elt">
@@ -511,16 +465,12 @@ const ElectionList = () => {
                     <div className="card_elt_tit">{slug.name}</div>
                   </div>
                 </div>
-
                 <div className="card_elt_desc">{slug?.issue}</div>
-
                 {/* <div className="voting_ends">
                   Voting ends: June 15th 2022, 4:00PM EST
                 </div> */}
-
                 <div className="results">
                   <div className="resultsTit">Results</div>
-
                   <div className="results_cont">
                     <div className="optionButt">
                       <div className="optionButtDets">
@@ -556,7 +506,6 @@ const ElectionList = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="card_cand">
                   <div className="card_cand_hd">
                     <div className="amountToCommit">
@@ -576,37 +525,28 @@ const ElectionList = () => {
                         </p>
                             ) : null
                       }
-                      
                     </div>
                   </div>
-
                   <div className="vote_collap">
                     <div className="card_cand_hd">Options</div>
-
                  <ul className="vote_now_list">
-
                           <li>
                             <input
                               type="radio"
                               name="options"
                               value={each_election_data[0].candidates[0].address}
                             />
-
                             <p>{each_election_data[0].option1}</p>
                           </li>
-
                      <li>
                         <input
                           type="radio"
                           name="options"
                           value={each_election_data[0].candidates[1].address}
                         />
-
                         <p>{each_election_data[0].option2}</p>
                       </li>
                     </ul>
-
-
                     <div className="rec_vote_cont">
                       <button
                         className="record_vote button"
@@ -614,16 +554,13 @@ const ElectionList = () => {
                           var voteVal = $(e.target)
                             .closest(".card_cand")
                             .find(".vote_now_list");
-
                           var amountToSend = $(e.target)
                             .closest(".card_cand")
                             .find(".amtToCommitInp")
                             .val();
-
                           var amt = !!amountToSend
                             ? amountToSend
                             : 1;
-
                           placeVote(
                             $("input[name=options]:checked", voteVal).val(),
                             amt,

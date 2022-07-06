@@ -27,7 +27,6 @@ const VotingAndProposalLinkPage = () => {
                <Link to='/propose'>
                 <button> Propose</button>
                </Link>
-              
              </div>
          </div>
        </div>

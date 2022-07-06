@@ -23,7 +23,6 @@ const Landing = () => {
           "Choice Coin V2 TestNet -- This is still under development, Choice Coin V2 TestNet! This is still under development!"
         }
       />
-
       <div className="land_cov">
         <div className="land_item1">
           <p className="hdy">
