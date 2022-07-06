@@ -1,22 +1,28 @@
-# Running Production Minified V2
+# Running Simplified V2 Application
 
 - git clone the repository
 
 ```
 $ git clone https://github.com/ChoiceCoin/v2.git
 ```
-- install live server [or start the index.html scripts via VsCode live server plugin]
+
+- go into the MVP directory
 
 ```
-npm install -g serve
+$ cd MVP
+```
+- install dependencies
+
+```
+$ npm install 
 
 ```
 
-- start v2 applicatiion
+- start v2 applicatiion in development
 
 ```
-serve -s build
+$ npm run dev
 ```
 
-- check on localhost:3000
+
 
