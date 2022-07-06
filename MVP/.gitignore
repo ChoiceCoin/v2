@@ -1,7 +1,5 @@
 ./node_modules
 /node_modules
-./src/components
-/src/components
 /src/pages
 /src/statics
 /src/store
