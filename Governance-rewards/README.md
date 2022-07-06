@@ -41,8 +41,6 @@ Alternativelly to use the Frontend Interface and Access the Api Endpoint for dis
 ```
 
 Interface launches on your http://localhost:3000
-Api Endpoint For Refund and Rewards Distribution  http://localhost:3000/send-rewards
+API Endpoint For Refund and Rewards Distribution  http://localhost:3000/send-rewards
 
-Api Documentation
-
-https://documenter.getpostman.com/view/9070802/UzJJtH7n
+[API Documentation](https://documenter.getpostman.com/view/9070802/UzJJtH7n)
