@@ -1,10 +1,13 @@
+// Copyright Fortior Blockchain 2022
+// 17 U.S.C §§ 101-1511
+
+// import use selector and useDispatch ....
 import { useSelector, useDispatch } from "react-redux";
 
+// define function AlertModal to....
 const AlertModal = () => {
   const darkTheme = useSelector((state) => state.status.darkTheme);
-
   const dispatch = useDispatch();
-
   const { openModal, modalContent } = useSelector(
     (state) => state.status.alertModal
   );
