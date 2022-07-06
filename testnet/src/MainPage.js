@@ -10,14 +10,9 @@ import ElectionList from "./statics/ElectionList";
 import ElectionPage from "./components/election/election";
 import Propose from "./components/propose/propose";
 
-
-
 const MainPage = () => {
- 
   const [width] = useWindowSize();
   const darkTheme = useSelector((state) => state.status.darkTheme);
-
-
   return (
     <main
       className={`${
