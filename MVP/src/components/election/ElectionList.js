@@ -23,7 +23,7 @@ const ElectionList = () => {
   // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
 
-  // Getting election state from redux store
+  // Getting election state data from redux store
   const balance = useSelector((state) => state.status.balance);
   const addressNum = useSelector((state) => state.status.addressNum);
   const getElection = useSelector((state) => state.status.allElection);
@@ -74,7 +74,7 @@ const ElectionList = () => {
     console.log(each_election_data);
   }
 
-  // My algo wallet transaction function
+  // My algo wallet vote transaction function
   const myAlgoSign = async (voteData) => {
     const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
 
@@ -189,7 +189,7 @@ const ElectionList = () => {
     }
   };
 
-  // Algosigner wallet transaction function
+  // Algosigner wallet vote transaction function
   const algoSignerConnect = async (voteData) => {
     try {
 
@@ -305,7 +305,7 @@ const ElectionList = () => {
     }
   };
 
-  // Pera wallet transaction function
+  // Pera wallet vote transaction function
   const algoMobileConnect = async (voteData) => {
     const connector = new WalletConnect({
       bridge: "https://bridge.walletconnect.org",
