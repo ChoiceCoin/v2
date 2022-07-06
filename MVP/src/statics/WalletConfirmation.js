@@ -39,8 +39,7 @@ const WalletConfirmation = () => {
           textTransform: "uppercase",
         }}
         className="confirmation"
-      >
-        
+      >  
         <div
             style={{
               width: "20px",
@@ -64,7 +63,6 @@ const WalletConfirmation = () => {
           >
             <i className="uil uil-times"></i>
           </div>
-
         <p style={{
           padding : "5px", 
           fontSize : "12px",
@@ -82,7 +80,6 @@ const WalletConfirmation = () => {
           width={250}
           speedMultiplier="0.4"
         />
-      
       </div>
     )
 }
