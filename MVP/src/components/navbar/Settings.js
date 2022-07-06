@@ -4,11 +4,8 @@
 //Importing Relevant files and dependencies
 import React from "react";
 import disconnect from '../../assets/disconnect-logo.png';
-
-
 //JSX Component Settings
 const Settings = () => {
-
 // Logout 
   const LogOut = () => {
     localStorage.removeItem("address");
@@ -18,7 +15,6 @@ const Settings = () => {
     window.location.reload();
     console.log("data");
   };
-
   //Building Block
     return(
         <div className="settings__item" > 
@@ -41,9 +37,7 @@ const Settings = () => {
               </div>
           </div>
         </div>
-
     );
 }
-
 export default Settings;
 
