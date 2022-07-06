@@ -32,8 +32,9 @@ OPTION_ONE="OPTION ONE WALLET ADDRESS"
 ## LICENSE
 * [APACHE](https://github.com/ChoiceCoin/Decentralized-Decisions/blob/main/governance-rewards/LICENSE)
 
+# API Endpoint
 
-Alternativelly to use the Frontend Interface and Access the Api Endpoint for distributing rewards, You can run.
+Alternativelly to use the Frontend Interface and Access the API endpoint for distributing rewards. Run.
 
 ```
  $ npm start
