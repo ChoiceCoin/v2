@@ -19,19 +19,14 @@ import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import Settings from "./Settings";
 import DeskMenuBar from "./MenuBar";
 
-
 const TopNavigationBar = ({ NavLink }) => {
-
-// Starting React-dispatch to dispatch action in state in the component
+  // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
-
   // Getting election state data from redux store
   const addressNum = useSelector((state) => state.status.addressNum);
-
   // Checking if wallet is connected from local storage
   const isWalletConnected =
     localStorage.getItem("wallet-type") === null ? false : true;
-
   // Setting initial state
   const [copyToClipBoard , setCopyToClipBoard] = useState(null)
   const [menuBar, setMenuBar] = useState(false);
@@ -43,7 +38,6 @@ const TopNavigationBar = ({ NavLink }) => {
       setCopyToClipBoard(true)
       setTimeout(() => {
         setCopyToClipBoard(false)
-  
       }, 500);
     }
 
@@ -58,12 +52,10 @@ const TopNavigationBar = ({ NavLink }) => {
  const onSettingsToggle = () => {
     setToggleSettingsHidden(!toggleSettings)
   };
-
   // Menu Bar toggle
   const onMenuBarsToggle = () => {
     setMenuBar(!menuBar)
   }
-
   // setting algodClient instances
   const algodClient = new algosdk.Algodv2(
     {
@@ -72,14 +64,13 @@ const TopNavigationBar = ({ NavLink }) => {
     "https://testnet-algorand.api.purestake.io/ps2", // change this for mainnet launch
     ""
   );
-
   // getting wallet addresses from local storage
   const addresses = localStorage.getItem("addresses")?.split(",");
 
-// setting initial address
+// Setting initial address.
   let addrArr = [];
   
-// Only when component mount once
+// Only when component mount once.
   useEffect(() => {
     // getting balance
     addresses?.forEach(async (item) => {
@@ -87,21 +78,12 @@ const TopNavigationBar = ({ NavLink }) => {
       const bal =
         myAccountInfo.assets.find((element) => element["asset-id"] === ASSET_ID)
           ?.amount / 100;
-        
-        
-     addrArr.push({ balance: !!bal ? bal : 0, address: item });
-
-
-    
+    addrArr.push({ balance: !!bal ? bal : 0, address: item });
         dispatch({
           type: "getBalance",
           balance : addrArr
         })
-
         console.log(addrArr, "addrArr")
-      
-
-
       if (addrArr?.length === addresses?.length) {
         dispatch({
           type: "setAlgoAddress",
@@ -111,39 +93,32 @@ const TopNavigationBar = ({ NavLink }) => {
         setBalance(addrArr);
       }
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
-
+  
   // My algo wallet connection
+  /////////////////////////
   const myAlgoConnect = async () => {
     dispatch({
       type: "confirm_wallet",
       alertContent : "Connecting MyAlgo wallet"
     })
-
     const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
-
     try {
       const accounts = await myAlgoWallet.connect({
         shouldSelectOneAccount: true,
       });
-
       const addresses = accounts.map((item) => item?.address);
       const address = accounts[0].address;
-      
-
       // close modal.
       localStorage.setItem("wallet-type", "my-algo");
       localStorage.setItem("address", address);
       localStorage.setItem("addresses", addresses);
-
       window.location.reload();
     } catch (error) {
       dispatch({
         type: "close_wallet"
       })
-
       dispatch({
         type: "alert_modal",
           alertContent:
@@ -154,30 +129,15 @@ const TopNavigationBar = ({ NavLink }) => {
   };
 
   // Pera Wallet Connection
+  /////////////////////////
   const connectWallet = () => {
-  
     const connector = new WalletConnect({
       bridge: "https://bridge.walletconnect.org",
       qrcodeModal: QRCodeModal,
     });
-
     if (!connector.connected) {
-   
       connector.createSession();
-    
     }
-    // if(!connector.createSession()) {
-    //   dispatch({
-    //     type: "confirm_wallet",
-    //     alertContent : "Error Connecting Pera wallet"
-    //   })
-    //   setTimeout(() => {
-    //     dispatch({
-    //       type: "close_wallet"
-    //     })
-    //   }, 2000)
-    // }
-
     connector.on("connect", (error, payload) => {
       if (error) {
         dispatch({
@@ -190,26 +150,18 @@ const TopNavigationBar = ({ NavLink }) => {
           })
         }, 2000)
         throw error;
-        
       }
-          
         dispatch({
           type: "close_wallet"
         })
-   
-
       const { accounts } = payload.params[0];
-
       const addresses = accounts.map((item) => item);
       const address = accounts[0];
-
       localStorage.setItem("wallet-type", "walletconnect");
       localStorage.setItem("address", address);
       localStorage.setItem("addresses", addresses);
-
       window.location.reload();
     });
-
     connector.on("session_update", (error, payload) => {
       if (error) {
         dispatch({
@@ -223,49 +175,39 @@ const TopNavigationBar = ({ NavLink }) => {
         }, 2000)
         throw error;
       }
-
       const { accounts } = payload.params[0];
-
       const addresses = accounts.map((item) => item);
       const address = accounts[0];
-
       localStorage.setItem("wallet-type", "walletconnect");
       localStorage.setItem("address", address);
       localStorage.setItem("addresses", addresses);
-
       window.location.reload();
     });
-
     connector.on("disconnect", (error, payload) => {
       if (error) {
         dispatch({
           type: "confirm_wallet",
           alertContent : "Error Connecting Pera wallet"
         })
-
         setTimeout(() => {
           dispatch({
             type: "close_wallet"
           })
         }, 2000)
-  
         console.log(error);
       }
     });
   };
 
   // Algosigner Connection
-  const algoSignerConnect = async () => {
-    
-
+  /////////////////////////
+  const algoSignerConnect = async () => 
     try {
       dispatch({
         type: "confirm_wallet",
         alertContent : "Connecting Algosigner wallet"
       })
-
       if (typeof window.AlgoSigner === "undefined") {
-      
         dispatch({
           type: "confirm_wallet",
           alertContent : "ALgosigner is not set up yet."
@@ -286,22 +228,18 @@ const TopNavigationBar = ({ NavLink }) => {
         const accounts = await window.AlgoSigner.accounts({
           ledger: "TestNet",
         });
-
         const addresses = accounts.map((item) => item?.address);
         const address = accounts[0].address;
-
         // close modal.
         localStorage.setItem("wallet-type", "algosigner");
         localStorage.setItem("address", address);
         localStorage.setItem("addresses", addresses);
-
         window.location.reload();
       }
     } catch (error) {
       dispatch({
         type: "close_wallet"
       })
-
       dispatch({
         type: "alert_modal",
         alertContent: "AlgoSigner not set up yet!",
@@ -309,7 +247,7 @@ const TopNavigationBar = ({ NavLink }) => {
     }
   };
 
-  // building block
+  // Building block.
   return (
     <header className="small_header">
       <div className="small_header_inn"
@@ -415,7 +353,6 @@ const TopNavigationBar = ({ NavLink }) => {
                 
                 </li>
               </ul>
-            
           </div>
            <div style={{
              display: "flex",
@@ -465,12 +402,9 @@ const TopNavigationBar = ({ NavLink }) => {
             <i  style={{
               fontSize: "23px",
               padding: "0 7px",
-
             }} className="uil uil-setting"></i>
-      
             </div>
           </div>
-
           {toggleSettings ? null: <Settings/> }
           {menuBar ? <DeskMenuBar /> : null}
          </div>
@@ -486,12 +420,7 @@ const TopNavigationBar = ({ NavLink }) => {
            <img src={logo} alt="logo" style={{width: "30px"}} />   
          </div>
        )
-        
          }
-      
-        
-       
-
         <div
           style={{
             display: "flex",
@@ -507,18 +436,15 @@ const TopNavigationBar = ({ NavLink }) => {
                     <div className="addrBalance">
                     {balance[addressNum]?.balance.toLocaleString()} <img src="https://i.postimg.cc/mDtpdjqh/logo.png" style={{width : '13px', marginTop : '0px', marginLeft : '2px'}} alt="choice logo"/>
                     </div>
-
                     <CopyToClipboard text={balance[addressNum]?.address}>
                       <div className="addressTxt">
                         <p>{balance[addressNum]?.address}</p>
                         {copyToClipBoard ? (<img style={{width:'11px'}}
                           src={copyAndPaste} alt="check"/>) : (<i onClick={() => handyCopyToClipBoard()} className="uil uil-copy"></i>)}
-                        
                       </div>
                     </CopyToClipboard>
                   </div>
                 </div>
-
                 <div className="dropDownConnect_items">
                   {balance?.map((item, index) => {
                     return (
@@ -555,7 +481,6 @@ const TopNavigationBar = ({ NavLink }) => {
                   </p>
                 </button>
               </div>
-
               <div className="dropDownConnect_items">
                 <div className="dropDownConnect_item" onClick={myAlgoConnect}>
                   <div className="dropDownConnect_img">
@@ -566,7 +491,6 @@ const TopNavigationBar = ({ NavLink }) => {
                   </div>
                   <p className="dropDownConnect_item_txt">My Algo Wallet</p>
                 </div>
-
                 <div
                   className="dropDownConnect_item"
                   onClick={algoSignerConnect}
@@ -583,7 +507,6 @@ const TopNavigationBar = ({ NavLink }) => {
                       : "AlgoSigner"}
                   </p>
                 </div>
-
                 <div className="dropDownConnect_item" onClick={connectWallet}>
                   <div className="dropDownConnect_img">
                     <img
@@ -600,8 +523,6 @@ const TopNavigationBar = ({ NavLink }) => {
           )}
         </div>
       </div>
-
-      
     </header>
   );
 };
