@@ -21,6 +21,7 @@ The problem this software seeks to address is how to create a streamlined and se
 
 # Resources
 
+- [Choice Coin v2 White Paper](https://github.com/Bhaney44/v2/blob/main/WhitePaper/v2.pdf)
 - [Choice Coin v1 White Paper](https://github.com/ChoiceCoin/White_Paper)
 - [Choice Coin Website](https://choice-coin.com/)
 - [Choice Coin Research Overview](https://forum.algorand.org/t/choice-coin-dao-r-d/6165)
