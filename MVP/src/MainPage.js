@@ -4,9 +4,9 @@ import VotingPage from "./pages/VotePage/VotePage";
 import { useWindowSize } from "@react-hook/window-size";
 import { NavLink, Route, Routes } from "react-router-dom";
 import TopNavigationBar from "./components/navbar/TopNavigationBar";
-import BottomNavigationBar from "./statics/BottomNavigationBar";
-import ElectionList from "./statics/ElectionList";
-import ElectionPage from "./components/election/election";
+import BottomNavigationBar from "./components/navbar/BottomNavigationBar";
+import ElectionList from "./components/election/ElectionList";
+import ElectionPage from "./components/election/Election";
 import Propose from "./components/propose/propose";
 
 const MainPage = () => {
