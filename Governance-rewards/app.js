@@ -10,10 +10,11 @@ app.listen(port, ()=>{
   console.log("App Listening on port: ", port);
 });
 
+//Defines the Expected transaction signatures.
 let signatures=[];
 
+//Http Post request to Compute and distribute rewards and commitment
 app.post('/send-rewards', async (req, res)=>{
-  
   let option_one =req.body.option_one;
   let option_two = req.body.option_two;
   let v_asset_id = req.body.v_asset_id; 
@@ -22,12 +23,10 @@ app.post('/send-rewards', async (req, res)=>{
   let mmemonic = req.body.mmemonic;
 
  // console.log(option_one+" "+option_two+" "+v_asset_id+" "+r_asset_id+" "+reward_amount+" "+mmemonic)
-
  sendVotingRewards(v_asset_id, r_asset_id, reward_amount, option_one, option_two, mmemonic).then(()=>{
   res.send({
     "signatures":signatures,
     "votes":mergedvoters
-
     });
  })
 })
@@ -62,6 +61,7 @@ let addresses=[
 
 let secretKey; //Put reward wallet Mnemonic Phrase here;
 
+//Defines Start and End time for Votes
 let start_time = "2022-07-01T00:00:00-05:00";
 let stop_time = "2022-07-03T10:00:00-05:00";
 
@@ -86,9 +86,6 @@ const truncateDecimals = (number, digits) =>  {
     return truncatedNum / multiplier;
 };
 
-
-
-
 //Get Voters(addresses + committed amount to governance) + Total committed amounts
 const getVoters = async() => {
      
@@ -104,23 +101,19 @@ const getVoters = async() => {
         .txType("axfer")
         .do();
 
-     
    // if voters' amount committed >= 1 push the voters to the voters array!
      await txnHistory.transactions.map(receiver=>{
           if((receiver['asset-transfer-transaction'].amount)/100 >=1){
                 voters.push({
                     sender:receiver.sender,
                     amount:(receiver['asset-transfer-transaction'].amount)/100
-                })
-            
+                });
            // get the total committed amounts
             totalCommittedAmount+=(receiver['asset-transfer-transaction'].amount)/100;
           } 
         })
     }
-     await getMergedVoters()  
-     
-   
+     await getMergedVoters();  
 }
 
 //get merged voters
@@ -136,26 +129,21 @@ for(var i=1; i<voters.length; i++){
       mergedvoters.push(voters[i])
     }
 }
-
 // getting mergedvoters(voters + total amounts)
 console.log(mergedvoters)
 
 //draft transactions with mergedvoters array + the ratio as parameters
-await draftTransaction(mergedvoters)
-
-
+await draftTransaction(mergedvoters);
 }
-
 // draft transactions
 const draftTransaction = async (voters) => {
-
     console.log("no of voters: ",voters.length)
     var totalchoice=0;
     var totalasset=0;
 
     const params = await algodClient.getTransactionParams().do(); //get transaction params
     voters.forEach((voter)=>{ 
-
+            //calculate the reward ratio and reward amount for Governance process
             var percentagegovreward=(voter.amount/totalCommittedAmount)*100;
             var govreward=(percentagegovreward/100)*govRewardsPool;      
            
@@ -179,12 +167,10 @@ const draftTransaction = async (voters) => {
     console.log("total asset "+totalasset);
 }
 
-
-
 //send signed transactions and send rewards
 const sendrewards = async () => {
-        //let txgroup = algosdk.assignGroupID(transactions);
-
+      //let txgroup = algosdk.assignGroupID(transactions);
+    //Send all signed transactions to the algorand network return a resolved promise when that is done.
     var sentPromise = new Promise(function(resolve, reject) {
       for (let [index, transaction] of transactions.entries()) {
         setTimeout(async () => {
@@ -200,14 +186,10 @@ const sendrewards = async () => {
      }  
 
     })
-
     return sentPromise;   
 }
 
-
-
-
-
+//This function calls all the Rewards function with Parameters that are provided by the Client
 const sendVotingRewards=async (asset_id, reward_id, reward_pool, option_zero, option_one, phrase) => {
   ASSET_ID=parseInt(asset_id);
   REWARD_ID=parseInt(reward_id);
@@ -221,11 +203,11 @@ const sendVotingRewards=async (asset_id, reward_id, reward_pool, option_zero, op
     }
    ];
   phrase=phrase.replaceAll(',','');
-  let wsRegex = /^\s+|\s+$/g; // Change this line
-  phrase= phrase.replace(wsRegex, ""); // Change this line
-  secretKey=algosdk.mnemonicToSecretKey(phrase);
+  let wsRegex = /^\s+|\s+$/g; // format mmemonic
+  phrase= phrase.replace(wsRegex, ""); // format mmemonic
+  secretKey=algosdk.mnemonicToSecretKey(phrase); //convert mmemonic to secret key
 
-  await getVoters();
-  
-  return sendrewards();
+  await getVoters(); //get the Voters of the governance process
+  return sendrewards();//Send the rewards and return a resolved promise
 }
+
