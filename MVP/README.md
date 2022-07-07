@@ -15,7 +15,6 @@ $ cd MVP
 
 ```
 $ npm install 
-
 ```
 
 - start v2 applicatiion in development
