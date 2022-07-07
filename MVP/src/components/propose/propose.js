@@ -195,7 +195,6 @@ const Propose = () => {
               .then((response) => alert(response.data.message));
           }
         });
-      
 
     }
 
@@ -207,7 +206,6 @@ const Propose = () => {
         <div className="crt_hd">
           <p className="converter-header"> Create Proposal & Schedule Election</p>
         </div>
-
 
         <div className="vote_sect">
           <div className="vote_sect_img">
