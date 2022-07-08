@@ -34,7 +34,9 @@ app.post('/send-rewards', async (req, res)=>{
  sendVotingRewards(v_asset_id, r_asset_id, reward_amount, start_time, end_time, option_one, option_two,  mmemonic) .then(()=>{
   res.send({
     "signatures":signatures,
-    "votes":votes_rewards
+    "votes":votes_rewards,
+    "asset_name":v_asset_name,
+    "reward_asset_name":r_asset_name
     });
  })
 })
