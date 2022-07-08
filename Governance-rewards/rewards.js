@@ -1,8 +1,8 @@
-const algosdk = require('algosdk') //algosdk library
+//algosdk library
+const algosdk = require('algosdk') 
 
 //getting dotenv
 require("dotenv").config();
-
 const { algodClient, indexerClient, ASSET_ID, REWARD_ID, REWARD_POOL } = require("./config"); 
 
 // total voters;
@@ -19,12 +19,10 @@ let signed=[];
 
 // initial committedAmount
 let totalCommittedAmount=0;
-
 let rewardAmount //amount sent + rewards
 
 //let rewardPool = 1000000; //reward pool
-
-let govRewardsPool=REWARD_POOL;// Choice rewards pool;
+let govRewardsPool=REWARD_POOL;
 
 // The two options addresses
 let addresses=[
@@ -38,7 +36,6 @@ let addresses=[
 
 // rewards wallet mmemonic
 let rewardMmemonic=process.env.REWARD_MMEMONIC
-
 let secretKey=algosdk.mnemonicToSecretKey(rewardMmemonic); //Put reward wallet Mnemonic Phrase here;
 
 // find address that voted more than once
@@ -144,15 +141,13 @@ const getMergedVoters = async () => {
     }
     
     // Calculating reward amount
-    //rewardAmount= totalCommittedAmount + rewardPool
-    //console.log("TotalcommittedAmount: ", totalCommittedAmount)
-
-   // getting the ratio
-   //let ratio=rewardAmount/totalCommittedAmount
-
+    // rewardAmount= totalCommittedAmount + rewardPool
+    // console.log("TotalcommittedAmount: ", totalCommittedAmount)
+    // getting the ratio
+    // let ratio=rewardAmount/totalCommittedAmount
     // truncate ratio to two decimals so as not to over calculate
-    //ratio=truncateDecimals(ratio, 2);   
-   // console.log("ratio: ",ratio)
+    // ratio=truncateDecimals(ratio, 2);   
+    // console.log("ratio: ",ratio)
 
     // getting mergedvoters(voters + total amounts)
     console.log(mergedvoters)
