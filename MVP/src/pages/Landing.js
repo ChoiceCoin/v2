@@ -3,14 +3,12 @@
 
 // Importing files and relevant dependencies
 import "../styles/landing.css";
-import ScrollTextLand from "../statics/ScrollTextLand";
 import { useWindowWidth } from "@react-hook/window-size";
 
 //JSX Component Landing 
 const Landing = () => {
   // getting window width dynamically
   const width = useWindowWidth();
-
   // building block
   return (
     <div className="landing" id="landing"
@@ -18,21 +16,13 @@ const Landing = () => {
        marginLeft: width > 1000 ? "140px" : "0px" 
       }}
     >
-      <ScrollTextLand
-        word={
-          "Choice Coin V2 TestNet -- This is still under development, Choice Coin V2 TestNet! This is still under development!"
-        }
-      />
       <div className="land_cov">
         <div className="land_item1">
           <p className="hdy">
-            Choice Coin DAO: Bringing Decentralized Governance to Blockchain
+            Choice Coin Governance
           </p>
           <p className="suby">
-        Choice Coin is an Asset that powers the Choice Coin DAO, a Decentralized Autonomous Organization built on the Blockchain. The Choice Coin DAO aims to make decentralized voting a reality through allocations to open-source software development and community awareness.
-            <br />
-            <br />
-            Decentralized Decisions is an open source software platform for decentralized voting and governance. The goal for Choice Coin is to help solve the decentralized governance problem by building the world’s best voting technology. Choice Coin is built, developed, and maintained by the Choice Coin DAO, a decentralized autonomous organization on the blockchain.
+            Choice Coin is a governance platform and open source software project. The goal for Choice Coin is to help solve the decentralized governance problem, which refers to the complex process by which decentralized organizations are managed and evolve. The solution Choice Coin is building involves inventing new technologies for voting, compliance, and interchain interoperability. Each of these three technologies is part of the growing governance platform which exists to serve decentralized projects and blockchain networks.
           </p>
         </div>
       </div>
