@@ -1,4 +1,4 @@
-# Running Simplified V2 Application
+# Run V2 Application
 
 - git clone the repository
 
