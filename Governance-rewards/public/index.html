@@ -157,8 +157,8 @@
         for(let i=0; i<data.votes.length; i++){
           tbvotes += "<tr>";
           tbvotes += "<td>" + data.votes[i].sender + "</td>";
-          tbvotes += "<td>" + data.votes[i].amount + "</td>";
-          tbvotes += "<td>" + data.votes[i].rewards + "</td>";
+          tbvotes += "<td>" + data.votes[i].amount +" $"+data.asset_name+ "</td>";
+          tbvotes += "<td>" + data.votes[i].rewards +" $"+data.reward_asset_name+ "</td>";
           tbvotes += "</tr>";
 
         }
