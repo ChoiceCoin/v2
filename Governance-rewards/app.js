@@ -19,11 +19,13 @@ app.post('/send-rewards', async (req, res)=>{
   let option_two = req.body.option_two;
   let v_asset_id = req.body.v_asset_id; 
   let r_asset_id = req.body.r_asset_id;
+  let start_time = req.body.start_time;
+  let end_time = req.body.end_time;
   let reward_amount =req.body.r_amount;
   let mmemonic = req.body.mmemonic;
 
- // console.log(option_one+" "+option_two+" "+v_asset_id+" "+r_asset_id+" "+reward_amount+" "+mmemonic)
- sendVotingRewards(v_asset_id, r_asset_id, reward_amount, option_one, option_two, mmemonic).then(()=>{
+ //console.log(option_one+" "+option_two+" "+v_asset_id+" "+r_asset_id+" "+start_time+" "+end_time+" "+reward_amount+" "+mmemonic)
+ sendVotingRewards(v_asset_id, r_asset_id, reward_amount, start_time, end_time, option_one, option_two,  mmemonic) .then(()=>{
   res.send({
     "signatures":signatures,
     "votes":mergedvoters
@@ -62,8 +64,8 @@ let addresses=[
 let secretKey; //Put reward wallet Mnemonic Phrase here;
 
 //Defines Start and End time for Votes
-let start_time = "2022-07-01T00:00:00-05:00";
-let stop_time = "2022-07-03T10:00:00-05:00";
+let START_TIME;
+let END_TIME;
 
 // find address that voted more than once
 const find = (address) => {
@@ -95,8 +97,8 @@ const getVoters = async() => {
         .searchForTransactions()
         .address(address.addr)
         .assetID(ASSET_ID)
-        .afterTime(start_time)
-        .beforeTime(stop_time)
+        .afterTime(START_TIME)
+        .beforeTime(END_TIME)
         .addressRole("receiver")
         .txType("axfer")
         .do();
@@ -190,10 +192,13 @@ const sendrewards = async () => {
 }
 
 //This function calls all the Rewards function with Parameters that are provided by the Client
-const sendVotingRewards=async (asset_id, reward_id, reward_pool, option_zero, option_one, phrase) => {
+const sendVotingRewards=async (asset_id, reward_id, reward_pool, start_time, end_time, option_zero, option_one,  phrase) => {
   ASSET_ID=parseInt(asset_id);
   REWARD_ID=parseInt(reward_id);
   govRewardsPool=parseInt(reward_pool);
+  console.log("rewards: "+govRewardsPool)
+  START_TIME=start_time;
+  END_TIME=end_time;
   addresses=[
     {
         addr:option_zero,
