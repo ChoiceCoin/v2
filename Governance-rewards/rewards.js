@@ -1,8 +1,8 @@
-const algosdk = require('algosdk') //algosdk library
+//algosdk library
+const algosdk = require('algosdk') 
 
 //getting dotenv
 require("dotenv").config();
-
 const { algodClient, indexerClient, ASSET_ID, REWARD_ID, REWARD_POOL } = require("./config"); 
 
 // total voters;
@@ -19,12 +19,10 @@ let signed=[];
 
 // initial committedAmount
 let totalCommittedAmount=0;
-
 let rewardAmount //amount sent + rewards
 
 //let rewardPool = 1000000; //reward pool
-
-let govRewardsPool=REWARD_POOL;// Choice rewards pool;
+let govRewardsPool=REWARD_POOL;
 
 // The two options addresses
 let addresses=[
@@ -38,7 +36,6 @@ let addresses=[
 
 // rewards wallet mmemonic
 let rewardMmemonic=process.env.REWARD_MMEMONIC
-
 let secretKey=algosdk.mnemonicToSecretKey(rewardMmemonic); //Put reward wallet Mnemonic Phrase here;
 
 // find address that voted more than once
@@ -62,9 +59,6 @@ const truncateDecimals = (number, digits) =>  {
     return truncatedNum / multiplier;
 };
 
-
-
-
 //Get Voters(addresses + committed amount to governance) + Total committed amounts
 const getVoters = async() => {
      
@@ -78,7 +72,6 @@ const getVoters = async() => {
         .txType("axfer")
         .do();
 
-     
    // if voters' amount committed >= 1 push the voters to the voters array!
      await txnHistory.transactions.map(receiver=>{
           if((receiver['asset-transfer-transaction'].amount)/100 >=1){
@@ -93,51 +86,33 @@ const getVoters = async() => {
         })
     }
      await getMergedVoters()  
-     
-   
 }
 
-
-
 // draft transactions
-
 const draftTransaction = async (voters) => {
-
     console.log(voters.length)
     var totalchoice=0;
     var totalasset=0;
-
     const params = await algodClient.getTransactionParams().do(); //get transaction params
     voters.forEach((voter)=>{ 
             var percentagegovreward=(voter.amount/totalCommittedAmount)*100;
             var govreward=(percentagegovreward/100)*govRewardsPool;
-      
-           
              var votedamount=truncateDecimals(voter.amount , 2);
              var govreward=truncateDecimals(govreward, 2);
-
              var govrewardfinal=Math.floor(govreward * 100)
              votedamount=Math.floor(votedamount * 100)
-
              console.log("choice "+votedamount)
              console.log("choice "+govrewardfinal);
-
-
              totalasset+=votedamount;
              totalchoice+=govrewardfinal;
-             
-
-            
            transactions.push(algosdk.makeAssetTransferTxnWithSuggestedParams(secretKey.addr, voter.sender, undefined, undefined,  govrewardfinal , undefined, REWARD_ID, params));
            transactions.push(algosdk.makeAssetTransferTxnWithSuggestedParams(secretKey.addr, voter.sender, undefined, undefined,  votedamount , undefined, ASSET_ID, params));
     })
-    //console.log(transactions)
     console.log("total rewards "+totalchoice);
     console.log("total asset "+totalasset);
 }
 
-
-//send signed transactions and send rewards
+// Send signed transactions and send rewards.
 const sendrewards = async () => {
         //let txgroup = algosdk.assignGroupID(transactions);
         transactions.forEach((transaction, index)=>{
@@ -147,18 +122,14 @@ const sendrewards = async () => {
              console.log("Transaction : " + index + " " + tx.txId);
          }, 200 * (index + 1));     
      })  
-     
      console.log("Done")
 }
 
-
-
-//get merged voters
+// Get merged voters.
 const getMergedVoters = async () => {
-
       mergedvoters.push(voters[0]);
 
-// if addresses that voted more than once exists, add their amounts together + push to the mergedvoters array
+// If addresses that voted more than once exists, add their amounts together + push to the mergedvoters array
     for(var i=1; i<voters.length; i++){
         var exists=find(voters[i].sender);
         if(exists>=0){
@@ -169,16 +140,14 @@ const getMergedVoters = async () => {
         }
     }
     
-    // calculating reward amount
-    //rewardAmount= totalCommittedAmount + rewardPool
-    //console.log("TotalcommittedAmount: ", totalCommittedAmount)
-
-   // getting the ratio
-   //let ratio=rewardAmount/totalCommittedAmount
-
+    // Calculating reward amount
+    // rewardAmount= totalCommittedAmount + rewardPool
+    // console.log("TotalcommittedAmount: ", totalCommittedAmount)
+    // getting the ratio
+    // let ratio=rewardAmount/totalCommittedAmount
     // truncate ratio to two decimals so as not to over calculate
-    //ratio=truncateDecimals(ratio, 2);   
-   // console.log("ratio: ",ratio)
+    // ratio=truncateDecimals(ratio, 2);   
+    // console.log("ratio: ",ratio)
 
     // getting mergedvoters(voters + total amounts)
     console.log(mergedvoters)
@@ -187,17 +156,7 @@ const getMergedVoters = async () => {
     await draftTransaction(mergedvoters)
 
     // send rewards 
-  
     await sendrewards();
-
 }
 
-
 getVoters()
-
-
-
-
-
-
-
