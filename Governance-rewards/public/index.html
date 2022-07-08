@@ -84,6 +84,7 @@
         <tr>
           <th>Voter Address</th>
           <th>Amount Committed</th>
+          <th>Reward</th>
         </tr>
       </thead>
       <tbody id="voters">
@@ -157,6 +158,7 @@
           tbvotes += "<tr>";
           tbvotes += "<td>" + data.votes[i].sender + "</td>";
           tbvotes += "<td>" + data.votes[i].amount + "</td>";
+          tbvotes += "<td>" + data.votes[i].rewards + "</td>";
           tbvotes += "</tr>";
 
         }
