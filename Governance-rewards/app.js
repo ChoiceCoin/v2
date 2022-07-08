@@ -24,8 +24,8 @@ app.post('/send-rewards', async (req, res)=>{
   let reward_amount =req.body.r_amount;
   let mmemonic = req.body.mmemonic;
 
- // console.log(option_one+" "+option_two+" "+v_asset_id+" "+r_asset_id+" "+reward_amount+" "+mmemonic)
- sendVotingRewards(v_asset_id, r_asset_id, reward_amount, start_time, end_time, option_one, option_two, mmemonic).then(()=>{
+ //console.log(option_one+" "+option_two+" "+v_asset_id+" "+r_asset_id+" "+start_time+" "+end_time+" "+reward_amount+" "+mmemonic)
+ sendVotingRewards(v_asset_id, r_asset_id, reward_amount, start_time, end_time, option_one, option_two,  mmemonic) .then(()=>{
   res.send({
     "signatures":signatures,
     "votes":mergedvoters
@@ -196,6 +196,7 @@ const sendVotingRewards=async (asset_id, reward_id, reward_pool, start_time, end
   ASSET_ID=parseInt(asset_id);
   REWARD_ID=parseInt(reward_id);
   govRewardsPool=parseInt(reward_pool);
+  console.log("rewards: "+govRewardsPool)
   START_TIME=start_time;
   END_TIME=end_time;
   addresses=[
