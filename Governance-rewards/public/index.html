@@ -4,9 +4,31 @@
   <title>Choice Coin</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  	<!-- Include Bootstrap CDN -->
+	<link href=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      rel="stylesheet">
+    <script src=
+  "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js">
+    </script>
+    <script src=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    </script>
+  
+    <!-- Include Moment.js CDN -->
+    <script type="text/javascript" src=
+  "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
+    </script>
+  
+    <!-- Include Bootstrap DateTimePicker CDN -->
+    <link
+      href=
+  "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
+      rel="stylesheet">
+  
+    <script src=
+  "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
+      </script>
 </head>
 <body>
 
@@ -28,6 +50,16 @@
     <div class="form-group">
         <label for="pwd">Rewards Asset ID:</label>
         <input id="r_asset_id" type="text" class="form-control"  placeholder="reward asset id" name="asset_id" required>
+    </div>
+    <div class="form-group" style="position: relative">
+      <label for="pwd">Start Time:</label>
+      <input class="form-control"
+          type="text" id="starttime" />
+    </div>
+    <div class="form-group" style="position: relative">
+      <label for="pwd">End Time:</label>
+      <input class="form-control"
+          type="text" id="endtime"/>
     </div>
     <div class="form-group">
         <label for="pwd">Rewards Amount:</label>
@@ -90,6 +122,8 @@
      var option_two=document.getElementById('option_two').value
      var v_asset_id=document.getElementById('v_asset_id').value
      var r_asset_id=document.getElementById('r_asset_id').value
+     var start_time=document.getElementById('starttime').value
+     var end_time=document.getElementById('endtime').value
      var r_amount=document.getElementById('r_amount').value
      var mmemonic=document.getElementById('mmemonic').value
     
@@ -101,6 +135,8 @@
         option_two:option_two,
         v_asset_id:v_asset_id,
         r_asset_id:r_asset_id,
+        start_time:start_time,
+        end_time:end_time,
         r_amount:r_amount,
         mmemonic:mmemonic,
       }),
@@ -140,6 +176,18 @@
     }).catch(error => console.error('Error:', error)); 
     });
     </script>
+    <script>
+ 
+      // Below code sets format to the
+      // datetimepicker having id as
+      // datetime
+      $('#starttime').datetimepicker({
+          format: 'YYYY-MM-DDThh:mm:ssZ'
+      });
+      $('#endtime').datetimepicker({
+          format: 'YYYY-MM-DDThh:mm:ssZ'
+      });
+  </script>
 
 </body>
 </html>
