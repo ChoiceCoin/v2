@@ -5,22 +5,19 @@
 import { useSelector, useDispatch } from "react-redux";
 import BarLoader from "react-spinners/BarLoader";
 
-//JSX Component WalletConfirmation Modal
+// JSX Component WalletConfirmation Modal.
 const WalletConfirmation = () => {
-
-  // Starting React-dispatch to dispatch action in state in the component
+    // Starting React-dispatch to dispatch action in state in the component.
     const dispatch = useDispatch()
-
-  // getting alert modal content value from redux store data
+    // Getting alert modal content value from redux store data.
     const { openWallet, walletContent } = useSelector(
       (state) => state.status.confirmWallet
     );
-  
     // HTML Building Block
     return(
         <div
         style={{
-            // width: "100%",
+          //    width: "100%",
           position : "fixed",
           zIndex : "1000",
           bottom: "25px",
@@ -29,12 +26,11 @@ const WalletConfirmation = () => {
           border : "1px solid grey",
           borderRadius : "5px",
           padding : "3px",
-        //   alignItems: "center",
+          //   alignItems: "center",
           flexDirection: "column",
           background : "whitesmoke" ,
-        //   color: "var(--wht)",
-         
-        //   fontSize: "14px",
+          //   color: "var(--wht)",
+          //   fontSize: "14px",
           fontWeight: 500,
           textTransform: "uppercase",
         }}
@@ -83,5 +79,4 @@ const WalletConfirmation = () => {
       </div>
     )
 }
-
 export default WalletConfirmation;
