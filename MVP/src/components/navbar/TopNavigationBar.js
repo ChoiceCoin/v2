@@ -197,7 +197,7 @@ const TopNavigationBar = ({ NavLink }) => {
 
   // Algosigner Connection
   /////////////////////////
-  const algoSignerConnect = async () => 
+  const algoSignerConnect = async () => {
     try {
       dispatch({
         type: "confirm_wallet",
