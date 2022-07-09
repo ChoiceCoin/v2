@@ -25,8 +25,7 @@ const TopNavigationBar = ({ NavLink }) => {
   // Getting election state data from redux store
   const addressNum = useSelector((state) => state.status.addressNum);
   // Checking if wallet is connected from local storage
-  const isWalletConnected =
-    localStorage.getItem("wallet-type") === null ? false : true;
+  const isWalletConnected = localStorage.getItem("wallet-type") === null ? false : true;
   // Setting initial state
   const [copyToClipBoard , setCopyToClipBoard] = useState(null)
   const [menuBar, setMenuBar] = useState(false);
@@ -42,12 +41,9 @@ const TopNavigationBar = ({ NavLink }) => {
     }
 
  // Choice Asset ID
- // Switch to MainNet ID: 297995609
- const ASSET_ID =  21364625;
-
+ const ASSET_ID =  297995609;
  // Getting window || desktop width
  const [width] = useWindowSize();
- 
 // Settings toggle
  const onSettingsToggle = () => {
     setToggleSettingsHidden(!toggleSettings)
@@ -61,7 +57,7 @@ const TopNavigationBar = ({ NavLink }) => {
     {
       "X-API-Key": "",
     },
-    "https://testnet-algorand.api.purestake.io/ps2", // change this for mainnet launch
+    "https://mainnet-algorand.api.purestake.io/ps2", 
     ""
   );
   // getting wallet addresses from local storage
