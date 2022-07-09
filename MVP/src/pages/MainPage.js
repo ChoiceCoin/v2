@@ -11,6 +11,8 @@ import BottomNavigationBar from "../components/navbar/BottomNavigationBar";
 import ElectionList from "../components/election/ElectionList";
 import ElectionPage from "../components/election/Election";
 import Propose from "../components/propose/propose";
+import CompliancePage from "./CompliancePage";
+import ConverterPage from "./ConverterPage";
 
 // JSX Component MainPage
 const MainPage = () => {
@@ -49,6 +51,8 @@ const MainPage = () => {
           <Route exact path="/voting" element={<VotingAndProposalLinkPage />} />
           <Route exact path="/voting/participate" element={<ElectionList/>}  />
           <Route exact path='/propose' element={<Propose />} />
+          <Route exact path='/compliance' element={<CompliancePage/>} />
+          <Route exact path='/converter' element={<ConverterPage/>} />
         </Routes>
       {width <= 1000 && (
         <BottomNavigationBar NavLink={NavLink} />
