@@ -12,7 +12,7 @@ const CompliancePage = () => {
          <div className="compliance__header" >
              <h1>Choice Coin Compliance</h1>
              <p>Choice Coin Compliance uses an informatics based approach to automating compliance for digital assets.</p>
-             <p> Choice Coin Compliance will launch by Q4 2022.</p>
+             <p> Choice Coin Compliance will launch by <span style={{color: 'rgb(57, 129, 198)', fontWeight: "500"}}>Q4 2022.</span></p>
           </div>
         </div>
    )
