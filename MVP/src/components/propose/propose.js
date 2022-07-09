@@ -13,9 +13,9 @@ import WalletConnect from "@walletconnect/client";
 
 //JSX Component Propose
 const Propose = () => {
- // Starting React-dispatch to dispatch action in state in the component
+  // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
-// Getting address from local storage
+  // Getting address from local storage
   const isThereAddress = localStorage.getItem("address");
   // Starting AlgoClient Instance
   const algod_token = {
@@ -26,23 +26,18 @@ const Propose = () => {
   const ASSET_ID = 21364625;
   const algodClient = new algosdk.Algodv2(algod_token, algod_address, headers);
   const walletType = localStorage.getItem("wallet-type");
- 
   // Choice Coin Rewards Adrress
   const rewardsAddress = ''
-  
   //candidates
   const candidates = [{
     first : "firstcandidate"
   }, {
     second : "secondcandidate"
   }]
-
-// Crafting Transactioon
+  // Crafting Transactioon
   const craftTransactions =async(candidates) => {
     const txns = [];
-  
     const suggestedParams = await algodClient.getTransactionParams().do();
-
     // top up payment
     for (let candidate of candidates) {
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
@@ -64,7 +59,6 @@ const Propose = () => {
     txns.push(txn)
     algosdk.assignGroupID(txns);
     let continueExecution = true;
-
     try {
       const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
       const connector = new WalletConnect({
@@ -98,7 +92,6 @@ const Propose = () => {
 
       // eslint-disable-next-line
       txns.map((transaction) => {
-
         Txns.push({
           txn: Buffer.from(algosdk.encodeUnsignedTransaction(transaction)).toString(
             "base64"
@@ -109,7 +102,7 @@ const Propose = () => {
       const requestParams = [Txns];
       const request = formatJsonRpcRequest("algo_signTxn", requestParams);
       const result = await connector.sendCustomRequest(request);
-   // eslint-disable-next-line
+      // eslint-disable-next-line
       const decodedResult = result.map((element) => {
         return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
       });
@@ -195,10 +188,9 @@ const Propose = () => {
               .then((response) => alert(response.data.message));
           }
         });
-
     }
 
-// Building block
+    // Building block
     return (
        <div className="propose">
            <div className="create_elt">
@@ -206,19 +198,16 @@ const Propose = () => {
         <div className="crt_hd">
           <p className="converter-header"> Create Proposal & Schedule Election</p>
         </div>
-
         <div className="vote_sect">
           <div className="vote_sect_img">
-
           </div>
-
           <div className="v_inp_cov inpCont_cand">
-            <p className="inp_tit">Governance name</p>
+            <p className="inp_tit">Issue</p>
             <input id="governance_name"
               type="text"
             />
             <p className="ensure_txt">
-              A short header for your proposal
+              The title for the issue.
             </p>
           </div>
           <div className="v_inp_cov inpCont_cand">
@@ -227,17 +216,17 @@ const Propose = () => {
               type="text" id="rewards"
             />
             <p className="ensure_txt">
-              How much in $Choice Token are you giving to voters
+              Rewards distributed to voters on the Issue.
             </p>
           </div>
           <div className="v_inp_cov inpCont_cand">
-            <p className="inp_tit">Voting issue</p>
+            <p className="inp_tit">Description</p>
             <input
               type="text"
               id="issue"
             />
             <p className="ensure_txt">
-              A short description of what the issue is about
+              A short overview about the vote.
             </p>
           </div>
           <div className="v_inp_cov inpCont_cand">
@@ -247,10 +236,9 @@ const Propose = () => {
               id="option1"
             />
             <p className="ensure_txt">
-              What option 1 should be
+              First choice.
             </p>
           </div>
-      
           <div className="v_inp_cov inpCont_cand">
             <p className="inp_tit">Option 2</p>
             <input
@@ -258,21 +246,18 @@ const Propose = () => {
               id="option2"
             />
             <p className="ensure_txt">
-              What option 2 should be
+              Second choice.
             </p>
           </div>
             <br />
           <div className="crt_butt">
             <button onClick={createProposal}>Create Proposal</button>
-            <p className="safety">
-              <span>Safety disclaimer :</span> We never store your data.
-              Everything is encrypted.
+            <p className="Terms and Conditions">
+              By creating this proposal you agree to Choice Coin's Terms and Conditions.
             </p>
           </div>
-
           {/* ************** */}
         </div>
-
         {/* **************** */}
       </div>
     </div>
