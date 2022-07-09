@@ -15,39 +15,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 
-
-
 //JSX Component ElectionList
 const ElectionList = () => {
-
   // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
-
   // Getting election state data from redux store
   const balance = useSelector((state) => state.status.balance);
   const addressNum = useSelector((state) => state.status.addressNum);
   const getElection = useSelector((state) => state.status.allElection);
   const getElectionNumber = useSelector((state) => state.status.eachElectionNumber)
-
- // Setting initial state
+  // Setting initial state
   const [address1, setAddress1] = useState(0);
   const [address2, setAddress2] = useState(0);
-
   // Getting address from local storage
   const isThereAddress = localStorage.getItem("address");
-
   // Getting wallet type from local storage
   const walletType = localStorage.getItem("wallet-type");
-
   // Setting each election data variable from redux state
   const each_election_data = [getElection[getElectionNumber]] 
-
   // Choice Asset ID
-  const ASSET_ID =  21364625;
-
+  const ASSET_ID =  297995609;
 
   // Getting election data result from database
-   // eslint-disable-next-line
   const { isLoading, error, data } = useQuery("elections", () =>
     axios.get(`https://v2-testnet.herokuapp.com/results/${each_election_data[0].candidates[0].electionID}`).then((response) => {
       console.log(response.data.data)
@@ -57,7 +46,6 @@ const ElectionList = () => {
       }
     })
   );
-
 
 // Starting algod Client
   const algodClient = new algosdk.Algodv2( {
@@ -103,7 +91,6 @@ const ElectionList = () => {
         });
         return;
       }
-
       if (!containsChoice) {
         dispatch({
           type: "alert_modal",
@@ -126,12 +113,10 @@ const ElectionList = () => {
         });
         return;
       }
-
       dispatch({
         type: "confirm_wallet",
         alertContent : "Confirming Vote Transaction & Option"
       })
-
       const suggestedParams = await algodClient.getTransactionParams().do();
       const amountToSend = voteData.amount * 100;
       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -146,12 +131,10 @@ const ElectionList = () => {
       dispatch({
         type: "close_wallet"
       })
-      // alert success
       dispatch({
         type: "alert_modal",
         alertContent: "Your vote has been recorded.",
       });
-      // setTimeout(() => window.location.reload(), 1500);
     } catch (error) {
       if (error.message === "Can not open popup window - blocked") {
         dispatch({
@@ -192,8 +175,6 @@ const ElectionList = () => {
               (element) => element["asset-id"] === ASSET_ID
             )
           : false;
-
-        // if the address has no ASAs
         if (myAccountInfo.assets.length === 0) {
           dispatch({
             type: "alert_modal",
@@ -229,7 +210,6 @@ const ElectionList = () => {
           type: "confirm_wallet",
           alertContent : "Confirming Vote Transaction & Option"
         })
-
         const suggestedParams = await algodClient.getTransactionParams().do();
         const amountToSend = voteData.amount * 100;
         const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -239,7 +219,6 @@ const ElectionList = () => {
           assetIndex: ASSET_ID,
           suggestedParams,
         });
-
         const signedTxn = await window.AlgoSigner.signTxn([
           { txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()) },
         ]);
@@ -258,13 +237,11 @@ const ElectionList = () => {
           alertContent: "Your vote has been recorded.",
         });
         // setTimeout(() => window.location.reload(), 1500);
-      
     } catch (error) {
       if (error.message === "Can not open popup window - blocked") {
         dispatch({
           type: "close_wallet"
         })
-
         dispatch({
           type: "alert_modal",
           alertContent:
@@ -290,7 +267,6 @@ const ElectionList = () => {
       bridge: "https://bridge.walletconnect.org",
       qrcodeModal: QRCodeModal,
     });
-
     try {
       const address = !!isThereAddress ? isThereAddress : "";
 
