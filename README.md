@@ -3,7 +3,7 @@
 This repository contains code for Choice Coin v2. The code is availible on an open source basis under the Apache License. Choice Coin v2 builds on the existing voting infrastructure built by the Choice Coin DAO as an open source collaboration with contributions from over 100 developers around the world.
 
 
-[Choice Coin v2 on TestNet](https://choicecoin-v2-testnet.netlify.app/voting)
+[Choice Coin v2 on TestNet](https://mvp-decisions.herokuapp.com/)
 
 [Choice Coin v2 Demo on YouTube](https://www.youtube.com/watch?v=XTXBZF7KUQ0)
 
