@@ -25,7 +25,8 @@ $ npm run dev
 
 # File Tree
 
-<img width="464" alt="Screen Shot 2022-07-08 at 11 23 49 AM" src="https://user-images.githubusercontent.com/43055154/178050244-4030646f-e10e-4547-9e03-641e954d8322.png">
+<img width="470" alt="Screen Shot 2022-07-08 at 9 27 18 PM" src="https://user-images.githubusercontent.com/43055154/178091562-d8ca49da-de74-49b4-8b3f-25fc4eafb736.png">
+
 
 
 
