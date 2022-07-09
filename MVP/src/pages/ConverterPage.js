@@ -3,7 +3,6 @@
 
 // import relevant dependencies
 import React from "react";
-import { Link } from "react-router-dom";
 
 //JSX Component
 const ConverterPage = () => {
@@ -11,7 +10,8 @@ const ConverterPage = () => {
        <div className="converter__page">
          <div className="converter__header" >
              <h1> Choice Coin Converter </h1>
-             <p> Choice Coin Converter provides an interchain mechanism for cross chain conversion. The Choice Coin Converter will launch by Q4 2022. </p>
+             <p> Choice Coin Converter provides an interchain mechanism for cross chain conversion. </p>
+             <p> The Choice Coin Converter will launch by Q4 2022. </p>
             </div>
           </div>
    )
