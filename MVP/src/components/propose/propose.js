@@ -284,7 +284,7 @@ const Propose = () => {
               id="option2"
             />
             <p className="ensure_txt">
-             Second choice
+             Second choice.
             </p>
           </div>
 
@@ -297,10 +297,8 @@ const Propose = () => {
             </p>
           </div>
 
-          {/* ************** */}
         </div>
 
-        {/* **************** */}
       </div>
     </div>
        </div>
