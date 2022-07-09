@@ -12,6 +12,8 @@ const ConverterPage = () => {
          <div className="converter__header" >
              <h1> Choice Coin Converter </h1>
              <p> Choice Coin Converter provides an interchain mechanism for cross chain conversion. The Choice Coin Converter will launch by Q4 2022. </p>
+            </div>
+          </div>
    )
 }
 
