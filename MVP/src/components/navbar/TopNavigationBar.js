@@ -277,6 +277,7 @@ const TopNavigationBar = ({ NavLink }) => {
             <Link to='/' style={{
               outline : "none"
             }}>
+              
                 <img src={logo} alt="logo"
                     style={{
                       width: "50px",
@@ -315,40 +316,45 @@ const TopNavigationBar = ({ NavLink }) => {
                   Voting        
                 </NavLink>
                   </li>
-
-                <li disabled
+                <NavLink 
+                to={'/compliance'}
+                key={"compliance"}>
+                <li 
                     style={{
                     color : "#3981C6",
-                    cursor:"not-allowed",
-                    opacity: "0.4" }}
+                    outline: "none",
+                    opacity: "1" }}
                 > 
                 
-                  <img src={compliance} alt="voting logo" 
+                  <img src={compliance} alt="compliance logo" 
                   style={{
                     width : "15px",
                     marginRight: "5px"
                   }} />
-                
-                  Compliance 
-                  
-                    <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
+                  Compliance     
                     </li>
-                <li disabled style={{
+                </NavLink>
+             
+                <NavLink
+                 to={'/converter'}
+                 key={"converter"}
+                >
+                <li style={{
                     color : "#3981C6",
-                    cursor:"not-allowed",
-                    opacity: "0.4"
+                    outline: "none",
+                    opacity: "1"
                 }}>
-                <img src={interchain} alt="voting logo" 
+                <img src={interchain} alt="converter logo" 
                   style={{
                     width : "15px",
                     marginRight: "9px"
                   }}
                   />
-                  Interchain
-                <span style={{textTransform : "lowercase"}}> (Coming soon)</span>
-                
-                </li>
+                  Converter
+                 </li>
+                </NavLink>
               </ul>
+             
           </div>
            <div style={{
              display: "flex",

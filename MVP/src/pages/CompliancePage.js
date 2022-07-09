@@ -3,7 +3,7 @@
 
 // import relevant dependencies
 import React from "react";
-import { Link } from "react-router-dom";
+
 
 //JSX Component
 const CompliancePage = () => {
