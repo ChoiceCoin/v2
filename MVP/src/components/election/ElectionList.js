@@ -269,10 +269,7 @@ const ElectionList = () => {
     });
     try {
       const address = !!isThereAddress ? isThereAddress : "";
-
       const myAccountInfo = await algodClient.accountInformation(address).do();
-
-
       const containsChoice = myAccountInfo.assets
         ? myAccountInfo.assets.some(
             (element) => element["asset-id"] === ASSET_ID
@@ -345,7 +342,6 @@ const ElectionList = () => {
         dispatch({
           type: "close_wallet"
         })
-
         dispatch({
           type: "alert_modal",
           alertContent: "An error occured during the transaction process",
