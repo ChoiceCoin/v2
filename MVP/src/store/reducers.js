@@ -3,7 +3,6 @@
 
 // import relevant dependencies
 import { combineReducers } from "redux";
-
 // initial state
 const status = (
   state = {
