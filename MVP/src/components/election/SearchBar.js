@@ -2,10 +2,9 @@
 // 17 U.S.C §§ 101-1511
 
 import React from "react";
-
 // JSX Component SearchBar
 const SearchBar = ({searchChange}) => {
-  // Search bar
+   // Search bar
    return (
      <div className="search__bar">
          <i className="uil uil-search"></i>
@@ -13,5 +12,4 @@ const SearchBar = ({searchChange}) => {
      </div>
    )
 }
-
 export default SearchBar;
