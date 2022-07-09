@@ -6,7 +6,7 @@ import React from "react";
 import disconnect from '../../assets/disconnect-logo.png';
 //JSX Component Settings
 const Settings = () => {
-// Logout 
+  // Logout 
   const LogOut = () => {
     localStorage.removeItem("address");
     localStorage.removeItem("addresses");
