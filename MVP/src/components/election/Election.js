@@ -8,7 +8,6 @@ import BarLoader from 'react-spinners/BarLoader';
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-
 const ElectionPage = () => {
   const dispatch = useDispatch();
   const [elections, setElections] = useState([]);
@@ -16,14 +15,12 @@ const ElectionPage = () => {
   const onSearchChange = (event) => {
     setSearchField(event.target.value);
   }
-
   const filteredElectionList = elections.filter(eachElection => {
     return eachElection.name.toLowerCase().includes(searchField.toLowerCase());
   }) 
   useEffect(() => {
     axios.get('https://v2-testnet.herokuapp.com/elections').then(response => {
        setElections(response.data.data)
-
        dispatch({
          type : "getAllElection",
           allElection : response.data.data
@@ -31,7 +28,6 @@ const ElectionPage = () => {
       console.log(response.data.data)
     })
   }, [dispatch])
-
   return(
       <div className="election">
          <div className="election__content">
