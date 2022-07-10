@@ -1,15 +1,25 @@
-//algosdk library
-const algosdk = require('algosdk') 
-
+const algosdk = require('algosdk') //algosdk library
 //getting dotenv
 require("dotenv").config();
-const { algodClient, indexerClient, ASSET_ID, REWARD_ID, REWARD_POOL } = require("./config"); 
+
+const { algodClient, indexerClient, ASSET_ID, REWARD_ID, REWARD_POOL, START_TIME, END_TIME, REWARD_MMEMONIC, OPTION_ZERO, OPTION_ONE} = require("./config"); 
+
+
+//Defines the Expected transaction signatures.
+let signatures=[];
+let v_asset_decimal;
+let r_asset_decimal;
+let v_asset_multiplier;
+let r_asset_multiplier;
+let v_asset_name;
+let r_asset_name;
 
 // total voters;
 let voters=[];
-
 //merged voters - This contains voters with total of their ammounts;
 let mergedvoters=[];
+
+let votes_rewards=[];
 
 //transactions + amount + ammount*ratio 
 let transactions=[];
@@ -19,24 +29,14 @@ let signed=[];
 
 // initial committedAmount
 let totalCommittedAmount=0;
-let rewardAmount //amount sent + rewards
 
-//let rewardPool = 1000000; //reward pool
-let govRewardsPool=REWARD_POOL;
+let govRewardsPool=REWARD_POOL;// Choice rewards pool;
 
 // The two options addresses
-let addresses=[
-    {
-        addr:process.env.OPTION_ZERO
-    },
-    {
-        addr:process.env.OPTION_ONE
-    }
-   ];
+let addresses=[];
 
-// rewards wallet mmemonic
-let rewardMmemonic=process.env.REWARD_MMEMONIC
-let secretKey=algosdk.mnemonicToSecretKey(rewardMmemonic); //Put reward wallet Mnemonic Phrase here;
+let secretKey; //Put reward wallet Mnemonic Phrase here;
+
 
 // find address that voted more than once
 const find = (address) => {
@@ -61,6 +61,30 @@ const truncateDecimals = (number, digits) =>  {
 
 //Get Voters(addresses + committed amount to governance) + Total committed amounts
 const getVoters = async() => {
+  (async () => {
+      let assetIndex = ASSET_ID;
+      let assetInfo = await indexerClient.searchForAssets()
+          .index(assetIndex).do();
+      
+      v_asset_decimal=await assetInfo.assets[0].params.decimals;
+      v_asset_name=await assetInfo.assets[0].params['unit-name'];
+      
+      
+      let rewardAssetIndex = ASSET_ID;
+          let rewardAssetInfo = await indexerClient.searchForAssets()
+              .index(rewardAssetIndex).do();
+      r_asset_decimal=await rewardAssetInfo.assets[0].params.decimals;
+      r_asset_name=await rewardAssetInfo.assets[0].params['unit-name'];
+
+      
+          
+      
+  })().catch(e => {
+      console.log(e);
+      console.trace();
+  });
+
+  
      
    // get transaction histories between the two addresses 
     for(address of addresses){
@@ -68,95 +92,139 @@ const getVoters = async() => {
         .searchForTransactions()
         .address(address.addr)
         .assetID(ASSET_ID)
+        .afterTime(START_TIME)
+        .beforeTime(END_TIME)
         .addressRole("receiver")
         .txType("axfer")
         .do();
 
+
+        v_asset_multiplier=10 ** v_asset_decimal;
    // if voters' amount committed >= 1 push the voters to the voters array!
      await txnHistory.transactions.map(receiver=>{
-          if((receiver['asset-transfer-transaction'].amount)/100 >=1){
+          if((receiver['asset-transfer-transaction'].amount)/v_asset_multiplier >=1){
                 voters.push({
                     sender:receiver.sender,
-                    amount:(receiver['asset-transfer-transaction'].amount)/100
-                })
-            
+                    amount:(receiver['asset-transfer-transaction'].amount)/v_asset_multiplier,
+                    rewards:0
+                });
            // get the total committed amounts
-            totalCommittedAmount+=(receiver['asset-transfer-transaction'].amount)/100;
+            totalCommittedAmount+=(receiver['asset-transfer-transaction'].amount)/v_asset_multiplier
           } 
         })
     }
-     await getMergedVoters()  
+     await getMergedVoters();  
 }
 
+//get merged voters
+const getMergedVoters = async () => {
+  mergedvoters.push(voters[0]);
+// if addresses that voted more than once exists, add their amounts together + push to the mergedvoters array
+for(var i=1; i<voters.length; i++){
+    var exists=find(voters[i].sender);
+    if(exists>=0){
+      mergedvoters[exists].amount+= voters[i].amount;
+       }
+    else{
+      mergedvoters.push(voters[i]); 
+    }
+}
+
+
+for(var i=0; i<mergedvoters.length; i++){
+  console.log(mergedvoters[i].amount+" "+totalCommittedAmount+" "+v_asset_multiplier+" "+govRewardsPool)
+ let rewards=(mergedvoters[i].amount/totalCommittedAmount)*govRewardsPool;
+   votes_rewards.push({
+      sender:mergedvoters[i].sender,
+      amount:mergedvoters[i].amount,
+      rewards:truncateDecimals(rewards , 2)
+      
+   })
+}
+// getting mergedvoters(voters + total amounts)
+console.log(votes_rewards)
+
+
+//draft transactions with mergedvoters array + the ratio as parameters
+await draftTransaction(mergedvoters);
+}
 // draft transactions
 const draftTransaction = async (voters) => {
-    console.log(voters.length)
+   v_asset_multiplier=10 ** v_asset_decimal;
+   r_asset_multiplier=10 ** r_asset_decimal;
+    console.log("no of voters: ",voters.length)
     var totalchoice=0;
     var totalasset=0;
+
     const params = await algodClient.getTransactionParams().do(); //get transaction params
     voters.forEach((voter)=>{ 
-            var percentagegovreward=(voter.amount/totalCommittedAmount)*100;
-            var govreward=(percentagegovreward/100)*govRewardsPool;
+        
+            //calculate the reward ratio and reward amount for Governance process
+            var percentagegovreward=(voter.amount/totalCommittedAmount)*v_asset_multiplier;
+            var govreward=(percentagegovreward/100)*govRewardsPool;      
+           
              var votedamount=truncateDecimals(voter.amount , 2);
              var govreward=truncateDecimals(govreward, 2);
-             var govrewardfinal=Math.floor(govreward * 100)
-             votedamount=Math.floor(votedamount * 100)
+
+             var govrewardfinal=Math.floor(govreward * r_asset_multiplier)
+             votedamount=Math.floor(votedamount * v_asset_multiplier)
+
              console.log("choice "+votedamount)
              console.log("choice "+govrewardfinal);
+
              totalasset+=votedamount;
              totalchoice+=govrewardfinal;
+             
            transactions.push(algosdk.makeAssetTransferTxnWithSuggestedParams(secretKey.addr, voter.sender, undefined, undefined,  govrewardfinal , undefined, REWARD_ID, params));
            transactions.push(algosdk.makeAssetTransferTxnWithSuggestedParams(secretKey.addr, voter.sender, undefined, undefined,  votedamount , undefined, ASSET_ID, params));
     })
+    //console.log(transactions)
     console.log("total rewards "+totalchoice);
     console.log("total asset "+totalasset);
 }
 
-// Send signed transactions and send rewards.
+//send signed transactions and send rewards
 const sendrewards = async () => {
-        //let txgroup = algosdk.assignGroupID(transactions);
-        transactions.forEach((transaction, index)=>{
+      //let txgroup = algosdk.assignGroupID(transactions);
+    //Send all signed transactions to the algorand network return a resolved promise when that is done.
+    var sentPromise = new Promise(function(resolve, reject) {
+      for (let [index, transaction] of transactions.entries()) {
         setTimeout(async () => {
              let signedTransaction=transaction.signTxn(secretKey.sk );
              let tx=await algodClient.sendRawTransaction(signedTransaction).do();
              console.log("Transaction : " + index + " " + tx.txId);
-         }, 200 * (index + 1));     
-     })  
-     console.log("Done")
+             signatures.push({index, tx:tx.txId})
+             
+             if((index+1)== transactions.length){
+                 resolve(signatures);
+             }
+         }, 30 * (index + 1));
+     }  
+
+    })
+    return sentPromise;   
 }
 
-// Get merged voters.
-const getMergedVoters = async () => {
-      mergedvoters.push(voters[0]);
-
-// If addresses that voted more than once exists, add their amounts together + push to the mergedvoters array
-    for(var i=1; i<voters.length; i++){
-        var exists=find(voters[i].sender);
-        if(exists>=0){
-          mergedvoters[exists].amount+= voters[i].amount;
-        }
-        else{
-          mergedvoters.push(voters[i])
-        }
+//This function calls all the Rewards function with Parameters that are provided by the Client
+const sendVotingRewards=async (asset_id, reward_id, reward_pool, start_time, end_time, option_zero, option_one,  phrase) => {
+  console.log("rewards: "+govRewardsPool)
+  addresses=[
+    {
+        addr:option_zero,
+    },
+    {
+        addr:option_one,
     }
-    
-    // Calculating reward amount
-    // rewardAmount= totalCommittedAmount + rewardPool
-    // console.log("TotalcommittedAmount: ", totalCommittedAmount)
-    // getting the ratio
-    // let ratio=rewardAmount/totalCommittedAmount
-    // truncate ratio to two decimals so as not to over calculate
-    // ratio=truncateDecimals(ratio, 2);   
-    // console.log("ratio: ",ratio)
+   ];
+   console.log(addresses);
+  phrase=phrase.replaceAll(',','');
+  let wsRegex = /^\s+|\s+$/g; // format mmemonic
+  phrase= phrase.replace(wsRegex, ""); // format mmemonic
+  secretKey=algosdk.mnemonicToSecretKey(phrase); //convert mmemonic to secret key
 
-    // getting mergedvoters(voters + total amounts)
-    console.log(mergedvoters)
-
-    //draft transactions with mergedvoters array + the ratio as parameters
-    await draftTransaction(mergedvoters)
-
-    // send rewards 
-    await sendrewards();
+  await getVoters(); //get the Voters of the governance process
+  return sendrewards();//Send the rewards and return a resolved promise
 }
 
-getVoters()
+//Runs the Rewards
+sendVotingRewards(ASSET_ID, REWARD_ID, REWARD_POOL, START_TIME, END_TIME, OPTION_ZERO, OPTION_ONE,  REWARD_MMEMONIC) 
