@@ -26,5 +26,5 @@ The problem this software seeks to address is how to create a streamlined and se
 - [Choice Coin Website](https://choice-coin.com/)
 - [Choice Coin Research Overview](https://forum.algorand.org/t/choice-coin-dao-r-d/6165)
 - [Algorand Foundation Research](https://algorand.foundation/about-us/research-team)
-- [Algornd Foundation GitHub](https://github.com/algorandfoundation)
+- [Algorand Foundation GitHub](https://github.com/algorandfoundation)
 
