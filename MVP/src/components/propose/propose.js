@@ -11,7 +11,6 @@ import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import WalletConnect from "@walletconnect/client"; 
 
-
 //JSX Component Propose
 const Propose = () => {
 
@@ -97,7 +96,6 @@ const Propose = () => {
       });
 
       if (walletType === "algosigner") {
-        
         const signedTxns = await window.AlgoSigner.signTxn(
           txns.map((txn) => ({
             txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()),
@@ -124,7 +122,6 @@ const Propose = () => {
 
       // eslint-disable-next-line
       txns.map((transaction) => {
-
         Txns.push({
           txn: Buffer.from(algosdk.encodeUnsignedTransaction(transaction)).toString(
             "base64"
@@ -133,9 +130,7 @@ const Propose = () => {
         })
       })
 
-
       const requestParams = [Txns];
-
       const request = formatJsonRpcRequest("algo_signTxn", requestParams);
       const result = await connector.sendCustomRequest(request);
    // eslint-disable-next-line
@@ -148,9 +143,7 @@ const Propose = () => {
       console.log(error);
       continueExecution = false;
     }
-
     return continueExecution;
-
   }
 
     const createCandidates = () => {
@@ -165,12 +158,10 @@ const Propose = () => {
       }
 
      return candidateCred
-
     }
 
     // Proposal checks
     const createProposal = () => {
-
       if(!isThereAddress) {
         dispatch({
           type: "alert_modal",
@@ -245,8 +236,6 @@ const Propose = () => {
               });
           }
         });
-      
-
     }
 
 // Building block
@@ -257,12 +246,9 @@ const Propose = () => {
         <div className="crt_hd">
           <p className="converter-header"> Create Proposal </p>
         </div>
-
         <div className="vote_sect">
           <div className="vote_sect_img">
-
           </div>
-
           <div className="v_inp_cov inpCont_cand">
             <p className="inp_tit">Issue</p>
             <input id="governance_name"
@@ -301,7 +287,6 @@ const Propose = () => {
               First choice.
             </p>
           </div>
-      
           <div className="v_inp_cov inpCont_cand">
             <p className="inp_tit">Option 2</p>
             <input
@@ -312,9 +297,7 @@ const Propose = () => {
              Second choice.
             </p>
           </div>
-
             <br />
-
           <div className="crt_butt">
             <button onClick={createProposal}>Create Proposal</button>
             <p className="safety">
@@ -328,9 +311,7 @@ const Propose = () => {
             By checking this box you agree to send a non-refundable amount of 500,000 Choice as a service fee for processing this proposal and running this vote. Additionally, you agree to <a href="https://github.com/ChoiceCoin/v2/blob/main/ProposalPolicy/ChoiceCoinv2Policy.pdf" style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions.</a>.
             </p>
           </div>
-
         </div>
-
       </div>
     </div>
        </div>
