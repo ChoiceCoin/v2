@@ -23,7 +23,7 @@ const Propose = () => {
 
   // Starting AlgoClient Instance
   const algod_token = {
-    "X-API-Key": "AE6Ave7wNH8bKB1SiwutOakoTHreBlWZ9TMKElZs"
+    "X-API-Key": ""
   }
   const algod_address = "https://mainnet-algorand.api.purestake.io/ps2";
   const headers = "";
@@ -33,7 +33,7 @@ const Propose = () => {
   const walletType = localStorage.getItem("wallet-type");
 
   // Choice Coin Rewards Adrress
-  const rewardsAddress = 'BSW4FRTCT2SXKVK6P53I57SEAOCCPD6TYAS77YUU725KCY6U7EM2LLJOEI'
+  const rewardsAddress = ''
 
 
   //candidates
@@ -216,7 +216,12 @@ const Propose = () => {
                 },
                 { headers }
               )
-              .then((response) => alert(response.data.message));
+              .then((response) => {
+                dispatch({
+                  type: "alert_modal",
+                  alertContent: `${response.data.message}, Which will be reviewed and pending till approval for voting`,
+                });
+              });
           }
         });
       
