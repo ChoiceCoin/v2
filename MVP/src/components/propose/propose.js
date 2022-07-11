@@ -146,6 +146,7 @@ const Propose = () => {
     return continueExecution;
   }
 
+    // This function creates a Candidate Credential which creates a new address for each option.
     const createCandidates = () => {
     const candidateCred=[]
     // eslint-disable-next-line
