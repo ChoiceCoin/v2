@@ -98,7 +98,6 @@ const Propose = () => {
 
       if (walletType === "algosigner") {
         
-
         const signedTxns = await window.AlgoSigner.signTxn(
           txns.map((txn) => ({
             txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()),
@@ -256,9 +255,8 @@ const Propose = () => {
            <div className="create_elt">
       <div className="create_elt_inn">
         <div className="crt_hd">
-          <p className="converter-header"> Create Proposal & Schedule Election</p>
+          <p className="converter-header"> Create Proposal </p>
         </div>
-
 
         <div className="vote_sect">
           <div className="vote_sect_img">
