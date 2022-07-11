@@ -217,7 +217,7 @@ const Propose = () => {
             // add choice per vote input
             axios
               .post(
-                `https://v2-testnet.herokuapp.com/elections/create`,
+                ``,
                 {
                   candidates: candidatesForElection,
                   name: document.getElementById("governance_name").value,
@@ -231,7 +231,7 @@ const Propose = () => {
               .then((response) => {
                 dispatch({
                   type: "alert_modal",
-                  alertContent: `${response.data.message}, Which will be reviewed and pending till approval for voting`,
+                  alertContent: `${response.data.message}, Thank you! Your proposal will be reviewed.`,
                 });
               });
           }
