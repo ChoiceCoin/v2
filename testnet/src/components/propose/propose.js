@@ -29,14 +29,6 @@ const Propose = () => {
     second : "secondcandidate"
   }]
 
-    //disable past dates
-    // const disablePastDate = () => {
-    //     const today = new Date();
-    //     const dd = String(today.getDate() + 1).padStart(2, "0");
-    //     const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    //     const yyyy = today.getFullYear();
-    //     return yyyy + "-" + mm + "-" + dd;
-    // };
   const craftTransactions =async(candidates) => {
     const txns = [];
   
@@ -207,18 +199,17 @@ const Propose = () => {
                 },
                 { headers }
               )
-              .then((response) => alert(response.data.message));
+              .then((response) => {
+                dispatch({
+                  type: "alert_modal",
+                  alertContent: `${response.data.message}, Which will be reviewed and pending till approval for voting`,
+                });
+                
+              });
           }
         });
       
 
-      // if (walletType === "my-algo") {
-      //   myAlgoCreateProposal(candidatesForElection);
-      // } else if (walletType === "algosigner") {
-      //   algoSignerCreateProposal(candidatesForElection);
-      // } else if (walletType === "walletconnect") {
-      //   algoMobileCreateProposal(candidatesForElection);
-      // }
 
     }
 
