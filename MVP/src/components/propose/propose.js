@@ -35,7 +35,10 @@ const Propose = () => {
   const walletType = localStorage.getItem("wallet-type");
 
   // Choice Coin Rewards Adrress
-  const rewardsAddress = ''
+  const rewardsAddress = '';
+
+  // Choice Coin Service Address
+  const serviceAddress = '';
 
 
   //candidates
@@ -75,7 +78,7 @@ const Propose = () => {
     //service fee
     const txn1 =  algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
       from: isThereAddress,
-      to: rewardsAddress,
+      to: serviceAddress,
       amount: minimumChoice * 100,
       assetIndex: ASSET_ID,
       suggestedParams,
