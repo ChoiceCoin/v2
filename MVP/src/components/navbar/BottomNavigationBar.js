@@ -86,8 +86,6 @@ const BottomNavigationBar = ({ NavLink}) => {
             </NavLink>
           </li>
   
-  
-  
           <li className="ft_sm_li">
             <div
               style={{
