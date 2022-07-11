@@ -173,7 +173,7 @@ const Propose = () => {
      else if(!(document.getElementById('rewards').value)) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Enter Choice Rewards for Governance.",
+          alertContent: "Voting rewards for Governance not found.",
         });
         return;
       } else if (!(document.getElementById('issue').value)) {
@@ -298,7 +298,14 @@ const Propose = () => {
           <div className="crt_butt">
             <button onClick={createProposal}>Create Proposal</button>
             <p className="safety">
-             By creating this proposal you agree to Choice Coin's Terms and Conditions.
+            <input
+                style={{cursor : "pointer", marginRight: "5px"}}
+                className="checkbox"
+                type="checkbox"
+                // value={minimumChoice}
+                // onClick={() => setMinimumChoice(500000)}
+              />
+            By checking this box you are agreeing to sending a non-refundable amount of 500,000 $Choice token as a service for running this vote & Also agree to <a style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions</a>.
             </p>
           </div>
 
