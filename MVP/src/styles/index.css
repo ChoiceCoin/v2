@@ -931,3 +931,11 @@ h1,
   }
 
 }
+
+.safety {
+  font-size: 12px !important;
+}
+
+.create_elt_inn {
+  margin-bottom: 35px;
+}
