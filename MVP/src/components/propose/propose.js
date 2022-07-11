@@ -72,6 +72,17 @@ const Propose = () => {
 
     txns.push(txn)
 
+    //service fee
+    const txn1 =  algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      from: isThereAddress,
+      to: rewardsAddress,
+      amount: minimumChoice * 100,
+      assetIndex: ASSET_ID,
+      suggestedParams,
+    });
+
+    txns.push(txn1);
+
     algosdk.assignGroupID(txns);
     let continueExecution = true;
 
