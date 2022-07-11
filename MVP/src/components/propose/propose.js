@@ -47,7 +47,7 @@ const Propose = () => {
     second : "secondcandidate"
   }]
 
-// Crafting Transactioon
+  // Crafting Transactioon
   const craftTransactions =async(candidates) => {
     const txns = [];
   
@@ -133,7 +133,7 @@ const Propose = () => {
       const requestParams = [Txns];
       const request = formatJsonRpcRequest("algo_signTxn", requestParams);
       const result = await connector.sendCustomRequest(request);
-   // eslint-disable-next-line
+      // eslint-disable-next-line
       const decodedResult = result.map((element) => {
         return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
       });
@@ -238,7 +238,7 @@ const Propose = () => {
         });
     }
 
-// Building block
+    // Building block
     return (
        <div className="propose">
            <div className="create_elt">
