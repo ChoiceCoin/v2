@@ -327,7 +327,7 @@ const Propose = () => {
                 value={minimumChoice}
                 onClick={() => setMinimumChoice(500000)}
               />
-            By checking this box you are agreeing to sending a non-refundable amount of 500,000 $Choice token as a service for running this vote & Also agree to <a href="https://github.com/ChoiceCoin/v2/blob/main/ProposalPolicy/ChoiceCoinv2Policy.pdf" style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions</a>.
+            By checking this box you agree to send a non-refundable amount of 500,000 Choice as a service fee for processing this proposal and running this vote. Additionally, you agree to <a href="https://github.com/ChoiceCoin/v2/blob/main/ProposalPolicy/ChoiceCoinv2Policy.pdf" style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions.</a>.
             </p>
           </div>
 
