@@ -19,7 +19,7 @@ const ElectionPage = () => {
     return eachElection.name.toLowerCase().includes(searchField.toLowerCase());
   }) 
   useEffect(() => {
-    axios.get('https://v2-testnet.herokuapp.com/elections').then(response => {
+    axios.get('').then(response => {
        setElections(response.data.data)
        dispatch({
          type : "getAllElection",
