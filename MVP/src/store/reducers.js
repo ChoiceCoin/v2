@@ -25,11 +25,11 @@ const status = (
     case "setAlgoAddress" : 
       localStorage.setItem("address", `${action?.addr}`);
       return { ...state, addressNum: action.addressIndex };
-     case "getEachElectionNumber" :
+    case "getEachElectionNumber" :
        return  {
          ...state, eachElectionNumber: action.electionIndex
        };
-      case "getAllElection" : 
+    case "getAllElection" : 
        return {...state, allElection : action.allElection}
     case "alert_modal":
       return {
