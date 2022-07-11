@@ -48,7 +48,7 @@ const ElectionPage = () => {
             textTransform: "uppercase",
           }}
         >
-          <p style={{ opacity: 0.8, margin: "30px 0px 20px" }}>Getting Ongoing election...</p>
+          <p style={{ opacity: 0.8, margin: "30px 0px 20px" }}>Getting ongoing election...</p>
           <BarLoader
             color="#888"
             size={150}
@@ -75,7 +75,7 @@ const ElectionPage = () => {
                 fontWeight: "bold",
                 borderLeft: "solid 3px rgb(57, 129, 198)",
                 paddingLeft: "10px",
-              }}>There is currently no live election </p>
+              }}>There is currently no live election.</p>
             ) : null
           }
          </div>
