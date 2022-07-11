@@ -2,7 +2,7 @@
 // 17 U.S.C §§ 101-1511
 
 // importing relevant files and dependencies
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import MyAlgoConnect from "@randlabs/myalgo-connect";
@@ -15,6 +15,8 @@ import WalletConnect from "@walletconnect/client";
 //JSX Component Propose
 const Propose = () => {
 
+ // Set initial state
+ const [minimumChoice, setMinimumChoice] = useState();
  // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
 
@@ -159,13 +161,13 @@ const Propose = () => {
       if(!isThereAddress) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Kindly Connect Wallet To Make Payment.",
+          alertContent: "Kindly Connect Wallet to propose an election.",
         });
         return;
     } else if(!(document.getElementById('governance_name').value)) {
       dispatch({
         type: "alert_modal",
-        alertContent: "You didn't enter governance name.",
+        alertContent: "No governance name is found.",
       });
       return;
     }
@@ -173,7 +175,7 @@ const Propose = () => {
      else if(!(document.getElementById('rewards').value)) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Voting rewards for Governance not found.",
+          alertContent: "Voting rewards for governance voters not found.",
         });
         return;
       } else if (!(document.getElementById('issue').value)) {
@@ -185,13 +187,19 @@ const Propose = () => {
       } else if (!(document.getElementById('option1').value)) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Enter what option 1 should be ?",
+          alertContent: "Option 1 not found.",
         });
         return;
       } else if (!(document.getElementById('option2').value)) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Enter what option 2 should be ?",
+          alertContent: "Option 2 not found.",
+        });
+        return;
+      } else if(!minimumChoice) {
+        dispatch({
+          type: "alert_modal",
+          alertContent: "You must accept Terms and Conditions before proposing a vote",
         });
         return;
       }
@@ -302,10 +310,10 @@ const Propose = () => {
                 style={{cursor : "pointer", marginRight: "5px"}}
                 className="checkbox"
                 type="checkbox"
-                // value={minimumChoice}
-                // onClick={() => setMinimumChoice(500000)}
+                value={minimumChoice}
+                onClick={() => setMinimumChoice(500000)}
               />
-            By checking this box you are agreeing to sending a non-refundable amount of 500,000 $Choice token as a service for running this vote & Also agree to <a style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions</a>.
+            By checking this box you are agreeing to sending a non-refundable amount of 500,000 $Choice token as a service for running this vote & Also agree to <a href="https://github.com/ChoiceCoin/v2/blob/main/ProposalPolicy/ChoiceCoinv2Policy.pdf" style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions</a>.
             </p>
           </div>
 
