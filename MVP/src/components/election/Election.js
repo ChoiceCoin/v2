@@ -33,7 +33,7 @@ const ElectionPage = () => {
          <div className="election__content">
           <SearchBar searchChange={onSearchChange} />
           {
-         !elections.length <0 ? (
+         !elections.length <0 && (
           <div
           style={{
             width: "100%",
@@ -55,7 +55,10 @@ const ElectionPage = () => {
             speedMultiplier="0.5"
           />
         </div>
-         ) : (
+         ) 
+        }
+         { elections.length > 0 &&
+         (
            <div className="election__cards">
              {
                filteredElectionList.map((election, index) => {
@@ -69,14 +72,14 @@ const ElectionPage = () => {
 
           }
         {
-            elections.length===0 ? (
+            elections.length===0 && (
               <p style={{
                 margin: "18px",
                 fontWeight: "bold",
                 borderLeft: "solid 3px rgb(57, 129, 198)",
                 paddingLeft: "10px",
               }}>There is currently no live election.</p>
-            ) : null
+            ) 
           }
          </div>
       </div>
