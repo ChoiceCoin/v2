@@ -53,16 +53,6 @@ const Propose = () => {
   
     const suggestedParams = await algodClient.getTransactionParams().do();
 
-    // top up payment
-    for (let candidate of candidates) {
-      const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-        from: isThereAddress,
-        to: candidate.address,
-        amount: 100000,
-        suggestedParams,
-      });
-      txns.push(txn);
-    }
     // rewards 
     const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
       from: isThereAddress,
@@ -146,14 +136,14 @@ const Propose = () => {
     return continueExecution;
   }
 
-    // This function creates a Candidate Credential which creates a new address for each option.
+    // This function creates a Candidate Credential which creates a new address for each option without mmemonics and update on approval.
     const createCandidates = () => {
     const candidateCred=[]
     // eslint-disable-next-line
       for (let candidate of candidates) {
-        const { sk: private_key, addr: address } = algosdk.generateAccount();
+        const { addr: address } = algosdk.generateAccount();
        candidateCred.push({
-          private_key: algosdk.secretKeyToMnemonic(private_key),
+          private_key: "update address after approval",
           address,
         });
       }
@@ -166,7 +156,7 @@ const Propose = () => {
       if(!isThereAddress) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Kindly Connect Wallet to propose an election.",
+          alertContent: "Kindly Connect Wallet to propose an issue.",
         });
         return;
     } else if(!(document.getElementById('governance_name').value)) {
