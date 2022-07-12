@@ -479,6 +479,7 @@ const ElectionList = () => {
                   </div>
                 </div>
                 <div className="card_cand">
+                { each_election_data[0].has_ended === false &&
                   <div className="card_cand_hd">
                     <div className="amountToCommit">
                       <p>Amount to commit:</p>
@@ -499,6 +500,7 @@ const ElectionList = () => {
                       }
                     </div>
                   </div>
+              }
                   <div className="vote_collap">
                     <div className="card_cand_hd">Options</div>
                  <ul className="vote_now_list">
