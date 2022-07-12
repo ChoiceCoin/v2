@@ -503,19 +503,23 @@ const ElectionList = () => {
                     <div className="card_cand_hd">Options</div>
                  <ul className="vote_now_list">
                           <li>
+                         { !each_election_data[0].has_ended && 
                             <input
                               type="radio"
                               name="options"
                               value={each_election_data[0].candidates[0].address}
                             />
+                         }
                             <p>{each_election_data[0].option1}</p>
                           </li>
                      <li>
+                       { !each_election_data[0].has_ended && 
                         <input
                           type="radio"
                           name="options"
                           value={each_election_data[0].candidates[1].address}
                         />
+                       }
                         <p>{each_election_data[0].option2}</p>
                       </li>
                     </ul>
