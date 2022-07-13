@@ -1,4 +1,8 @@
-# Run V2 Application
+# v2 MainNet Application
+
+This repository contains the source code for Choice Coin v2. The [Software Audit](https://github.com/ChoiceCoin/v2/blob/main/Security/SoftwareAudit.pdf) and [Security Report](https://github.com/ChoiceCoin/v2/blob/main/Security/v2_Security_Report.pdf) provide more in depth information and descriptions about the software in this repository.
+
+# Run Steps
 
 - git clone the repository
 
