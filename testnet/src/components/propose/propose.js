@@ -12,7 +12,7 @@ const Propose = () => {
   const dispatch = useDispatch();
   const isThereAddress = localStorage.getItem("address");
   const algod_token = {
-    "X-API-Key": "AE6Ave7wNH8bKB1SiwutOakoTHreBlWZ9TMKElZs"
+    "X-API-Key": ""
   }
   const algod_address = "https://testnet-algorand.api.purestake.io/ps2";
   const headers = "";
