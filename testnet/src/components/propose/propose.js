@@ -19,7 +19,7 @@ const Propose = () => {
   const ASSET_ID = 21364625;
   const algodClient = new algosdk.Algodv2(algod_token, algod_address, headers);
   const walletType = localStorage.getItem("wallet-type");
-  const rewardsAddress = 'BSW4FRTCT2SXKVK6P53I57SEAOCCPD6TYAS77YUU725KCY6U7EM2LLJOEI'
+  const rewardsAddress = ''
   // const [candidate, setCandidate] = useState([])
 
   //candidates
