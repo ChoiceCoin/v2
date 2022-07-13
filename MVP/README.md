@@ -31,8 +31,7 @@ $ npm run dev
 
 <img width="495" alt="Screen Shot 2022-07-11 at 10 31 06 AM" src="https://user-images.githubusercontent.com/43055154/178323387-3c685cb5-04e4-4c78-821f-c7d585b7f543.png">
 
+# Open Source License
 
-
-
-
+[Choice Coin v2 Apache License](https://github.com/ChoiceCoin/v2/blob/main/LICENSE)
 
