@@ -136,15 +136,6 @@ const TopNavigationBar = ({ NavLink }) => {
     }
     connector.on("connect", (error, payload) => {
       if (error) {
-        dispatch({
-          type: "confirm_wallet",
-          alertContent : "Error Connecting Pera wallet"
-        })
-        setTimeout(() => {
-          dispatch({
-            type: "close_wallet"
-          })
-        }, 2000)
         throw error;
       }
         dispatch({
@@ -160,15 +151,6 @@ const TopNavigationBar = ({ NavLink }) => {
     });
     connector.on("session_update", (error, payload) => {
       if (error) {
-        dispatch({
-          type: "confirm_wallet",
-          alertContent : "Error Connecting Pera wallet"
-        })
-        setTimeout(() => {
-          dispatch({
-            type: "close_wallet"
-          })
-        }, 2000)
         throw error;
       }
       const { accounts } = payload.params[0];
@@ -195,54 +177,6 @@ const TopNavigationBar = ({ NavLink }) => {
     });
   };
 
-  // Algosigner Connection
-  /////////////////////////
-  const algoSignerConnect = async () => {
-    try {
-      dispatch({
-        type: "confirm_wallet",
-        alertContent : "Connecting Algosigner wallet"
-      })
-      if (typeof window.AlgoSigner === "undefined") {
-        dispatch({
-          type: "confirm_wallet",
-          alertContent : "ALgosigner is not set up yet."
-        })
-      setTimeout(() => {
-        dispatch({
-          type: "close_wallet"
-        })
-      }, 4000)
-        window.open(
-          "https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm",
-          "_blank"
-        );
-      } else {
-        await window.AlgoSigner.connect({
-          ledger: "TestNet",
-        });
-        const accounts = await window.AlgoSigner.accounts({
-          ledger: "TestNet",
-        });
-        const addresses = accounts.map((item) => item?.address);
-        const address = accounts[0].address;
-        // close modal.
-        localStorage.setItem("wallet-type", "algosigner");
-        localStorage.setItem("address", address);
-        localStorage.setItem("addresses", addresses);
-        window.location.reload();
-      }
-    } catch (error) {
-      dispatch({
-        type: "close_wallet"
-      })
-      dispatch({
-        type: "alert_modal",
-        alertContent: "AlgoSigner not set up yet!",
-      });
-    }
-  };
-
   // Building block.
   return (
     <header className="small_header">
@@ -264,7 +198,6 @@ const TopNavigationBar = ({ NavLink }) => {
             style={{
               display: "flex",
               alignItems: `center`,
-              // justifyContent: `center`,
               textTransform: "uppercase",
               flexDirection: "column",
               marginLeft : "-14px",
@@ -276,9 +209,8 @@ const TopNavigationBar = ({ NavLink }) => {
             }}>
             <Link to='/' style={{
               outline : "none"
-            }}>
-              
-                <img src={logo} alt="logo"
+            }}> 
+             <img src={logo} alt="logo"
                     style={{
                       width: "50px",
                       margin : "30px",
@@ -375,19 +307,16 @@ const TopNavigationBar = ({ NavLink }) => {
                 >
                   <div className="bar1" 
                    style={{
-                    // backgroundColor: menuBar ? "whitesmoke" : null ,
                     backgroundColor: menuBar ? "whitesmoke" : "var(--navicons-color)"
                    }}
                   ></div>
                   <div className="bar2" 
                       style={{
-                        // backgroundColor: menuBar ? "whitesmoke" : null ,
                         backgroundColor: menuBar ? "whitesmoke" : "var(--navicons-color)"
                        }}
                    ></div>
                   <div className="bar3"
                         style={{
-                          // backgroundColor: menuBar ? "whitesmoke" : null ,
                           backgroundColor: menuBar ? "whitesmoke" : "var(--navicons-color)"
                          }}
                   ></div>
@@ -492,22 +421,6 @@ const TopNavigationBar = ({ NavLink }) => {
                     />
                   </div>
                   <p className="dropDownConnect_item_txt">My Algo Wallet</p>
-                </div>
-                <div
-                  className="dropDownConnect_item"
-                  onClick={algoSignerConnect}
-                >
-                  <div className="dropDownConnect_img">
-                    <img
-                      src="https://i.postimg.cc/L4JB4JwT/Algo-Signer-2ec35000.png"
-                      alt=""
-                    />
-                  </div>
-                  <p className="dropDownConnect_item_txt">
-                    {typeof window.AlgoSigner === undefined
-                      ? "Install AlgoSigner"
-                      : "AlgoSigner"}
-                  </p>
                 </div>
                 <div className="dropDownConnect_item" onClick={connectWallet}>
                   <div className="dropDownConnect_img">
