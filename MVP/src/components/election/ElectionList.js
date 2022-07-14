@@ -19,9 +19,6 @@ import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 const ElectionList = () => {
   // Starting React-dispatch to dispatch action in state in the component
   const dispatch = useDispatch();
-  // Getting election state data from redux store
-  const balance = useSelector((state) => state.status.balance);
-  const addressNum = useSelector((state) => state.status.addressNum);
   const getElection = useSelector((state) => state.status.allElection);
   const getElectionNumber = useSelector((state) => state.status.eachElectionNumber)
   // Setting initial state
@@ -38,7 +35,7 @@ const ElectionList = () => {
 
   // Getting election data result from database
   const { isLoading, error, data } = useQuery("elections", () =>
-    axios.get(`https://v2-testnet.herokuapp.com/results/${each_election_data[0].candidates[0].electionID}`).then((response) => {
+    axios.get(``).then((response) => {
       console.log(response.data.data)
       if (response?.data?.data) { 
         setAddress1(response?.data?.data[each_election_data[0].candidates[0].address]);
@@ -54,12 +51,6 @@ const ElectionList = () => {
   "https://testnet-algorand.api.purestake.io/ps2",
   "");
   
- // Getting max vote value 
-  const getMaxVoteValue = () => {
-    document.getElementById('max').value = balance[addressNum].balance;
-    console.log(each_election_data);
-  }
-
   // My algo wallet vote transaction function
   /////////////////////////////////////////////
   const myAlgoSign = async (voteData) => {
@@ -159,107 +150,6 @@ const ElectionList = () => {
     }
   };
 
-  // Algosigner wallet vote transaction function
-  /////////////////////////////////////////////////
-  const algoSignerConnect = async (voteData) => {
-    try {
-        const address = !!isThereAddress && isThereAddress 
-        const myAccountInfo = await algodClient
-          .accountInformation(
-            !!isThereAddress && isThereAddress
-          )
-          .do();  
-        // check if the voter address has Choice 
-        const containsChoice = myAccountInfo.assets
-          ? myAccountInfo.assets.some(
-              (element) => element["asset-id"] === ASSET_ID
-            )
-          : false;
-        if (myAccountInfo.assets.length === 0) {
-          dispatch({
-            type: "alert_modal",
-            alertContent:
-              "You need to opt-in to Choice Coin in your Algorand Wallet.",
-          });
-          return;
-        }
-        if (!containsChoice) {
-          dispatch({
-            type: "alert_modal",
-            alertContent:
-              "You need to opt-in to Choice Coin in your Algorand Wallet.",
-          });
-          return;
-        }
-        // get balance of the voter 
-        const balance = myAccountInfo.assets
-          ? myAccountInfo.assets.find(
-              (element) => element["asset-id"] === ASSET_ID
-            ).amount / 100
-          : 0;
-
-        if (voteData.amount > balance) {
-          dispatch({
-            type: "alert_modal",
-            alertContent:
-              "You do not have sufficient balance to make this transaction.",
-          });
-          return;
-        }
-        dispatch({
-          type: "confirm_wallet",
-          alertContent : "Confirming Vote Transaction & Option"
-        })
-        const suggestedParams = await algodClient.getTransactionParams().do();
-        const amountToSend = voteData.amount * 100;
-        const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: address,
-          to: voteData.address,
-          amount: amountToSend,
-          assetIndex: ASSET_ID,
-          suggestedParams,
-        });
-        const signedTxn = await window.AlgoSigner.signTxn([
-          { txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()) },
-        ]);
-        await algodClient
-          .sendRawTransaction(
-            window.AlgoSigner.encoding.base64ToMsgpack(signedTxn[0].blob)
-          )
-          .do();
-
-          dispatch({
-            type: "close_wallet"
-          })
-        // alert success
-        dispatch({
-          type: "alert_modal",
-          alertContent: "Your vote has been recorded.",
-        });
-        // setTimeout(() => window.location.reload(), 1500);
-    } catch (error) {
-      if (error.message === "Can not open popup window - blocked") {
-        dispatch({
-          type: "close_wallet"
-        })
-        dispatch({
-          type: "alert_modal",
-          alertContent:
-            "Pop Up windows blocked by your browser. Enable pop ups to continue.",
-        });
-      } else {
-        dispatch({
-          type: "close_wallet"
-        })
-        console.log(error)
-        dispatch({
-          type: "alert_modal",
-          alertContent: "An error occured the during transaction process",
-        });
-      }
-    }
-  };
-
   // Pera wallet vote transaction function
   ////////////////////////////////////////////
   const algoMobileConnect = async (voteData) => {
@@ -349,7 +239,6 @@ const ElectionList = () => {
       }
     }
   };
-
   // Place vote function
   //////////////////////////
   const placeVote = (address, amount, election) => {
@@ -369,8 +258,6 @@ const ElectionList = () => {
     } 
     if (walletType === "my-algo") {
       myAlgoSign({ address, amount, election });
-    } else if (walletType === "algosigner") {
-      algoSignerConnect({ address, amount, election });
     } else if (walletType === "walletconnect") {
       algoMobileConnect({ address, amount, election });
     }  
@@ -490,14 +377,6 @@ const ElectionList = () => {
                         placeholder='1'
                         className="amtToCommitInp"
                       />
-                      {
-                        isThereAddress ? 
-                      (<p className="max"
-                         onClick={getMaxVoteValue}>
-                          max
-                        </p>
-                            ) : null
-                      }
                     </div>
                   </div>
               }
@@ -551,8 +430,7 @@ const ElectionList = () => {
                         Submit Vote <i className="uil uil-mailbox"></i>
                       </button>
                     </div>
-                    }
-                  
+                    }          
                   </div>
                 </div>
               </div>

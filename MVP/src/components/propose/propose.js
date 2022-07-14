@@ -33,9 +33,6 @@ const Propose = () => {
 
   const walletType = localStorage.getItem("wallet-type");
 
-  // Choice Coin Rewards Adrress
-  const rewardsAddress = '';
-
   // Choice Coin Service Address
   const serviceAddress = '';
 
@@ -47,91 +44,56 @@ const Propose = () => {
     second : "secondcandidate"
   }]
 
+
   // Crafting Transactioon
-  const craftTransactions =async(candidates) => {
-    const txns = [];
-  
+  const craftTransactions =async() => {
     const suggestedParams = await algodClient.getTransactionParams().do();
 
-    // rewards 
-    const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-      from: isThereAddress,
-      to: rewardsAddress,
-      amount: (document.getElementById('rewards').value) * 100,
-      assetIndex: ASSET_ID,
-      suggestedParams,
-    });
-
-    txns.push(txn)
-
     //service fee
-    const txn1 =  algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+    const txn =  algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
       from: isThereAddress,
       to: serviceAddress,
       amount: minimumChoice * 100,
       assetIndex: ASSET_ID,
       suggestedParams,
     });
-
-    txns.push(txn1);
-
-    algosdk.assignGroupID(txns);
     let continueExecution = true;
-
     try {
       const myAlgoWallet = new MyAlgoConnect({ shouldSelectOneAccount: false });
       const connector = new WalletConnect({
         bridge: "https://bridge.walletconnect.org",
         qrcodeModal: QRCodeModal,
       });
-
-      if (walletType === "algosigner") {
-        const signedTxns = await window.AlgoSigner.signTxn(
-          txns.map((txn) => ({
-            txn: window.AlgoSigner.encoding.msgpackToBase64(txn.toByte()),
-          }))
-        );
-        await algodClient
-          .sendRawTransaction(
-            signedTxns.map((txn) =>
-              window.AlgoSigner.encoding.base64ToMsgpack(txn.blob)
-            )
-          )
-          .do();
-      } else if (walletType === "my-algo") {
-        const signedTxns = await myAlgoWallet.signTransaction(
-          txns.map((txn) => txn.toByte())
-        );
-
-        // send the transactions to the net.
-        await algodClient
-          .sendRawTransaction(signedTxns.map((txn) => txn.blob))
-          .do();
-      } else if (walletType === "walletconnect") {
-        let Txns = []
-
-      // eslint-disable-next-line
-      txns.map((transaction) => {
-        Txns.push({
-          txn: Buffer.from(algosdk.encodeUnsignedTransaction(transaction)).toString(
-            "base64"
-          ),
-          message: "Transaction using Mobile Wallet",
-        })
-      })
-
-      const requestParams = [Txns];
-      const request = formatJsonRpcRequest("algo_signTxn", requestParams);
-      const result = await connector.sendCustomRequest(request);
-      // eslint-disable-next-line
-      const decodedResult = result.map((element) => {
-        return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
-      });
-
+     if (walletType === "my-algo") {
+      const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());
+      await algodClient.sendRawTransaction(signedTxn.blob).do();
+      } 
+      else if (walletType === "walletconnect") {
+       // eslint-disable-next-line
+        const txnsToSign = [
+          {
+            txn: Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString(
+              "base64"
+            ),
+            message: "Transaction using Mobile Wallet",
+          },
+        ];
+        const requestParams = [txnsToSign];
+        const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+        const result = await connector.sendCustomRequest(request);
+          // eslint-disable-next-line
+        const decodedResult = result.map((element) => {
+          return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+        });
+        console.log(decodedResult);
+        await algodClient.sendRawTransaction(decodedResult).do();
       }
     } catch (error) {
-      console.log(error);
       continueExecution = false;
+      dispatch({
+        type: "alert_modal",
+        alertContent: "An error occured during the transaction process",
+      });
     }
     return continueExecution;
   }
@@ -147,65 +109,31 @@ const Propose = () => {
           address,
         });
       }
-
      return candidateCred
     }
 
-    // Proposal checks
+    // Create a proposal
     const createProposal = () => {
       if(!isThereAddress) {
         dispatch({
           type: "alert_modal",
-          alertContent: "Kindly Connect Wallet to propose an issue.",
+          alertContent: "Kindly connect wallet to propose an issue.",
         });
         return;
-    } else if(!(document.getElementById('governance_name').value)) {
+    } else
+     if(!(document.getElementById('governance_name').value) || !(document.getElementById('issue').value) || !(document.getElementById('option1').value) || !(document.getElementById('option2').value) || !minimumChoice) {
       dispatch({
         type: "alert_modal",
-        alertContent: "No governance name is found.",
+        alertContent: "Error, minimum requirements are not met.",
       });
       return;
     }
-      
-     else if(!(document.getElementById('rewards').value)) {
-        dispatch({
-          type: "alert_modal",
-          alertContent: "Voting rewards for governance voters not found.",
-        });
-        return;
-      } else if (!(document.getElementById('issue').value)) {
-        dispatch({
-          type: "alert_modal",
-          alertContent: "Voting issue for governance not found.",
-        });
-        return;
-      } else if (!(document.getElementById('option1').value)) {
-        dispatch({
-          type: "alert_modal",
-          alertContent: "Option 1 not found.",
-        });
-        return;
-      } else if (!(document.getElementById('option2').value)) {
-        dispatch({
-          type: "alert_modal",
-          alertContent: "Option 2 not found.",
-        });
-        return;
-      } else if(!minimumChoice) {
-        dispatch({
-          type: "alert_modal",
-          alertContent: "You must accept Terms and Conditions before proposing a vote",
-        });
-        return;
-      }
       const candidatesForElection = createCandidates()
-
       craftTransactions(candidatesForElection).then((continueExecution) => {
           if (continueExecution) {
             const headers = {
               "x-authorization-id": "",
             };
-            // add choice per vote input
             axios
               .post(
                 ``,
@@ -250,15 +178,6 @@ const Propose = () => {
             </p>
           </div>
           <div className="v_inp_cov inpCont_cand">
-            <p className="inp_tit">Rewards</p>
-            <input
-              type="text" id="rewards"
-            />
-            <p className="ensure_txt">
-            Rewards distributed to voters on the Issue.
-            </p>
-          </div>
-          <div className="v_inp_cov inpCont_cand">
             <p className="inp_tit">Description</p>
             <input
               type="text"
@@ -297,9 +216,9 @@ const Propose = () => {
                 className="checkbox"
                 type="checkbox"
                 value={minimumChoice}
-                onClick={() => setMinimumChoice(500000)}
+                onClick={() => setMinimumChoice(1000000)}
               />
-            By checking this box you agree to send a non-refundable amount of 500,000 Choice as a service fee for processing this proposal and running this vote. Additionally, you agree to <a href="https://github.com/ChoiceCoin/v2/blob/main/ProposalPolicy/ChoiceCoinv2Policy.pdf" style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions.</a>.
+            By checking this box you agree to send a non-refundable amount of 1,000,000 Choice as a service fee for processing this proposal and running this vote. Additionally, you agree to <a href="https://github.com/ChoiceCoin/v2/blob/main/ProposalPolicy/ChoiceCoinv2Policy.pdf" style={{fontSize: "11px", cursor: "pointer", marginLeft:"-5px", color:"blue"}}>Choice Coin's Terms and Conditions.</a>.
             </p>
           </div>
         </div>
