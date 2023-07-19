@@ -6,7 +6,6 @@ This repository contains code for Choice Coin v2. The code is availible on an op
 
 [Choice Coin v2 on TestNet](https://mvp-decisions.herokuapp.com/)
 
-[Choice Coin v2 Demo on YouTube](https://www.youtube.com/watch?v=XTXBZF7KUQ0)
 
 <img width="200" alt="Picture1" src="https://user-images.githubusercontent.com/87402354/168452619-f4f48b80-f361-4453-8849-1526e25087a1.png">
 
